@@ -5,7 +5,7 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(version)]
 pub struct Cli {
-    /// Path to the trace file. Should be a JSON.
+    /// Path to the .json file with trace data.
     #[arg(value_parser = parse_trace_file)]
     pub trace_file: Utf8PathBuf,
 
