@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/cairo-coverage",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+
+[workspace.dependencies]
+anyhow = "1.0.86"
+camino = "1.1.7"
+clap = { version = "4.5.13", features = ["derive"] }
