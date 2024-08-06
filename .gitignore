@@ -1,3 +1,4 @@
 debug
 target
 .idea
+crates/cairo-coverage/tests/data/test_project/.snfoundry_cache
