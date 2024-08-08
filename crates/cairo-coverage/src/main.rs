@@ -1,4 +1,5 @@
 mod cli;
+mod inner;
 
 use anyhow::{Context, Result};
 use clap::Parser;
