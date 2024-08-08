@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84
+      - run: cargo test --release
+
+  rustfmt:
+    name: Check rust formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84
+      - run: cargo fmt --check
+
+  scarbfmt:
+    name: Check cairo formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: software-mansion/setup-scarb@v1.3.2
+      - run: |
+          output=$(find . -type f -name "Scarb.toml" -execdir sh -c '
+              echo "Running \"scarb fmt\" in directory: $PWD"
+              scarb fmt --check
+          ' \;)
+          echo "$output"
+          if grep -iq "Diff" <<< "$output"; then
+              exit 1
+          fi
+          exit 0
+
+  clippy:
+    name: Check linter
+    runs-on: ubuntu-latest
+    env:
+      # Make sure CI fails on all warnings - including Clippy lints.
+      RUSTFLAGS: "-Dwarnings"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84
+      - run: cargo lint
+
+  typos:
+    name: Check typos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: typos-action
+        uses: crate-ci/typos@v1.23.6
