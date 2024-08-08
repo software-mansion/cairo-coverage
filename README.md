@@ -90,12 +90,12 @@ Let's break it down
     - **FNDA:2,calculator**: The `calculator` function was executed 2 times.
 
 5. **Line Execution Details**
-   - **DA:\<line number\>,\<hit count\>**: Indicates whether each line was executed and how many times.
+    - **DA:\<line number\>,\<hit count\>**: Indicates whether each line was executed and how many times.
 
    Here's the details of line coverage:
 
    | Line | Hits | Explanation                                      |
-         |------|------|--------------------------------------------------|
+   |------|------|--------------------------------------------------|
    | 7    | 2    | Line 7 (definition of `add`) hit 2 times         |
    | 8    | 2    | Line 8 (body of `add`) hit 2 times               |
    | 11   | 0    | Line 11 (definition of `multiply`) not hit       |
@@ -125,3 +125,24 @@ Let's break it down
     - 6 lines were executed during testing.
     - Lines 11 and 12 (`multiply` function) and line 19 (match arm for `Multiply` operation) were not executed.
 
+> 📝 **Note**
+>
+> This format is for a single file. If there are multiple files, each file's report will be concatenated together
+> with `end_of_record` separating them, like this:
+> ```lcov
+> TN:
+> SF:/path/to/your/project/src/operations.cairo
+> FN:7,8,add
+> FN:11,12,multiply
+> FNDA:2,add
+> FNDA:0,multiply
+> ... other metrics ...
+> end_of_record
+> TN:
+> SF:/path/to/your/project/src/lib.cairo
+> FN:3,8,calculator
+> FNDA:2,calculator
+> ... other metrics ...
+> LH:10
+> end_of_record
+> ```
