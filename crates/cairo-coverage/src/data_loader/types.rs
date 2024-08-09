@@ -1,4 +1,4 @@
-use crate::inner::data_loader::deserialize;
+use crate::data_loader::deserialize;
 use anyhow::{ensure, Result};
 use cairo_lang_sierra::debug_info::Annotations;
 use cairo_lang_sierra::program::StatementIdx;
@@ -13,13 +13,13 @@ const COVERAGE_NAMESPACE: &str = "github.com/software-mansion/cairo-coverage";
 type FileLocation = String;
 type FunctionName = String;
 
-type CodeLocations = (FileLocation, Range);
+type CodeLocation = (FileLocation, Range);
 
 #[repr(transparent)]
-pub struct StatementMap(HashMap<StatementIdx, StatementDetails>);
+pub struct StatementMap(HashMap<StatementIdx, StatementOrigin>);
 
 impl Deref for StatementMap {
-    type Target = HashMap<StatementIdx, StatementDetails>;
+    type Target = HashMap<StatementIdx, StatementOrigin>;
 
     fn deref(&self) -> &Self::Target {
         &self.0
@@ -34,13 +34,12 @@ pub struct Range {
 
 #[derive(Deserialize, Clone, Debug, Eq, PartialEq)]
 pub struct Position {
-    pub col: usize,
     pub line: usize,
 }
 
 #[derive(Deserialize)]
 struct CoverageAnnotations {
-    statements_code_locations: HashMap<StatementIdx, Vec<CodeLocations>>,
+    statements_code_locations: HashMap<StatementIdx, Vec<CodeLocation>>,
 }
 
 #[derive(Deserialize)]
@@ -50,8 +49,8 @@ struct ProfilerAnnotations {
 
 #[allow(dead_code)] // Temporary
 #[derive(Debug)]
-pub struct StatementDetails {
-    pub code_locations: Vec<CodeLocations>,
+pub struct StatementOrigin {
+    pub code_locations: Vec<CodeLocation>,
     pub function_names: Vec<FunctionName>,
 }
 
@@ -79,7 +78,7 @@ impl TryFrom<&Annotations> for StatementMap {
                 let function_names = statements_functions.get(&key).unwrap().to_owned();
                 (
                     key,
-                    StatementDetails {
+                    StatementOrigin {
                         code_locations,
                         function_names,
                     },

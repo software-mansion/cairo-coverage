@@ -1,5 +1,6 @@
 mod cli;
-mod inner;
+mod data_loader;
+mod input_data;
 
 use anyhow::{Context, Result};
 use clap::Parser;

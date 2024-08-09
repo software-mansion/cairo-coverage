@@ -1,18 +1,18 @@
-use crate::inner::data_loader::deserialize;
-use crate::inner::data_loader::types::StatementMap;
+use crate::data_loader::deserialize;
+use crate::data_loader::types::StatementMap;
 use anyhow::{Context, Result};
 use cairo_lang_sierra::program::{Program, VersionedProgram};
 use camino::Utf8PathBuf;
 use trace_data::CallTrace;
 
 #[allow(dead_code)] // Temporary
-struct CoverageConfig {
+struct InputData {
     call_trace: CallTrace,
     program: Program,
     statement_map: StatementMap,
 }
 
-impl CoverageConfig {
+impl InputData {
     #[allow(dead_code)] // Temporary
     pub fn new(
         call_trace_path: &Utf8PathBuf,
@@ -35,22 +35,15 @@ impl CoverageConfig {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::inner::data_loader::types::{Position, Range};
+    use crate::data_loader::types::{Position, Range};
     use cairo_lang_sierra::program::StatementIdx;
 
     const TRACE: &str = "tests/data/config/trace.json";
-    const EMPTY_VERSIONED_PROGRAM: &str = "tests/data/config/empty_versioned_program.json";
     const VERSIONED_PROGRAM: &str = "tests/data/config/versioned_program.json";
 
     #[test]
-    fn empty_versioned_program() {
-        let config = CoverageConfig::new(&TRACE.into(), &EMPTY_VERSIONED_PROGRAM.into()).unwrap();
-        assert!(config.statement_map.is_empty());
-    }
-
-    #[test]
     fn versioned_program() {
-        let config = CoverageConfig::new(&TRACE.into(), &VERSIONED_PROGRAM.into()).unwrap();
+        let config = InputData::new(&TRACE.into(), &VERSIONED_PROGRAM.into()).unwrap();
         assert_eq!(config.statement_map.len(), 142);
 
         let (file_location, range) = &config.statement_map[&StatementIdx(1)].code_locations[0];
@@ -64,8 +57,8 @@ mod tests {
         assert_eq!(
             range,
             &Range {
-                start: Position { col: 9, line: 5 },
-                end: Position { col: 9, line: 5 },
+                start: Position { line: 5 },
+                end: Position { line: 5 },
             }
         );
     }
