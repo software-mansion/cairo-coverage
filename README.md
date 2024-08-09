@@ -73,21 +73,21 @@ Let's break it down
     - **TN**: Test Name (optional, left empty)
     - **SF**: Source File path `/path/to/your/project/src/lib.rs`
 
-2. **Function Summary**
-    - **FNF:3**: The number of functions found in the source file. There are 3 functions: `add`, `multiply`,
-      and `calculator`.
-    - **FNH:2**: The number of functions that were hit. 2 out of the 3 functions were
-      executed: `add` and `calculator`.
-
-3. **Function Details**
+2. **Function Details**
     - **FN:7,8,add**: The `add` function starts at line 7 and ends at line 8.
     - **FN:11,12,multiply**: The `multiply` function starts at line 11 and ends at line 12.
     - **FN:15,20,calculator**: The `calculator` function starts at line 15 and ends at line 20.
 
-4. **Function Hit Details**
+3. **Function Hit Details**
     - **FNDA:2,add**: The `add` function was executed 2 times.
     - **FNDA:0,multiply**: The `multiply` function was not executed in the tests.
     - **FNDA:2,calculator**: The `calculator` function was executed 2 times.
+
+4. **Function Summary**
+    - **FNF:3**: The number of functions found in the source file. There are 3 functions: `add`, `multiply`,
+      and `calculator`.
+    - **FNH:2**: The number of functions that were hit. 2 out of the 3 functions were
+      executed: `add` and `calculator`.
 
 5. **Line Execution Details**
     - **DA:\<line number\>,\<hit count\>**: Indicates whether each line was executed and how many times.
