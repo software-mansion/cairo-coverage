@@ -12,7 +12,7 @@ fn main() -> Result<()> {
 
     let output_path = cli
         .output_path
-        .unwrap_or_else(|| format!("./{DEFAULT_OUTPUT_NAME}.lcov").to_string().into());
+        .unwrap_or_else(|| format!("./{DEFAULT_OUTPUT_NAME}.lcov").into());
 
     File::create(&output_path)
         .context(format!(
