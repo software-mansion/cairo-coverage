@@ -10,6 +10,7 @@ edition = "2021"
 
 [workspace.dependencies]
 anyhow = "1.0.86"
+assert_fs = "1.1.2"
 camino = "1.1.7"
 clap = { version = "4.5.13", features = ["derive"] }
 cairo-lang-sierra = "2.7.0"
@@ -18,4 +19,6 @@ derived-deref = "2.1.0"
 itertools = "0.13.0"
 serde = "1.0.204"
 serde_json = "1.0.122"
+snapbox = "0.6.17"
+indoc = "2.0.5"
 trace-data = { git = "https://github.com/software-mansion/cairo-profiler/", tag = "v0.5.0" }

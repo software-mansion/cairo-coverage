@@ -14,3 +14,8 @@ itertools.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 trace-data.workspace = true
+
+[dev-dependencies]
+assert_fs.workspace = true
+snapbox.workspace = true
+indoc.workspace = true

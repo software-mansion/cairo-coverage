@@ -72,32 +72,3 @@ fn read_and_deserialize<T: DeserializeOwned>(file_path: &Utf8PathBuf) -> Result<
             ))
         })
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::input::data_loader::types::{LineRange, Position};
-    use cairo_lang_sierra::program::StatementIdx;
-
-    const TRACE: &str = "tests/data/test_project/snfoundry_trace/tests::test_call::my_test.json";
-
-    #[test]
-    fn test_all() {
-        let input_data = InputData::try_from(&TRACE.into()).unwrap();
-
-        assert_eq!(input_data.sierra_to_cairo_map.len(), 142);
-
-        let origin = &input_data.sierra_to_cairo_map[&StatementIdx(1)];
-        assert!(origin.file_location.ends_with("test_call.cairo"));
-
-        let statement_details = &input_data.sierra_to_cairo_map[&StatementIdx(1)];
-        assert_eq!(statement_details.function_name, "tests::test_call::my_test");
-        assert!(
-            origin.line_range
-                == LineRange {
-                    start: Position { line: 5 },
-                    end: Position { line: 5 },
-                }
-        );
-    }
-}

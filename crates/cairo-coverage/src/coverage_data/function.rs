@@ -4,7 +4,6 @@ use std::collections::HashMap;
 
 pub type FilesCoverageData = HashMap<FileLocation, FileCoverageData>;
 
-#[allow(dead_code)]
 pub fn create_files_coverage_data_with_hits(input_data: &InputData) -> FilesCoverageData {
     input_data
         .sierra_to_cairo_map
@@ -45,7 +44,58 @@ fn create_files_coverage_data(sierra_to_cairo_map: &SierraToCairoMap) -> FilesCo
 
 pub type FileCoverageData = HashMap<FunctionName, FunctionCoverageData>;
 
+pub trait FileCoverageDataOps {
+    fn file_hit_count(&self) -> HitCount;
+    fn lines(&self) -> HashMap<LineNumber, HitCount>;
+
+    fn unique_file_hit_count(&self) -> HitCount;
+}
+
+impl FileCoverageDataOps for FileCoverageData {
+    fn file_hit_count(&self) -> HitCount {
+        self.values()
+            .map(FunctionCoverageData::hit)
+            .filter(|hit| *hit)
+            .count()
+    }
+
+    fn lines(&self) -> HashMap<LineNumber, HitCount> {
+        self.values()
+            .flat_map(|details| details.iter().map(|(&line, &hits)| (line, hits)))
+            .collect()
+    }
+
+    fn unique_file_hit_count(&self) -> HitCount {
+        self.lines().values().filter(|hit| **hit > 0).count()
+    }
+}
+
 pub type FunctionCoverageData = HashMap<LineNumber, HitCount>;
+
+pub trait FunctionCoverageDataOps {
+    fn hit(&self) -> bool;
+    fn hit_count(&self) -> HitCount;
+    fn starts_at(&self) -> LineNumber;
+    fn ends_at(&self) -> LineNumber;
+}
+
+impl FunctionCoverageDataOps for FunctionCoverageData {
+    fn hit(&self) -> bool {
+        self.values().any(|hit| *hit > 0)
+    }
+
+    fn hit_count(&self) -> HitCount {
+        self.values().max().copied().unwrap_or_default()
+    }
+
+    fn starts_at(&self) -> LineNumber {
+        self.keys().min().copied().unwrap_or_default()
+    }
+
+    fn ends_at(&self) -> LineNumber {
+        self.keys().max().copied().unwrap_or_default()
+    }
+}
 
 impl From<LineRange> for FunctionCoverageData {
     fn from(line_range: LineRange) -> Self {
