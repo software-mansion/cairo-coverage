@@ -1,1 +1,263 @@
-{"entry_point":{"class_hash":"0x0000000000000000000000000000000000000000000000000000000000000117","entry_point_type":"EXTERNAL","entry_point_selector":"0x017340c6779204ea2a91c87d1c2226a3aebda65c64da3672a36893c4330ea27b","contract_address":"0x0000000000000000000000000000000000001724987234973219347210837402","call_type":"Call","contract_name":"SNFORGE_TEST_CODE","function_name":"SNFORGE_TEST_CODE_FUNCTION"},"used_execution_resources":{"vm_resources":{"n_steps":46,"n_memory_holes":9,"builtin_instance_counter":{"range_check_builtin":2}},"syscall_counter":{}},"used_l1_resources":{"l2_l1_message_sizes":[]},"nested_calls":[],"cairo_execution_info":{"source_sierra_path":"/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/.snfoundry_versioned_programs/test_project_Tests.sierra.json","casm_level_info":{"run_with_call_header":true,"vm_trace":[{"pc":1,"ap":207,"fp":207},{"pc":2,"ap":208,"fp":207},{"pc":5,"ap":210,"fp":210},{"pc":6,"ap":211,"fp":210},{"pc":8,"ap":212,"fp":210},{"pc":90,"ap":214,"fp":214},{"pc":92,"ap":215,"fp":214},{"pc":94,"ap":216,"fp":214},{"pc":96,"ap":216,"fp":214},{"pc":98,"ap":217,"fp":214},{"pc":106,"ap":218,"fp":214},{"pc":107,"ap":219,"fp":214},{"pc":109,"ap":220,"fp":214},{"pc":110,"ap":220,"fp":214},{"pc":112,"ap":221,"fp":214},{"pc":114,"ap":222,"fp":214},{"pc":116,"ap":223,"fp":214},{"pc":118,"ap":223,"fp":214},{"pc":120,"ap":224,"fp":214},{"pc":128,"ap":225,"fp":214},{"pc":129,"ap":226,"fp":214},{"pc":131,"ap":227,"fp":214},{"pc":132,"ap":227,"fp":214},{"pc":134,"ap":229,"fp":214},{"pc":136,"ap":230,"fp":214},{"pc":138,"ap":231,"fp":214},{"pc":140,"ap":232,"fp":214},{"pc":141,"ap":233,"fp":214},{"pc":10,"ap":233,"fp":210},{"pc":12,"ap":233,"fp":210},{"pc":14,"ap":234,"fp":210},{"pc":16,"ap":234,"fp":210},{"pc":32,"ap":234,"fp":210},{"pc":34,"ap":235,"fp":210},{"pc":36,"ap":236,"fp":210},{"pc":38,"ap":236,"fp":210},{"pc":40,"ap":237,"fp":210},{"pc":42,"ap":238,"fp":210},{"pc":44,"ap":238,"fp":210},{"pc":58,"ap":238,"fp":210},{"pc":60,"ap":240,"fp":210},{"pc":61,"ap":241,"fp":210},{"pc":63,"ap":242,"fp":210},{"pc":65,"ap":243,"fp":210},{"pc":67,"ap":244,"fp":210},{"pc":4,"ap":244,"fp":207}]}}}
+{
+  "entry_point": {
+    "class_hash": "0x0000000000000000000000000000000000000000000000000000000000000117",
+    "entry_point_type": "EXTERNAL",
+    "entry_point_selector": "0x017340c6779204ea2a91c87d1c2226a3aebda65c64da3672a36893c4330ea27b",
+    "contract_address": "0x0000000000000000000000000000000000001724987234973219347210837402",
+    "call_type": "Call",
+    "contract_name": "SNFORGE_TEST_CODE",
+    "function_name": "SNFORGE_TEST_CODE_FUNCTION"
+  },
+  "used_execution_resources": {
+    "vm_resources": {
+      "n_steps": 46,
+      "n_memory_holes": 9,
+      "builtin_instance_counter": {
+        "range_check_builtin": 2
+      }
+    },
+    "syscall_counter": {}
+  },
+  "used_l1_resources": {
+    "l2_l1_message_sizes": []
+  },
+  "nested_calls": [],
+  "cairo_execution_info": {
+    "source_sierra_path": "tests/data/test_project/.snfoundry_versioned_programs/test_project_Tests.sierra.json",
+    "casm_level_info": {
+      "run_with_call_header": true,
+      "vm_trace": [
+        {
+          "pc": 1,
+          "ap": 207,
+          "fp": 207
+        },
+        {
+          "pc": 2,
+          "ap": 208,
+          "fp": 207
+        },
+        {
+          "pc": 5,
+          "ap": 210,
+          "fp": 210
+        },
+        {
+          "pc": 6,
+          "ap": 211,
+          "fp": 210
+        },
+        {
+          "pc": 8,
+          "ap": 212,
+          "fp": 210
+        },
+        {
+          "pc": 90,
+          "ap": 214,
+          "fp": 214
+        },
+        {
+          "pc": 92,
+          "ap": 215,
+          "fp": 214
+        },
+        {
+          "pc": 94,
+          "ap": 216,
+          "fp": 214
+        },
+        {
+          "pc": 96,
+          "ap": 216,
+          "fp": 214
+        },
+        {
+          "pc": 98,
+          "ap": 217,
+          "fp": 214
+        },
+        {
+          "pc": 106,
+          "ap": 218,
+          "fp": 214
+        },
+        {
+          "pc": 107,
+          "ap": 219,
+          "fp": 214
+        },
+        {
+          "pc": 109,
+          "ap": 220,
+          "fp": 214
+        },
+        {
+          "pc": 110,
+          "ap": 220,
+          "fp": 214
+        },
+        {
+          "pc": 112,
+          "ap": 221,
+          "fp": 214
+        },
+        {
+          "pc": 114,
+          "ap": 222,
+          "fp": 214
+        },
+        {
+          "pc": 116,
+          "ap": 223,
+          "fp": 214
+        },
+        {
+          "pc": 118,
+          "ap": 223,
+          "fp": 214
+        },
+        {
+          "pc": 120,
+          "ap": 224,
+          "fp": 214
+        },
+        {
+          "pc": 128,
+          "ap": 225,
+          "fp": 214
+        },
+        {
+          "pc": 129,
+          "ap": 226,
+          "fp": 214
+        },
+        {
+          "pc": 131,
+          "ap": 227,
+          "fp": 214
+        },
+        {
+          "pc": 132,
+          "ap": 227,
+          "fp": 214
+        },
+        {
+          "pc": 134,
+          "ap": 229,
+          "fp": 214
+        },
+        {
+          "pc": 136,
+          "ap": 230,
+          "fp": 214
+        },
+        {
+          "pc": 138,
+          "ap": 231,
+          "fp": 214
+        },
+        {
+          "pc": 140,
+          "ap": 232,
+          "fp": 214
+        },
+        {
+          "pc": 141,
+          "ap": 233,
+          "fp": 214
+        },
+        {
+          "pc": 10,
+          "ap": 233,
+          "fp": 210
+        },
+        {
+          "pc": 12,
+          "ap": 233,
+          "fp": 210
+        },
+        {
+          "pc": 14,
+          "ap": 234,
+          "fp": 210
+        },
+        {
+          "pc": 16,
+          "ap": 234,
+          "fp": 210
+        },
+        {
+          "pc": 32,
+          "ap": 234,
+          "fp": 210
+        },
+        {
+          "pc": 34,
+          "ap": 235,
+          "fp": 210
+        },
+        {
+          "pc": 36,
+          "ap": 236,
+          "fp": 210
+        },
+        {
+          "pc": 38,
+          "ap": 236,
+          "fp": 210
+        },
+        {
+          "pc": 40,
+          "ap": 237,
+          "fp": 210
+        },
+        {
+          "pc": 42,
+          "ap": 238,
+          "fp": 210
+        },
+        {
+          "pc": 44,
+          "ap": 238,
+          "fp": 210
+        },
+        {
+          "pc": 58,
+          "ap": 238,
+          "fp": 210
+        },
+        {
+          "pc": 60,
+          "ap": 240,
+          "fp": 210
+        },
+        {
+          "pc": 61,
+          "ap": 241,
+          "fp": 210
+        },
+        {
+          "pc": 63,
+          "ap": 242,
+          "fp": 210
+        },
+        {
+          "pc": 65,
+          "ap": 243,
+          "fp": 210
+        },
+        {
+          "pc": 67,
+          "ap": 244,
+          "fp": 210
+        },
+        {
+          "pc": 4,
+          "ap": 244,
+          "fp": 207
+        }
+      ]
+    }
+  }
+}
