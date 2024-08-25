@@ -41,7 +41,8 @@ impl TryFrom<&Utf8PathBuf> for InputData {
 
         let sierra_to_cairo_map = create_sierra_to_cairo_map(&annotations)?;
         let casm = compile_to_casm(&program)?;
-        let unique_executed_sierra_ids = UniqueExecutedSierraIds::new(&casm, &call_trace)?;
+        let unique_executed_sierra_ids =
+            UniqueExecutedSierraIds::new(&casm, &call_trace, &sierra_to_cairo_map)?;
 
         Ok(Self {
             unique_executed_sierra_ids,
