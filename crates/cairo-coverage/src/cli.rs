@@ -2,14 +2,16 @@ use anyhow::{ensure, Result};
 use camino::Utf8PathBuf;
 use clap::Parser;
 
+pub const DEFAULT_OUTPUT_NAME: &str = "coverage";
+
 #[derive(Parser, Debug)]
 #[command(version)]
 pub struct Cli {
-    /// Path to the .json file with trace data.
-    #[arg(value_parser = parse_trace_file)]
-    pub trace_file: Utf8PathBuf,
+    /// Paths to the .json files with trace data.
+    #[arg(value_parser = parse_trace_file, num_args = 1..)]
+    pub trace_files: Vec<Utf8PathBuf>,
 
-    /// Path to the output file. [default: `<TRACE_NAME>.lcov`]
+    /// Path to the output file. [default: `coverage.lcov`]
     #[arg(short, long)]
     pub output_path: Option<Utf8PathBuf>,
 }
