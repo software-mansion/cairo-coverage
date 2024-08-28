@@ -5300,7 +5300,7 @@
         "statements_code_locations": {
           "1": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -5354,7 +5354,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -5421,7 +5421,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5434,7 +5434,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5501,7 +5501,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5514,7 +5514,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5581,7 +5581,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5594,7 +5594,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5635,7 +5635,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5648,7 +5648,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5689,7 +5689,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5702,7 +5702,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5743,7 +5743,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5756,7 +5756,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5797,7 +5797,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5810,7 +5810,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5838,7 +5838,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -5851,7 +5851,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5879,7 +5879,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -5892,7 +5892,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5920,7 +5920,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -5933,7 +5933,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -5987,7 +5987,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -6041,7 +6041,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6054,7 +6054,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6108,7 +6108,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6121,7 +6121,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6175,7 +6175,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6188,7 +6188,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6242,7 +6242,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6255,7 +6255,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6309,7 +6309,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6322,7 +6322,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6376,7 +6376,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6389,7 +6389,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6404,7 +6404,7 @@
           ],
           "116": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6417,7 +6417,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6432,7 +6432,7 @@
           ],
           "117": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6445,7 +6445,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6460,7 +6460,7 @@
           ],
           "118": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6473,7 +6473,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6488,7 +6488,7 @@
           ],
           "119": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6501,7 +6501,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -6555,7 +6555,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -6583,7 +6583,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -6611,7 +6611,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -6678,7 +6678,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -6745,7 +6745,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -6812,7 +6812,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -6879,7 +6879,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -6946,7 +6946,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -7013,7 +7013,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -7028,7 +7028,7 @@
           ],
           "128": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -7043,7 +7043,7 @@
           ],
           "129": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -7097,7 +7097,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7112,7 +7112,7 @@
           ],
           "130": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -7127,7 +7127,7 @@
           ],
           "131": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -7155,7 +7155,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -7183,7 +7183,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -7211,7 +7211,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -7265,7 +7265,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7319,7 +7319,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7373,7 +7373,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7427,7 +7427,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7481,7 +7481,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7535,7 +7535,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7589,7 +7589,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7604,7 +7604,7 @@
           ],
           "141": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7619,7 +7619,7 @@
           ],
           "142": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7634,7 +7634,7 @@
           ],
           "143": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7649,7 +7649,7 @@
           ],
           "144": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -7703,7 +7703,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7718,7 +7718,7 @@
           ],
           "16": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7733,7 +7733,7 @@
           ],
           "17": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7748,7 +7748,7 @@
           ],
           "18": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7763,7 +7763,7 @@
           ],
           "19": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -7778,7 +7778,7 @@
           ],
           "2": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -7806,7 +7806,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -7834,7 +7834,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -7862,7 +7862,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -7903,7 +7903,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -7916,7 +7916,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -7957,7 +7957,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -7970,7 +7970,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -7998,7 +7998,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -8011,7 +8011,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8039,7 +8039,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -8052,7 +8052,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8080,7 +8080,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -8093,7 +8093,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8121,7 +8121,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -8134,7 +8134,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8162,7 +8162,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -8175,7 +8175,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8190,7 +8190,7 @@
           ],
           "3": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8218,7 +8218,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8246,7 +8246,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8274,7 +8274,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8328,7 +8328,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8382,7 +8382,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8436,7 +8436,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8490,7 +8490,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8544,7 +8544,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8598,7 +8598,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8626,7 +8626,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8641,7 +8641,7 @@
           ],
           "4": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8669,7 +8669,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8697,7 +8697,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8725,7 +8725,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8753,7 +8753,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8781,7 +8781,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8809,7 +8809,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8837,7 +8837,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8865,7 +8865,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8893,7 +8893,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8921,7 +8921,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 2,
@@ -8936,7 +8936,7 @@
           ],
           "5": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -8964,7 +8964,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -8977,7 +8977,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9005,7 +9005,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9018,7 +9018,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9072,7 +9072,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -9085,7 +9085,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9139,7 +9139,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -9152,7 +9152,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9206,7 +9206,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -9219,7 +9219,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9273,7 +9273,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -9286,7 +9286,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9340,7 +9340,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -9353,7 +9353,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9407,7 +9407,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -9420,7 +9420,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9435,7 +9435,7 @@
           ],
           "58": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9450,7 +9450,7 @@
           ],
           "59": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9465,7 +9465,7 @@
           ],
           "6": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9480,7 +9480,7 @@
           ],
           "60": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9495,7 +9495,7 @@
           ],
           "61": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9510,7 +9510,7 @@
           ],
           "62": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9525,7 +9525,7 @@
           ],
           "63": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9540,7 +9540,7 @@
           ],
           "64": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9555,7 +9555,7 @@
           ],
           "65": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9570,7 +9570,7 @@
           ],
           "66": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9611,7 +9611,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9626,7 +9626,7 @@
           ],
           "7": [
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9667,7 +9667,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9695,7 +9695,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9723,7 +9723,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9751,7 +9751,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9779,7 +9779,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -9807,7 +9807,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -9835,7 +9835,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -9863,7 +9863,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -9891,7 +9891,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -9919,7 +9919,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 20,
@@ -9947,7 +9947,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -9988,7 +9988,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10001,7 +10001,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10042,7 +10042,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10055,7 +10055,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10083,7 +10083,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10096,7 +10096,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10124,7 +10124,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10137,7 +10137,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10165,7 +10165,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10178,7 +10178,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10206,7 +10206,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10219,7 +10219,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10247,7 +10247,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 11,
@@ -10260,7 +10260,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10288,7 +10288,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10301,7 +10301,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10329,7 +10329,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10342,7 +10342,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10370,7 +10370,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10383,7 +10383,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10411,7 +10411,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/tests/test_call.cairo",
+              "tests/data/test_project/tests/test_call.cairo",
               {
                 "end": {
                   "col": 9,
@@ -10439,7 +10439,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10452,7 +10452,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10493,7 +10493,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10506,7 +10506,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10547,7 +10547,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10560,7 +10560,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10601,7 +10601,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10614,7 +10614,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10655,7 +10655,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10668,7 +10668,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10696,7 +10696,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10709,7 +10709,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10737,7 +10737,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10750,7 +10750,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10817,7 +10817,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10830,7 +10830,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10897,7 +10897,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10910,7 +10910,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10977,7 +10977,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,
@@ -10990,7 +10990,7 @@
               }
             ],
             [
-              "/Users/makysmiliandemitraszek/Projects/Starkware/cairo-coverage/crates/cairo-coverage/tests/data/test_project/src/lib.cairo",
+              "tests/data/test_project/src/lib.cairo",
               {
                 "end": {
                   "col": 4,

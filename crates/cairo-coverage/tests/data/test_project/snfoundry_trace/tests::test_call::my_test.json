@@ -23,7 +23,7 @@
   },
   "nested_calls": [],
   "cairo_execution_info": {
-    "source_sierra_path": "tests/data/test_project/.snfoundry_versioned_programs/test_project_Tests.sierra.json",
+    "source_sierra_path": ".snfoundry_versioned_programs/test_project_Tests.sierra.json",
     "casm_level_info": {
       "run_with_call_header": true,
       "vm_trace": [
