@@ -1,4 +1,5 @@
 mod cli;
+mod coverage_data;
 mod input;
 mod types;
 

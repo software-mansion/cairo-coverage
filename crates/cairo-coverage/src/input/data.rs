@@ -8,7 +8,6 @@ use serde::de::DeserializeOwned;
 use std::fs;
 use trace_data::CallTrace;
 
-#[allow(dead_code)] // Temporary
 pub struct InputData {
     pub unique_executed_sierra_ids: UniqueExecutedSierraIds,
     pub sierra_to_cairo_map: SierraToCairoMap,
