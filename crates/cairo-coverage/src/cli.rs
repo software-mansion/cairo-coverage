@@ -8,7 +8,7 @@ pub const DEFAULT_OUTPUT_NAME: &str = "coverage";
 #[command(version)]
 pub struct Cli {
     /// Paths to the .json files with trace data.
-    #[arg(value_parser = parse_trace_file, num_args = 1..)]
+    #[arg(value_parser = parse_trace_file, num_args = 1.., required = true)]
     pub trace_files: Vec<Utf8PathBuf>,
 
     /// Path to the output file. [default: `coverage.lcov`]

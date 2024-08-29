@@ -78,3 +78,19 @@ fn proper_output() {
         }
     );
 }
+
+#[test]
+fn no_trace_files_provided() {
+    SnapboxCommand::new(cargo_bin!("cairo-coverage"))
+        .assert()
+        .failure()
+        .stderr_eq(indoc! {
+            "error: the following required arguments were not provided:
+              <TRACE_FILES>...
+
+            Usage: cairo-coverage <TRACE_FILES>...
+
+            For more information, try '--help'.
+            "
+        });
+}
