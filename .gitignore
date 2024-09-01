@@ -1,5 +1,6 @@
 debug
 target
 .idea
-crates/cairo-coverage/tests/data/test_project/.snfoundry_cache
+.snfoundry_cache
 .spr.yml
+.DS_Store

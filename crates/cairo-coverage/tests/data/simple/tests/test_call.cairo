@@ -1,4 +1,4 @@
-use test_project::{increase_by_one, increase_by_two};
+use simple::{increase_by_one, increase_by_two};
 
 
 #[test]
