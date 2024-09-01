@@ -6,8 +6,12 @@ use anyhow::{Context, Result};
 use cairo_lang_sierra::debug_info::Annotations;
 use cairo_lang_sierra::program::StatementIdx;
 use derived_deref::Deref;
+use regex::Regex;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
+use std::sync::LazyLock;
+
+static VIRTUAL_FILE_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\[.*?]").unwrap());
 
 #[derive(Deref)]
 pub struct SierraToCairoMap(HashMap<StatementIdx, StatementOrigin>);
@@ -56,10 +60,16 @@ fn find_statement_origin(
         .map(
             |((file_location, line_range), function_name)| StatementOrigin {
                 function_name: function_name.to_owned(),
-                file_location: file_location.to_owned(),
-                line_range: line_range.to_owned(),
+                file_location: remove_virtual_files(file_location),
+                line_range: line_range.move_by_1(),
             },
         )
+}
+
+fn remove_virtual_files(file_location: &str) -> FileLocation {
+    VIRTUAL_FILE_REGEX
+        .replace_all(file_location, "")
+        .to_string()
 }
 
 trait Namespace {

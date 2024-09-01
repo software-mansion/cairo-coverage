@@ -203,6 +203,7 @@ dependencies = [
  "derived-deref",
  "indoc",
  "itertools 0.13.0",
+ "regex",
  "serde",
  "serde_json",
  "snapbox",
