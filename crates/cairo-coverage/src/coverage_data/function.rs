@@ -1,4 +1,5 @@
-use crate::input::{InputData, LineRange, SierraToCairoMap};
+use crate::data_loader::LineRange;
+use crate::input::{InputData, SierraToCairoMap};
 use crate::types::{FileLocation, FunctionName, HitCount, LineNumber};
 use std::collections::HashMap;
 

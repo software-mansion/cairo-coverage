@@ -10,6 +10,17 @@ use trace_data::{CallTrace, CasmLevelInfo};
 #[derive(Deref)]
 pub struct UniqueExecutedSierraIds(HashMap<StatementIdx, usize>);
 
+impl Extend<(StatementIdx, usize)> for UniqueExecutedSierraIds {
+    fn extend<T: IntoIterator<Item = (StatementIdx, usize)>>(&mut self, iter: T) {
+        for (key, value) in iter {
+            self.0
+                .entry(key)
+                .and_modify(|e| *e += value)
+                .or_insert(value);
+        }
+    }
+}
+
 impl UniqueExecutedSierraIds {
     pub fn new(
         casm: &CairoProgram,
