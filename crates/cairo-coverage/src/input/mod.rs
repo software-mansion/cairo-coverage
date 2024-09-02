@@ -1,6 +1,7 @@
 mod data;
 mod data_loader;
 mod sierra_to_cairo_map;
+mod test_function_filter;
 mod unique_executed_sierra_ids;
 
 pub use data::InputData;

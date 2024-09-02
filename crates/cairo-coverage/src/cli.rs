@@ -2,8 +2,6 @@ use anyhow::{ensure, Result};
 use camino::Utf8PathBuf;
 use clap::Parser;
 
-pub const DEFAULT_OUTPUT_NAME: &str = "coverage";
-
 #[derive(Parser, Debug)]
 #[command(version)]
 pub struct Cli {
@@ -11,9 +9,18 @@ pub struct Cli {
     #[arg(value_parser = parse_trace_file, num_args = 1.., required = true)]
     pub trace_files: Vec<Utf8PathBuf>,
 
-    /// Path to the output file. [default: `coverage.lcov`]
-    #[arg(short, long)]
-    pub output_path: Option<Utf8PathBuf>,
+    /// Path to the output file.
+    #[arg(short, long, default_value = "coverage.lcov")]
+    pub output_path: Utf8PathBuf,
+
+    /// Run coverage on functions marked with `#[test]` attribute.
+    ///
+    /// [default: false]
+    ///
+    /// Note: We currently recommend setting this to false as there
+    /// might be issues with mappings for `#[test]` attribute.
+    #[arg(long, default_value_t = false)]
+    pub include_test_functions: bool,
 }
 
 fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {

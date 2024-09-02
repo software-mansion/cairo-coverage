@@ -1,3 +1,4 @@
+use crate::input::test_function_filter::TestFunctionFilter;
 use crate::input::{create_sierra_to_cairo_map, SierraToCairoMap, UniqueExecutedSierraIds};
 use anyhow::{Context, Result};
 use cairo_lang_sierra::program::{Program, ProgramArtifact, VersionedProgram};
@@ -8,15 +9,15 @@ use serde::de::DeserializeOwned;
 use std::fs;
 use trace_data::CallTrace;
 
+const SNFORGE_TEST_EXECUTABLE: &str = "snforge_internal_test_executable";
+
 pub struct InputData {
     pub unique_executed_sierra_ids: UniqueExecutedSierraIds,
     pub sierra_to_cairo_map: SierraToCairoMap,
 }
 
-impl TryFrom<&Utf8PathBuf> for InputData {
-    type Error = anyhow::Error;
-
-    fn try_from(call_trace_path: &Utf8PathBuf) -> Result<Self, Self::Error> {
+impl InputData {
+    pub fn new(call_trace_path: &Utf8PathBuf, include_test_functions: bool) -> Result<Self> {
         let call_trace: CallTrace = read_and_deserialize(call_trace_path)?;
 
         let source_sierra_path = &call_trace
@@ -34,11 +35,18 @@ impl TryFrom<&Utf8PathBuf> for InputData {
             ..
         } = read_and_deserialize(source_sierra_path)?;
 
-        let annotations = debug_info
-            .context(format!("Debug info not found in: {source_sierra_path}"))?
-            .annotations;
+        let debug_info =
+            debug_info.context(format!("Debug info not found in: {source_sierra_path}"))?;
 
-        let sierra_to_cairo_map = create_sierra_to_cairo_map(&annotations)?;
+        let test_function_filter = TestFunctionFilter::new(
+            debug_info
+                .executables
+                .get(SNFORGE_TEST_EXECUTABLE)
+                .unwrap_or(&Vec::new()),
+            include_test_functions,
+        );
+
+        let sierra_to_cairo_map = create_sierra_to_cairo_map(&debug_info, &test_function_filter)?;
         let casm = compile_to_casm(&program)?;
         let unique_executed_sierra_ids =
             UniqueExecutedSierraIds::new(&casm, &call_trace, &sierra_to_cairo_map)?;
