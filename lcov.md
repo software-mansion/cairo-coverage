@@ -31,8 +31,8 @@ and you cover it with tests
 ```rust
 #[test]
 fn calculator_add() {
-    assert_eq!(calculator(2, 3, Operation::Add), 5);
-    assert_eq!(calculator(-1, 1, Operation::Add), 0);
+    assert(calculator(2, 3, Operation::Add) == 5, '');
+    assert(calculator(-1, 1, Operation::Add) == 0, '');
 }
 ```
 
@@ -40,26 +40,22 @@ When running with `cairo-coverage` you will get a coverage report in `.lcov` for
 
 ```lcov
 TN:
-SF:/path/to/your/project/src/lib.cairo
-FN:7,8,add
-FN:11,12,multiply
-FN:15,20,calculator
-FNDA:2,add
-FNDA:0,multiply
-FNDA:2,calculator
+SF:/Users/karol/Starkware/temp_pr/cairo-coverage/crates/cairo-coverage/tests/data/readme_example/src/lib.cairo
+FN:8,8,readme_example::add
+FNDA:4,readme_example::add
+FN:16,18,readme_example::calculator
+FNDA:4,readme_example::calculator
+FN:12,12,readme_example::multiply
+FNDA:0,readme_example::multiply
 FNF:3
 FNH:2
-DA:7,2
-DA:8,2
-DA:11,0
+DA:8,4
 DA:12,0
-DA:15,2
 DA:16,2
-DA:17,2
+DA:17,4
 DA:18,0
-DA:19,2
-LF:9
-LH:6
+LF:5
+LH:3
 end_of_record
 ```
 
@@ -72,14 +68,16 @@ Let's break it down
     - **SF**: Source File path `/path/to/your/project/src/lib.rs`
 
 2. **Function Details**
-    - **FN:7,8,add**: The `add` function starts at line 7 and ends at line 8.
-    - **FN:11,12,multiply**: The `multiply` function starts at line 11 and ends at line 12.
-    - **FN:15,20,calculator**: The `calculator` function starts at line 15 and ends at line 20.
+    - **FN:8,8,readme_example::add**: The `add` function starts at line 8 and ends at line 8.
+    - **FN:12,12,readme_example::multiply**: The `multiply` function starts at line 12 and ends at line 12.
+    - **FN:16,18,readme_example::calculator**: The `calculator` function starts at line 16 and ends at line 18.
 
 3. **Function Hit Details**
-    - **FNDA:2,add**: The `add` function was executed 2 times.
-    - **FNDA:0,multiply**: The `multiply` function was not executed in the tests.
-    - **FNDA:2,calculator**: The `calculator` function was executed 2 times.
+    - **FNDA:4,readme_example::add**: The `add` function was executed 4 times (Currently not accurate as expected is to
+      be 2).
+    - **FNDA:0,readme_example::multiply**: The `multiply` function was not executed in the tests.
+    - **FNDA:4,readme_example::calculator**: The `calculator` function was executed 4 times (Currently not accurate as
+      expected is to be 2).
 
 4. **Function Summary**
     - **FNF:3**: The number of functions found in the source file. There are 3 functions: `add`, `multiply`,
@@ -92,17 +90,13 @@ Let's break it down
 
    Here's the details of line coverage:
 
-   | Line | Hits | Explanation                                      |
-      |------|------|--------------------------------------------------|
-   | 7    | 2    | Line 7 (definition of `add`) hit 2 times         |
-   | 8    | 2    | Line 8 (body of `add`) hit 2 times               |
-   | 11   | 0    | Line 11 (definition of `multiply`) not hit       |
-   | 12   | 0    | Line 12 (body of `multiply`) not hit             |
-   | 15   | 2    | Line 15 (definition of `calculator`) hit 2 times |
-   | 16   | 2    | Line 16 (start of `match`) hit 2 times           |
-   | 17   | 2    | Line 17 (call to `add` in `match`) hit 2 times   |
-   | 18   | 0    | Line 18 (call to `multiply` in `match`) not hit  |
-   | 19   | 2    | Line 19 (end of `match`) hit 2 times             |
+   | Line | Hits | Explanation                                     |
+   |------|------|-------------------------------------------------|
+   | 8    | 4    | Line 8 (body of `add`) hit 4 times              |
+   | 12   | 0    | Line 12 (body of `multiply`) not hit            |
+   | 16   | 2    | Line 16 (start of `match`) hit 2 times          |
+   | 17   | 4    | Line 17 (call to `add` in `match`) hit 4 times  |
+   | 18   | 0    | Line 18 (call to `multiply` in `match`) not hit |
 
 6. **Line Coverage Summary**
     - **LF:9**: The total number of lines in the file is 9.
@@ -119,8 +113,8 @@ Let's break it down
     - One function (`multiply`) was not executed.
 
 2. **Line Coverage**:
-    - 9 lines of code in total.
-    - 6 lines were executed during testing.
+    - 5 lines of code in total.
+    - 3 lines were executed during testing.
     - Lines 11 and 12 (`multiply` function) and line 19 (match arm for `Multiply` operation) were not executed.
 
 > 📝 **Note**
@@ -130,16 +124,16 @@ Let's break it down
 > ```lcov
 > TN:
 > SF:/path/to/your/project/src/operations.cairo
-> FN:7,8,add
-> FN:11,12,multiply
-> FNDA:2,add
-> FNDA:0,multiply
+> FN:8,8,readme_example::add
+> FNDA:4,readme_example::add
+> FN:12,12,readme_example::multiply
+> FNDA:0,readme_example::multiply
 > ... other metrics ...
 > end_of_record
 > TN:
 > SF:/path/to/your/project/src/lib.cairo
-> FN:3,8,calculator
-> FNDA:2,calculator
+> FN:16,18,readme_example::calculator
+> FNDA:4,readme_example::calculator
 > ... other metrics ...
 > LH:10
 > end_of_record

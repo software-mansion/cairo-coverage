@@ -9,8 +9,11 @@
 > 
 > We currently don't support:
 > - Branch coverage
-> - Macros
 > - Contracts
+> 
+> Things that might not work as expected:
+> - Marcos coverage
+> - Counters for how many times line was executed
 
 ## Installation
 
