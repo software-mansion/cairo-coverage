@@ -12,7 +12,7 @@
 > - Contracts
 > 
 > Things that might not work as expected:
-> - Marcos coverage
+> - Macros coverage
 > - Counters for how many times line was executed
 
 ## Installation
