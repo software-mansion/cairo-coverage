@@ -12,6 +12,19 @@ pub struct LineRange {
     pub end: Position,
 }
 
+impl LineRange {
+    pub fn move_by_1(&self) -> LineRange {
+        LineRange {
+            start: Position {
+                line: self.start.line + 1,
+            },
+            end: Position {
+                line: self.end.line + 1,
+            },
+        }
+    }
+}
+
 impl IntoIterator for &LineRange {
     type Item = LineNumber;
     type IntoIter = RangeInclusive<LineNumber>;
