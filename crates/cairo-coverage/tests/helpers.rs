@@ -6,6 +6,11 @@ use std::{env, fs};
 
 #[allow(clippy::missing_errors_doc)]
 pub fn run_test_project(test_project_name: &str) -> Result<String> {
+    run_test_project_with_args(test_project_name, &[])
+}
+
+#[allow(clippy::missing_errors_doc)]
+pub fn run_test_project_with_args(test_project_name: &str, args: &[&str]) -> Result<String> {
     let temp_dir = TempDir::new().context("Failed to create a temporary directory")?;
     temp_dir
         .copy_from(
@@ -29,6 +34,7 @@ pub fn run_test_project(test_project_name: &str) -> Result<String> {
             SnapboxCommand::new(cargo_bin!("cairo-coverage")),
             Command::arg,
         )
+        .args(args)
         .current_dir(&temp_dir)
         .assert()
         .success();

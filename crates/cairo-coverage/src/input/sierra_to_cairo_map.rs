@@ -1,9 +1,10 @@
 use crate::input::data_loader::types::{
     CodeLocation, CoverageAnnotations, LineRange, ProfilerAnnotations,
 };
+use crate::input::test_function_filter::TestFunctionFilter;
 use crate::types::{FileLocation, FunctionName};
 use anyhow::{Context, Result};
-use cairo_lang_sierra::debug_info::Annotations;
+use cairo_lang_sierra::debug_info::{Annotations, DebugInfo};
 use cairo_lang_sierra::program::StatementIdx;
 use derived_deref::Deref;
 use regex::Regex;
@@ -23,14 +24,17 @@ pub struct StatementOrigin {
     pub line_range: LineRange,
 }
 
-pub fn create_sierra_to_cairo_map(annotations: &Annotations) -> Result<SierraToCairoMap> {
+pub fn create_sierra_to_cairo_map(
+    debug_info: &DebugInfo,
+    test_function_filter: &TestFunctionFilter,
+) -> Result<SierraToCairoMap> {
     let CoverageAnnotations {
         statements_code_locations,
-    } = CoverageAnnotations::get_namespace(annotations)?;
+    } = CoverageAnnotations::get_namespace(&debug_info.annotations)?;
 
     let ProfilerAnnotations {
         statements_functions,
-    } = ProfilerAnnotations::get_namespace(annotations)?;
+    } = ProfilerAnnotations::get_namespace(&debug_info.annotations)?;
 
     Ok(SierraToCairoMap(
         statements_code_locations
@@ -40,6 +44,9 @@ pub fn create_sierra_to_cairo_map(annotations: &Annotations) -> Result<SierraToC
                     .get(&key)
                     .and_then(|function_names| {
                         find_statement_origin(&code_locations, function_names)
+                    })
+                    .filter(|statement_origin| {
+                        test_function_filter.should_include(&statement_origin.function_name)
                     })
                     .map(|statement_origin| (key, statement_origin))
             })

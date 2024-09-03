@@ -4,7 +4,6 @@ mod input;
 mod output;
 mod types;
 
-use crate::cli::DEFAULT_OUTPUT_NAME;
 use crate::coverage_data::create_files_coverage_data_with_hits;
 use crate::input::InputData;
 use crate::output::lcov::LcovFormat;
@@ -17,18 +16,16 @@ use std::io::Write;
 fn main() -> Result<()> {
     let cli = Cli::parse();
 
-    let output_path = cli
-        .output_path
-        .unwrap_or_else(|| format!("./{DEFAULT_OUTPUT_NAME}.lcov").into());
+    let output_path = &cli.output_path;
 
     let mut file = OpenOptions::new()
         .append(true)
         .create(true)
-        .open(&output_path)
+        .open(output_path)
         .context(format!("Failed to open output file at path: {output_path}"))?;
 
     for trace_file in &cli.trace_files {
-        let input_data = InputData::try_from(trace_file)?;
+        let input_data = InputData::new(trace_file, cli.include_test_functions)?;
         let coverage_data = create_files_coverage_data_with_hits(&input_data);
         let output_data = LcovFormat::from(coverage_data);
 
