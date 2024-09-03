@@ -29,7 +29,7 @@ impl LoadedDataMap {
             let source_sierra_path = &call_trace
                 .cairo_execution_info
                 .as_ref()
-                .context("Missing key 'cairo_execution_info' in call trace")?
+                .context("Missing key 'cairo_execution_info' in call trace. Perhaps you have outdated scarb?")?
                 .source_sierra_path;
 
             if let Some(loaded_data) = map.get_mut(&source_sierra_path.to_string()) {
