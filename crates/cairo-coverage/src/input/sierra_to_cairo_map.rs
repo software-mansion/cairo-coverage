@@ -1,6 +1,4 @@
-use crate::input::data_loader::types::{
-    CodeLocation, CoverageAnnotations, LineRange, ProfilerAnnotations,
-};
+use crate::data_loader::{CodeLocation, CoverageAnnotations, LineRange, ProfilerAnnotations};
 use crate::input::test_function_filter::TestFunctionFilter;
 use crate::types::{FileLocation, FunctionName};
 use anyhow::{Context, Result};

@@ -95,13 +95,66 @@ fn scarb_template() {
 }
 
 #[test]
-#[ignore] // Output to big fix in next test
 fn complex_calculator() {
     let output = run_test_project("complex_calculator").unwrap();
     assert_eq!(
         output,
         indoc! {
         "
+        TN:
+        SF:tests/data/complex_calculator/src/lib.cairo
+        FN:2,2,complex_calculator::add
+        FNDA:2,complex_calculator::add
+        FN:17,21,complex_calculator::divide
+        FNDA:1,complex_calculator::divide
+        FN:25,30,complex_calculator::factorial
+        FNDA:12,complex_calculator::factorial
+        FN:45,49,complex_calculator::fibonacci
+        FNDA:2,complex_calculator::fibonacci
+        FN:53,63,complex_calculator::is_prime
+        FNDA:84,complex_calculator::is_prime
+        FN:10,10,complex_calculator::multiply
+        FNDA:2,complex_calculator::multiply
+        FN:35,40,complex_calculator::power
+        FNDA:10,complex_calculator::power
+        FN:6,6,complex_calculator::subtract
+        FNDA:2,complex_calculator::subtract
+        FN:14,14,complex_calculator::unsafe_divide
+        FNDA:0,complex_calculator::unsafe_divide
+        FNF:9
+        FNH:8
+        DA:2,2
+        DA:6,2
+        DA:10,2
+        DA:14,0
+        DA:17,1
+        DA:18,1
+        DA:19,1
+        DA:21,0
+        DA:25,1
+        DA:28,12
+        DA:29,10
+        DA:30,10
+        DA:35,2
+        DA:38,10
+        DA:39,6
+        DA:40,6
+        DA:45,2
+        DA:46,1
+        DA:47,0
+        DA:48,1
+        DA:49,0
+        DA:53,2
+        DA:54,4
+        DA:55,0
+        DA:58,0
+        DA:59,84
+        DA:60,80
+        DA:61,0
+        DA:63,80
+        LF:29
+        LH:22
+        end_of_record
         "
         }
     );
