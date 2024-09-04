@@ -40,7 +40,7 @@ When running with `cairo-coverage` you will get a coverage report in `.lcov` for
 
 ```lcov
 TN:
-SF:/Users/karol/Starkware/temp_pr/cairo-coverage/crates/cairo-coverage/tests/data/readme_example/src/lib.cairo
+SF:/path/to/your/project/src/lib.rs
 FN:8,8,readme_example::add
 FNDA:4,readme_example::add
 FN:16,18,readme_example::calculator
