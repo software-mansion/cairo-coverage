@@ -161,6 +161,39 @@ fn complex_calculator() {
 }
 
 #[test]
+fn readme_example() {
+    let output = run_test_project("readme_example").unwrap();
+
+    // If you ever find yourself in a situation where you need to change the expected output,
+    // please update the lcov.md files as well.
+    assert_eq!(
+        output,
+        indoc! {
+        "
+        TN:
+        SF:tests/data/readme_example/src/lib.cairo
+        FN:8,8,readme_example::add
+        FNDA:4,readme_example::add
+        FN:16,18,readme_example::calculator
+        FNDA:4,readme_example::calculator
+        FN:12,12,readme_example::multiply
+        FNDA:0,readme_example::multiply
+        FNF:3
+        FNH:2
+        DA:8,4
+        DA:12,0
+        DA:16,2
+        DA:17,4
+        DA:18,0
+        LF:5
+        LH:3
+        end_of_record
+        "
+        }
+    );
+}
+
+#[test]
 fn no_trace_files_provided() {
     SnapboxCommand::new(cargo_bin!("cairo-coverage"))
         .assert()
