@@ -2,6 +2,8 @@ name: Check installation script
 
 on:
   pull_request:
+    paths:
+      - scripts/install.sh
   push:
     branches:
       - main
