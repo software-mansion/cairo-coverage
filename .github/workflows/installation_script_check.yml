@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - scripts/install.sh
+      - .github/workflows/installation_script_check.yml
   push:
     branches:
       - main
     paths:
       - scripts/install.sh
+      - .github/workflows/installation_script_check.yml
   release:
     types:
       - published
