@@ -1,19 +1,19 @@
 mod helpers;
 
 use crate::helpers::{run_test_project, run_test_project_with_args};
-use indoc::indoc;
+use indoc::{formatdoc, indoc};
 use snapbox::cmd::{cargo_bin, Command as SnapboxCommand};
 use std::env;
 
 #[test]
 fn simple() {
-    let output = run_test_project("simple").unwrap();
+    let (dir, output) = run_test_project("simple").unwrap();
     assert_eq!(
         output,
-        indoc! {
+        formatdoc! {
         "
         TN:
-        SF:tests/data/simple/src/lib.cairo
+        SF:{dir}/src/lib.cairo
         FN:7,8,simple::increase_by_one
         FNDA:4,simple::increase_by_one
         FN:2,3,simple::increase_by_two
@@ -27,20 +27,22 @@ fn simple() {
         LF:4
         LH:4
         end_of_record
-        "
+        ",
+        dir = dir
         }
     );
 }
 
 #[test]
 fn simple_with_tests() {
-    let output = run_test_project_with_args("simple", &["--include-test-functions"]).unwrap();
+    let (dir, output) =
+        run_test_project_with_args("simple", &["--include-test-functions"]).unwrap();
     assert_eq!(
         output,
-        indoc! {
+        formatdoc! {
         "
         TN:
-        SF:tests/data/simple/src/lib.cairo
+        SF:{dir}/src/lib.cairo
         FN:7,8,simple::increase_by_one
         FNDA:4,simple::increase_by_one
         FN:2,3,simple::increase_by_two
@@ -55,7 +57,7 @@ fn simple_with_tests() {
         LH:4
         end_of_record
         TN:
-        SF:tests/data/simple/tests/test_call.cairo
+        SF:{dir}/tests/test_call.cairo
         FN:2,2,simple_tests::test_call::my_test
         FNDA:4,simple_tests::test_call::my_test
         FNF:1
@@ -64,20 +66,21 @@ fn simple_with_tests() {
         LF:1
         LH:1
         end_of_record
-        "
+        ",
+        dir = dir
         }
     );
 }
 
 #[test]
 fn scarb_template() {
-    let output = run_test_project("scarb_template").unwrap();
+    let (dir, output) = run_test_project("scarb_template").unwrap();
     assert_eq!(
         output,
-        indoc! {
+        formatdoc! {
         "
         TN:
-        SF:tests/data/scarb_template/src/lib.cairo
+        SF:{dir}/src/lib.cairo
         FN:5,11,scarb_template::fib
         FNDA:34,scarb_template::fib
         FNF:1
@@ -89,20 +92,21 @@ fn scarb_template() {
         LF:4
         LH:4
         end_of_record
-        "
+        ",
+        dir = dir
         }
     );
 }
 
 #[test]
 fn complex_calculator() {
-    let output = run_test_project("complex_calculator").unwrap();
+    let (dir, output) = run_test_project("complex_calculator").unwrap();
     assert_eq!(
         output,
-        indoc! {
+        formatdoc! {
         "
         TN:
-        SF:tests/data/complex_calculator/src/lib.cairo
+        SF:{dir}/src/lib.cairo
         FN:2,2,complex_calculator::add
         FNDA:2,complex_calculator::add
         FN:17,21,complex_calculator::divide
@@ -155,23 +159,24 @@ fn complex_calculator() {
         LF:29
         LH:22
         end_of_record
-        "
+        ",
+        dir = dir
         }
     );
 }
 
 #[test]
 fn readme_example() {
-    let output = run_test_project("readme_example").unwrap();
+    let (dir, output) = run_test_project("readme_example").unwrap();
 
     // If you ever find yourself in a situation where you need to change the expected output,
     // please update the lcov.md files as well.
     assert_eq!(
         output,
-        indoc! {
+        formatdoc! {
         "
         TN:
-        SF:tests/data/readme_example/src/lib.cairo
+        SF:{dir}/src/lib.cairo
         FN:8,8,readme_example::add
         FNDA:4,readme_example::add
         FN:16,18,readme_example::calculator
@@ -188,7 +193,8 @@ fn readme_example() {
         LF:5
         LH:3
         end_of_record
-        "
+        ",
+        dir = dir
         }
     );
 }
