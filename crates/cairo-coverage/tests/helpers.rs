@@ -59,11 +59,7 @@ pub fn run_test_project_with_args(
         .assert()
         .success();
 
-    let temp_dir_path = temp_dir
-        .path()
-        .to_str()
-        .context("Failed to convert the temporary directory path to a string")?;
-    let temp_dir_path = format!("/private{temp_dir_path}").into();
+    let temp_dir_path: Utf8PathBuf = temp_dir.path().canonicalize()?.try_into()?;
 
     fs::read_to_string(&output_path)
         .context("Failed to read the generated `lcov` file")

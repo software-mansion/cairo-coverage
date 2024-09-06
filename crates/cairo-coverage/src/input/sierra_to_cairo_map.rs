@@ -61,7 +61,10 @@ fn find_statement_origin(
         .zip(function_names)
         // TODO: We should probably filter by path to user project not by path to cache
         // TODO: Can get this from source_sierra_path in call trace
-        .find(|((file_location, _), _)| !file_location.contains("com.swmansion.scarb"))
+        .find(|((file_location, _), _)| {
+            !file_location.contains("com.swmansion.scarb")
+                && !file_location.contains(".cache/scarb")
+        })
         .map(
             |((file_location, line_range), function_name)| StatementOrigin {
                 function_name: function_name.to_owned(),
