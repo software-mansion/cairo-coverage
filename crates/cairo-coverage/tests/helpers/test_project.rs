@@ -97,7 +97,7 @@ pub struct CoverageTestOutput {
 
 impl CoverageTestOutput {
     pub fn output_same_as_in_file(&self, expected_file: &str) {
-        let expected = fs::read_to_string(format!("tests/output/{expected_file}"))
+        let expected = fs::read_to_string(format!("tests/expected_output/{expected_file}"))
             .unwrap()
             .replace("{dir}", self.dir.as_ref());
         assert_eq!(self.content, expected);
