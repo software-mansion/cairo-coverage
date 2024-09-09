@@ -1,24 +1,44 @@
-use anyhow::{Context, Result};
 use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
-use camino::Utf8PathBuf;
 use snapbox::cmd::{cargo_bin, Command as SnapboxCommand};
 use std::fs;
 use std::path::PathBuf;
 
 pub struct TestProject {
     dir: TempDir,
+    coverage_args: Vec<String>,
 }
 
 impl TestProject {
-    pub fn new(test_project_name: &str) -> Result<Self> {
-        let dir = TempDir::new().context("Failed to create a temporary directory")?;
+    pub fn new(test_project_name: &str) -> Self {
+        let dir = TempDir::new().unwrap();
+
         dir.copy_from(
             format!("tests/data/{test_project_name}/"),
             &["*.toml", "*.cairo"],
         )
-        .context("Failed to copy project files to the temporary directory")?;
-        Ok(Self { dir })
+        .unwrap();
+
+        Self {
+            dir,
+            coverage_args: vec![],
+        }
+    }
+
+    pub fn output(self) -> TestProjectOutput {
+        TestProjectOutput(self)
+    }
+
+    pub fn run(self) -> TestProjectOutput {
+        self.generate_trace_files()
+            .run_coverage()
+            .run_genhtml()
+            .output()
+    }
+
+    pub fn coverage_args(mut self, args: &[&str]) -> Self {
+        self.coverage_args = args.iter().map(ToString::to_string).collect();
+        self
     }
 
     fn generate_trace_files(self) -> Self {
@@ -31,31 +51,35 @@ impl TestProject {
         self
     }
 
-    fn find_trace_files(&self) -> Result<Vec<String>> {
+    fn find_trace_files(&self) -> Vec<String> {
         let trace_path = self.dir.path().join("snfoundry_trace");
         fs::read_dir(&trace_path)
-            .context("Failed to read the directory for trace files")?
-            .map(|entry| {
-                entry
-                    .context("Failed to read a directory entry")
-                    .map(|e| e.path().display().to_string())
-            })
+            .unwrap()
+            .map(|entry| entry.unwrap().path().display().to_string())
             .collect()
     }
 
     fn output_lcov_path(&self) -> PathBuf {
-        self.dir.path().join("coverage.lcov")
+        let output_file_name = self
+            .coverage_args
+            .iter()
+            .position(|arg| arg == "--output-path")
+            .and_then(|index| self.coverage_args.get(index + 1))
+            .cloned()
+            .unwrap_or_else(|| "coverage.lcov".to_string());
+
+        self.dir.path().join(output_file_name)
     }
 
-    fn run_coverage(self, args: &[&str]) -> Result<Self> {
-        let trace_files = self.find_trace_files()?;
+    fn run_coverage(self) -> Self {
+        let trace_files = self.find_trace_files();
         SnapboxCommand::new(cargo_bin!("cairo-coverage"))
             .args(&trace_files)
-            .args(args)
+            .args(&self.coverage_args)
             .current_dir(&self.dir)
             .assert()
             .success();
-        Ok(self)
+        self
     }
 
     fn run_genhtml(self) -> Self {
@@ -67,39 +91,24 @@ impl TestProject {
             .success();
         self
     }
-
-    fn output(self) -> Result<CoverageTestOutput> {
-        let content = fs::read_to_string(self.output_lcov_path())
-            .context("Failed to read the generated `lcov` file")?;
-        let dir = self.dir.path().canonicalize()?.try_into()?;
-        Ok(CoverageTestOutput { dir, content })
-    }
-    pub fn run(test_project_name: &str) -> CoverageTestOutput {
-        Self::run_with_args(test_project_name, &[])
-    }
-
-    pub fn run_with_args(test_project_name: &str, args: &[&str]) -> CoverageTestOutput {
-        Self::new(test_project_name)
-            .unwrap()
-            .generate_trace_files()
-            .run_coverage(args)
-            .unwrap()
-            .run_genhtml()
-            .output()
-            .unwrap()
-    }
 }
 
-pub struct CoverageTestOutput {
-    pub dir: Utf8PathBuf,
-    pub content: String,
-}
+pub struct TestProjectOutput(TestProject);
 
-impl CoverageTestOutput {
+impl TestProjectOutput {
     pub fn output_same_as_in_file(&self, expected_file: &str) {
+        let content = fs::read_to_string(self.0.output_lcov_path()).unwrap();
+
         let expected = fs::read_to_string(format!("tests/expected_output/{expected_file}"))
             .unwrap()
-            .replace("{dir}", self.dir.as_ref());
-        assert_eq!(self.content, expected);
+            .replace(
+                "{dir}",
+                &self.0.dir.canonicalize().unwrap().display().to_string(),
+            );
+        assert_eq!(content, expected);
+    }
+
+    pub fn dir(&self) -> &TempDir {
+        &self.0.dir
     }
 }
