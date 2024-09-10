@@ -21,7 +21,6 @@ pub struct LcovData {
 struct LcovDetails {
     name: FunctionName,
     starts_at: LineNumber,
-    ends_at: LineNumber,
     hit_count: HitCount,
 }
 
@@ -63,7 +62,6 @@ impl From<(&FunctionName, &FunctionCoverageData)> for LcovDetails {
         Self {
             name: name.to_owned(),
             starts_at: function_coverage_data.starts_at(),
-            ends_at: function_coverage_data.ends_at(),
             hit_count: function_coverage_data.hit_count(),
         }
     }
@@ -83,11 +81,7 @@ impl Display for LcovFormat {
 impl Display for LcovData {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for function in &self.functions {
-            writeln!(
-                f,
-                "FN:{},{},{}",
-                function.starts_at, function.ends_at, function.name
-            )?;
+            writeln!(f, "FN:{},{}", function.starts_at, function.name)?;
             writeln!(f, "FNDA:{},{}", function.hit_count, function.name)?;
         }
 

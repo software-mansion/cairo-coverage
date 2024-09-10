@@ -77,7 +77,6 @@ pub trait FunctionCoverageDataOps {
     fn hit(&self) -> bool;
     fn hit_count(&self) -> HitCount;
     fn starts_at(&self) -> LineNumber;
-    fn ends_at(&self) -> LineNumber;
 }
 
 impl FunctionCoverageDataOps for FunctionCoverageData {
@@ -91,10 +90,6 @@ impl FunctionCoverageDataOps for FunctionCoverageData {
 
     fn starts_at(&self) -> LineNumber {
         self.keys().min().copied().unwrap_or_default()
-    }
-
-    fn ends_at(&self) -> LineNumber {
-        self.keys().max().copied().unwrap_or_default()
     }
 }
 
