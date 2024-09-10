@@ -1,8 +1,8 @@
 TN:
 SF:{dir}/src/lib.cairo
-FN:7,8,simple::increase_by_one
+FN:7,simple::increase_by_one
 FNDA:4,simple::increase_by_one
-FN:2,3,simple::increase_by_two
+FN:2,simple::increase_by_two
 FNDA:3,simple::increase_by_two
 FNF:2
 FNH:2
@@ -15,7 +15,7 @@ LH:4
 end_of_record
 TN:
 SF:{dir}/tests/test_call.cairo
-FN:2,2,simple_tests::test_call::my_test
+FN:2,simple_tests::test_call::my_test
 FNDA:4,simple_tests::test_call::my_test
 FNF:1
 FNH:1

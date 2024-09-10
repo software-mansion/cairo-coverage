@@ -1,6 +1,6 @@
 TN:
 SF:{dir}/src/lib.cairo
-FN:5,11,scarb_template::fib
+FN:5,scarb_template::fib
 FNDA:34,scarb_template::fib
 FNF:1
 FNH:1

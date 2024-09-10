@@ -1,10 +1,10 @@
 TN:
 SF:{dir}/src/lib.cairo
-FN:8,8,readme_example::add
+FN:8,readme_example::add
 FNDA:4,readme_example::add
-FN:16,18,readme_example::calculator
+FN:16,readme_example::calculator
 FNDA:4,readme_example::calculator
-FN:12,12,readme_example::multiply
+FN:12,readme_example::multiply
 FNDA:0,readme_example::multiply
 FNF:3
 FNH:2
