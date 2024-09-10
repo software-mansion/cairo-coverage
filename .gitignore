@@ -3,4 +3,5 @@ target
 .idea
 .snfoundry_cache
 .spr.yml
+Scarb.lock
 .DS_Store
