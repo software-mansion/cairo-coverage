@@ -9,17 +9,17 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace.dependencies]
-anyhow = "1.0.86"
+anyhow = "1.0.88"
 assert_fs = "1.1.2"
-camino = "1.1.7"
-clap = { version = "4.5.13", features = ["derive"] }
-cairo-lang-sierra = "2.7.0"
-cairo-lang-sierra-to-casm = "2.7.0"
+camino = "1.1.9"
+clap = { version = "4.5.17", features = ["derive"] }
+cairo-lang-sierra = "2.8.2"
+cairo-lang-sierra-to-casm = "2.8.2"
 derived-deref = "2.1.0"
 itertools = "0.13.0"
-serde = "1.0.204"
-serde_json = "1.0.122"
+serde = "1.0.210"
+serde_json = "1.0.128"
 snapbox = "0.6.17"
 indoc = "2.0.5"
 regex = "1.10.6"
-trace-data = { git = "https://github.com/software-mansion/cairo-profiler/", tag = "v0.5.0" }
+trace-data = { git = "https://github.com/software-mansion/cairo-profiler/", tag = "v0.6.0" }
