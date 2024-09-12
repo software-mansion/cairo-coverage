@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - Bug where hit count was not correctly calculated for functions declared at same line
+- Functions from imported projects are no longer included in report when `SCARB_CACHE` is set
 
 #### Changed
 

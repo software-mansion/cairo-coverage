@@ -27,8 +27,8 @@ fn main() -> Result<()> {
         .context(format!("Failed to open output file at path: {output_path}"))?;
 
     let loaded_data = LoadedDataMap::load(&cli.trace_files)?;
-    for (_, loaded_data) in loaded_data.iter() {
-        let filter = StatementCategoryFilter::new(&cli.include, loaded_data);
+    for (source_sierra_path, loaded_data) in loaded_data.iter() {
+        let filter = StatementCategoryFilter::new(source_sierra_path, &cli.include, loaded_data)?;
         let input_data = InputData::new(loaded_data, &filter)?;
         let coverage_data = create_files_coverage_data_with_hits(&input_data);
         let output_data = LcovFormat::from(coverage_data);
