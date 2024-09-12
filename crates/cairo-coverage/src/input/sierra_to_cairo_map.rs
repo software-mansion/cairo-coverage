@@ -1,16 +1,12 @@
 use crate::data_loader::{CodeLocation, CoverageAnnotations, LineRange, ProfilerAnnotations};
-use crate::input::test_function_filter::TestFunctionFilter;
+use crate::input::statement_category_filter::{StatementCategoryFilter, VIRTUAL_FILE_REGEX};
 use crate::types::{FileLocation, FunctionName};
 use anyhow::{Context, Result};
 use cairo_lang_sierra::debug_info::{Annotations, DebugInfo};
 use cairo_lang_sierra::program::StatementIdx;
 use derived_deref::Deref;
-use regex::Regex;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
-use std::sync::LazyLock;
-
-static VIRTUAL_FILE_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\[.*?]").unwrap());
 
 #[derive(Deref)]
 pub struct SierraToCairoMap(HashMap<StatementIdx, StatementOrigin>);
@@ -22,9 +18,17 @@ pub struct StatementOrigin {
     pub line_range: LineRange,
 }
 
+impl StatementOrigin {
+    pub fn remove_virtual_file_prefix(&mut self) {
+        self.file_location = VIRTUAL_FILE_REGEX
+            .replace_all(&self.file_location, "")
+            .to_string();
+    }
+}
+
 pub fn create_sierra_to_cairo_map(
     debug_info: &DebugInfo,
-    test_function_filter: &TestFunctionFilter,
+    filter: &StatementCategoryFilter,
 ) -> Result<SierraToCairoMap> {
     let CoverageAnnotations {
         statements_code_locations,
@@ -41,10 +45,7 @@ pub fn create_sierra_to_cairo_map(
                 statements_functions
                     .get(&key)
                     .and_then(|function_names| {
-                        find_statement_origin(&code_locations, function_names)
-                    })
-                    .filter(|statement_origin| {
-                        test_function_filter.should_include(&statement_origin.function_name)
+                        find_statement_origin(&code_locations, function_names, filter)
                     })
                     .map(|statement_origin| (key, statement_origin))
             })
@@ -55,30 +56,23 @@ pub fn create_sierra_to_cairo_map(
 fn find_statement_origin(
     code_locations: &[CodeLocation],
     function_names: &[FunctionName],
+    filter: &StatementCategoryFilter,
 ) -> Option<StatementOrigin> {
     code_locations
         .iter()
         .zip(function_names)
-        // TODO(#55)
-        // TODO: We should probably filter by path to user project not by path to cache
-        // TODO: Can get this from source_sierra_path in call trace
-        .find(|((file_location, _), _)| {
-            !file_location.contains("com.swmansion.scarb")
-                && !file_location.contains(".cache/scarb")
-        })
         .map(
             |((file_location, line_range), function_name)| StatementOrigin {
-                function_name: function_name.to_owned(),
-                file_location: remove_virtual_files(file_location),
+                function_name: function_name.clone(),
+                file_location: file_location.clone(),
                 line_range: line_range.move_by_1(),
             },
         )
-}
-
-fn remove_virtual_files(file_location: &str) -> FileLocation {
-    VIRTUAL_FILE_REGEX
-        .replace_all(file_location, "")
-        .to_string()
+        .find(|statement_origin| filter.should_include(statement_origin))
+        .map(|mut statement_origin| {
+            statement_origin.remove_virtual_file_prefix();
+            statement_origin
+        })
 }
 
 trait Namespace {

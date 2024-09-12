@@ -7,7 +7,7 @@ mod types;
 
 use crate::coverage_data::create_files_coverage_data_with_hits;
 use crate::data_loader::LoadedDataMap;
-use crate::input::InputData;
+use crate::input::{InputData, StatementCategoryFilter};
 use crate::output::lcov::LcovFormat;
 use anyhow::{Context, Result};
 use clap::Parser;
@@ -28,7 +28,8 @@ fn main() -> Result<()> {
 
     let loaded_data = LoadedDataMap::load(&cli.trace_files)?;
     for (_, loaded_data) in loaded_data.iter() {
-        let input_data = InputData::new(loaded_data, cli.include_test_functions)?;
+        let filter = StatementCategoryFilter::new(&cli.include, loaded_data);
+        let input_data = InputData::new(loaded_data, &filter)?;
         let coverage_data = create_files_coverage_data_with_hits(&input_data);
         let output_data = LcovFormat::from(coverage_data);
 

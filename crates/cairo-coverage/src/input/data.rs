@@ -1,12 +1,10 @@
 use crate::data_loader::LoadedData;
-use crate::input::test_function_filter::TestFunctionFilter;
+use crate::input::statement_category_filter::StatementCategoryFilter;
 use crate::input::{create_sierra_to_cairo_map, SierraToCairoMap, UniqueExecutedSierraIds};
 use anyhow::{Context, Result};
 use cairo_lang_sierra::program::Program;
 use cairo_lang_sierra_to_casm::compiler::{CairoProgram, SierraToCasmConfig};
 use cairo_lang_sierra_to_casm::metadata::{calc_metadata, MetadataComputationConfig};
-
-const SNFORGE_TEST_EXECUTABLE: &str = "snforge_internal_test_executable";
 
 pub struct InputData {
     pub unique_executed_sierra_ids: UniqueExecutedSierraIds,
@@ -20,17 +18,9 @@ impl InputData {
             debug_info,
             call_traces,
         }: &LoadedData,
-        include_test_functions: bool,
+        filter: &StatementCategoryFilter,
     ) -> Result<Self> {
-        let test_function_filter = TestFunctionFilter::new(
-            debug_info
-                .executables
-                .get(SNFORGE_TEST_EXECUTABLE)
-                .unwrap_or(&Vec::new()),
-            include_test_functions,
-        );
-
-        let sierra_to_cairo_map = create_sierra_to_cairo_map(debug_info, &test_function_filter)?;
+        let sierra_to_cairo_map = create_sierra_to_cairo_map(debug_info, filter)?;
         let casm = compile_to_casm(program)?;
         let unique_executed_sierra_ids = call_traces
             .iter()

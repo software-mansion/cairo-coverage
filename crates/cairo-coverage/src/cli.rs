@@ -1,6 +1,6 @@
 use anyhow::{ensure, Result};
 use camino::Utf8PathBuf;
-use clap::Parser;
+use clap::{Parser, ValueEnum};
 
 #[derive(Parser, Debug)]
 #[command(version)]
@@ -13,14 +13,17 @@ pub struct Cli {
     #[arg(short, long, default_value = "coverage.lcov")]
     pub output_path: Utf8PathBuf,
 
-    /// Run coverage on functions marked with `#[test]` attribute.
-    ///
-    /// [default: false]
-    ///
-    /// Note: We currently recommend setting this to false as there
-    /// might be issues with mappings for `#[test]` attribute.
-    #[arg(long, default_value_t = false)]
-    pub include_test_functions: bool,
+    /// Include additional components in the coverage report.
+    #[arg(long, short, num_args = 1..)]
+    pub include: Vec<IncludedComponent>,
+}
+
+#[derive(ValueEnum, Debug, Clone, Eq, PartialEq)]
+pub enum IncludedComponent {
+    /// Run coverage on functions marked with `#[test]` attribute
+    TestFunctions,
+    /// Run coverage on macros and generated code by them. This includes inline macros, attribute macros, and derive macros.
+    Macros,
 }
 
 fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {

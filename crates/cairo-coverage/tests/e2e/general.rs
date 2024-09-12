@@ -11,7 +11,7 @@ fn simple() {
 #[test]
 fn simple_with_tests() {
     TestProject::new("simple")
-        .coverage_args(&["--include-test-functions"])
+        .coverage_args(&["--include", "test-functions"])
         .run()
         .output_same_as_in_file("simple_with_tests.lcov");
 }
@@ -47,4 +47,19 @@ fn readme_example() {
     TestProject::new("readme_example")
         .run()
         .output_same_as_in_file("readme_example.lcov");
+}
+
+#[test]
+fn macros() {
+    TestProject::new("macros")
+        .coverage_args(&["--include", "macros"])
+        .run()
+        .output_same_as_in_file("macros.lcov");
+}
+
+#[test]
+fn macros_not_included() {
+    TestProject::new("macros")
+        .run()
+        .output_same_as_in_file("macros_not_included.lcov");
 }
