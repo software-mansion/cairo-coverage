@@ -1,6 +1,7 @@
 use crate::data_loader::LineRange;
 use crate::input::{InputData, SierraToCairoMap};
 use crate::types::{FileLocation, FunctionName, HitCount, LineNumber};
+use itertools::Itertools;
 use std::collections::HashMap;
 
 pub type FilesCoverageData = HashMap<FileLocation, FileCoverageData>;
@@ -63,7 +64,8 @@ impl FileCoverageDataOps for FileCoverageData {
     fn lines(&self) -> HashMap<LineNumber, HitCount> {
         self.values()
             .flat_map(|details| details.iter().map(|(&line, &hits)| (line, hits)))
-            .collect()
+            .into_grouping_map()
+            .fold(0, |hits1, _, hits2| hits1 + hits2)
     }
 
     fn unique_file_hit_count(&self) -> HitCount {
