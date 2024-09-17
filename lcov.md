@@ -41,11 +41,11 @@ When running with `cairo-coverage` you will get a coverage report in `.lcov` for
 ```lcov
 TN:
 SF:/path/to/your/project/src/lib.rs
-FN:8,8,readme_example::add
+FN:8,readme_example::add
 FNDA:4,readme_example::add
-FN:16,18,readme_example::calculator
+FN:16,readme_example::calculator
 FNDA:4,readme_example::calculator
-FN:12,12,readme_example::multiply
+FN:12,readme_example::multiply
 FNDA:0,readme_example::multiply
 FNF:3
 FNH:2
@@ -68,9 +68,9 @@ Let's break it down
     - **SF**: Source File path `/path/to/your/project/src/lib.rs`
 
 2. **Function Details**
-    - **FN:8,8,readme_example::add**: The `add` function starts at line 8 and ends at line 8.
-    - **FN:12,12,readme_example::multiply**: The `multiply` function starts at line 12 and ends at line 12.
-    - **FN:16,18,readme_example::calculator**: The `calculator` function starts at line 16 and ends at line 18.
+    - **FN:8,readme_example::add**: The `add` function starts at line 8.
+    - **FN:12,readme_example::multiply**: The `multiply` function starts at line 12.
+    - **FN:16,readme_example::calculator**: The `calculator` function starts at line 16.
 
 3. **Function Hit Details**
     - **FNDA:4,readme_example::add**: The `add` function was executed 4 times (Currently not accurate as expected is to
@@ -124,15 +124,15 @@ Let's break it down
 > ```lcov
 > TN:
 > SF:/path/to/your/project/src/operations.cairo
-> FN:8,8,readme_example::add
+> FN:8,readme_example::add
 > FNDA:4,readme_example::add
-> FN:12,12,readme_example::multiply
+> FN:12,readme_example::multiply
 > FNDA:0,readme_example::multiply
 > ... other metrics ...
 > end_of_record
 > TN:
 > SF:/path/to/your/project/src/lib.cairo
-> FN:16,18,readme_example::calculator
+> FN:16,readme_example::calculator
 > FNDA:4,readme_example::calculator
 > ... other metrics ...
 > LH:10

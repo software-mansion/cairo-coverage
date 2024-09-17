@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- Option to not include macros in coverage report. To get the same behavior as before use `--include macros`.
+- Option to not include macros in coverage report. To get the same behavior as before use `--include macros`
 
 #### Fixed
 
@@ -18,4 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- `--include-test-functions` was remove in favor of `--include`. To get same behavior as before use `--include tests-functions`.
+- `--include-test-functions` was remove in favor of `--include`. To get same behavior as before
+  use `--include tests-functions`
+- Only the start of the function is now included in the report. The end of the function is optional in the lcov format
+  and would produce a warning in tools like `genhtml` when two or more functions are declared on the same line

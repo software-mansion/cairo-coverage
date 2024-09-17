@@ -1,10 +1,10 @@
 TN:
 SF:{dir}/src/lib.cairo
-FN:2,2,macros::assert_macro
+FN:2,macros::assert_macro
 FNDA:1,macros::assert_macro
-FN:1,1,macros::function_with_macro
+FN:1,macros::function_with_macro
 FNDA:1,macros::function_with_macro
-FN:2,2,macros::write_macro
+FN:2,macros::write_macro
 FNDA:0,macros::write_macro
 FNF:3
 FNH:2
