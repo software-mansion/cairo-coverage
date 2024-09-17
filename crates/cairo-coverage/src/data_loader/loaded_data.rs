@@ -1,65 +1,84 @@
-use anyhow::Context;
-use anyhow::Result;
+use crate::data_loader::sierra_program::{GetDebugInfos, SierraProgram};
+use anyhow::{Context, Result};
 use cairo_lang_sierra::debug_info::DebugInfo;
-use cairo_lang_sierra::program::{Program, ProgramArtifact, VersionedProgram};
+use cairo_lang_sierra_to_casm::compiler::CairoProgramDebugInfo;
 use camino::Utf8PathBuf;
 use derived_deref::Deref;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 use std::fs;
-use trace_data::CallTrace;
-
-type SourceSierraPath = String;
+use trace_data::{CallTrace, CallTraceNode, CasmLevelInfo};
 
 #[derive(Deref)]
-pub struct LoadedDataMap(HashMap<SourceSierraPath, LoadedData>);
+pub struct LoadedDataMap(HashMap<Utf8PathBuf, LoadedData>);
 
 pub struct LoadedData {
-    pub program: Program,
     pub debug_info: DebugInfo,
-    pub call_traces: Vec<CallTrace>,
+    pub casm_level_infos: Vec<CasmLevelInfo>,
+    pub casm_debug_info: CairoProgramDebugInfo,
 }
 
 impl LoadedDataMap {
-    pub fn load(call_trace_paths: &Vec<Utf8PathBuf>) -> Result<Self> {
-        let mut map: HashMap<SourceSierraPath, LoadedData> = HashMap::new();
-        for call_trace_path in call_trace_paths {
-            let call_trace: CallTrace = read_and_deserialize(call_trace_path)?;
+    pub fn load(call_trace_paths: &[Utf8PathBuf]) -> Result<Self> {
+        let execution_infos = call_trace_paths
+            .iter()
+            .map(read_and_deserialize)
+            .collect::<Result<Vec<_>>>()?
+            .into_iter()
+            .flat_map(load_nested_traces)
+            .filter_map(|call_trace| call_trace.cairo_execution_info)
+            .collect::<Vec<_>>();
 
-            let source_sierra_path = &call_trace
-                .cairo_execution_info
-                .as_ref()
-                .context("Missing key 'cairo_execution_info' in call trace. Perhaps you have outdated scarb?")?
-                .source_sierra_path;
+        // OPTIMIZATION:
+        // Group execution info by source Sierra path
+        // so that the same Sierra program does not need to be deserialized multiple times.
+        let execution_infos_by_sierra_path = execution_infos.into_iter().fold(
+            HashMap::new(),
+            |mut acc: HashMap<_, Vec<_>>, execution_info| {
+                acc.entry(execution_info.source_sierra_path)
+                    .or_default()
+                    .push(execution_info.casm_level_info);
+                acc
+            },
+        );
 
-            if let Some(loaded_data) = map.get_mut(&source_sierra_path.to_string()) {
-                loaded_data.call_traces.push(call_trace);
-            } else {
-                let VersionedProgram::V1 {
-                    program:
-                        ProgramArtifact {
-                            program,
+        Ok(Self(
+            execution_infos_by_sierra_path
+                .into_iter()
+                .map(|(source_sierra_path, casm_level_infos)| {
+                    read_and_deserialize::<SierraProgram>(&source_sierra_path)?
+                        .compile_and_get_debug_infos()
+                        .map(|(debug_info, casm_debug_info)| LoadedData {
                             debug_info,
-                        },
-                    ..
-                } = read_and_deserialize(source_sierra_path)?;
-
-                map.insert(
-                    source_sierra_path.to_string(),
-                    LoadedData {
-                        program,
-                        debug_info: debug_info
-                            .context(format!("Debug info not found in: {source_sierra_path}"))?,
-                        call_traces: vec![call_trace],
-                    },
-                );
-            }
-        }
-        Ok(Self(map))
+                            casm_level_infos,
+                            casm_debug_info,
+                        })
+                        .context(format!(
+                            "Error occurred while loading program from: {source_sierra_path}"
+                        ))
+                        .map(|loaded_data| (source_sierra_path, loaded_data))
+                })
+                .collect::<Result<_>>()?,
+        ))
     }
 }
 
-fn read_and_deserialize<T: DeserializeOwned>(file_path: &Utf8PathBuf) -> anyhow::Result<T> {
+fn load_nested_traces(call_trace: CallTrace) -> Vec<CallTrace> {
+    fn load_recursively(call_trace: CallTrace, acc: &mut Vec<CallTrace>) {
+        acc.push(call_trace.clone());
+        for call_trace_node in call_trace.nested_calls {
+            if let CallTraceNode::EntryPointCall(nested_call_trace) = call_trace_node {
+                load_recursively(nested_call_trace, acc);
+            }
+        }
+    }
+
+    let mut call_traces = Vec::new();
+    load_recursively(call_trace, &mut call_traces);
+    call_traces
+}
+
+fn read_and_deserialize<T: DeserializeOwned>(file_path: &Utf8PathBuf) -> Result<T> {
     fs::read_to_string(file_path)
         .context(format!("Failed to read file at path: {file_path}"))
         .and_then(|content| {

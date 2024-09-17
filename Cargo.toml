@@ -15,6 +15,7 @@ camino = "1.1.9"
 clap = { version = "4.5.17", features = ["derive"] }
 cairo-lang-sierra = "2.8.2"
 cairo-lang-sierra-to-casm = "2.8.2"
+cairo-lang-starknet-classes = "2.8.2"
 derived-deref = "2.1.0"
 itertools = "0.13.0"
 serde = "1.0.210"
