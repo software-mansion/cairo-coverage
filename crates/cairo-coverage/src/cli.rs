@@ -16,6 +16,10 @@ pub struct Cli {
     /// Include additional components in the coverage report.
     #[arg(long, short, num_args = 1..)]
     pub include: Vec<IncludedComponent>,
+
+    /// Path to the project directory. If not provided, the project directory is inferred from the trace.
+    #[arg(value_parser = parse_project_path, long)]
+    pub project_path: Option<Utf8PathBuf>,
 }
 
 #[derive(ValueEnum, Debug, Clone, Eq, PartialEq)]
@@ -37,4 +41,13 @@ fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
     );
 
     Ok(trace_file)
+}
+
+fn parse_project_path(path: &str) -> Result<Utf8PathBuf> {
+    let project_path = Utf8PathBuf::from(path);
+
+    ensure!(project_path.exists(), "Project path does not exist");
+    ensure!(project_path.is_dir(), "Project path is not a directory");
+
+    Ok(project_path)
 }

@@ -63,3 +63,10 @@ fn macros_not_included() {
         .run()
         .output_same_as_in_file("macros_not_included.lcov");
 }
+
+#[test]
+fn snforge_template() {
+    TestProject::new("snforge_template")
+        .run()
+        .output_same_as_in_file("snforge_template.lcov");
+}

@@ -5,6 +5,7 @@ use anyhow::{Context, Result};
 use cairo_lang_sierra::debug_info::{Annotations, DebugInfo};
 use cairo_lang_sierra::program::StatementIdx;
 use derived_deref::Deref;
+use indoc::formatdoc;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 
@@ -82,7 +83,18 @@ trait Namespace {
         annotations
             .get(Self::NAMESPACE)
             .cloned()
-            .context(format!("Expected key: {} but was missing", Self::NAMESPACE))
+            .context(formatdoc! {
+                r#"Expected key: {} but was missing.
+
+                Perhaps you are missing the following entries in Scarb.toml:
+
+                [profile.dev.cairo]
+                unstable-add-statements-functions-debug-info = true
+                unstable-add-statements-code-locations-debug-info = true
+                inlining-strategy= "avoid"
+                "#,
+                Self::NAMESPACE,
+            })
             .and_then(|value| {
                 serde_json::from_value(value)
                     .context(format!("Failed to deserialize at key: {}", Self::NAMESPACE))

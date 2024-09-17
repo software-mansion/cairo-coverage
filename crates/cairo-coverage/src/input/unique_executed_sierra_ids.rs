@@ -1,40 +1,31 @@
 use crate::input::SierraToCairoMap;
-use anyhow::{Context, Result};
+use crate::merge::MergeOwned;
 use cairo_lang_sierra::program::StatementIdx;
-use cairo_lang_sierra_to_casm::compiler::CairoProgram;
+use cairo_lang_sierra_to_casm::compiler::CairoProgramDebugInfo;
 use derived_deref::Deref;
 use itertools::Itertools;
 use std::collections::HashMap;
-use trace_data::{CallTrace, CasmLevelInfo};
+use trace_data::CasmLevelInfo;
 
 #[derive(Deref)]
 pub struct UniqueExecutedSierraIds(HashMap<StatementIdx, usize>);
 
-impl Extend<(StatementIdx, usize)> for UniqueExecutedSierraIds {
-    fn extend<T: IntoIterator<Item = (StatementIdx, usize)>>(&mut self, iter: T) {
-        for (key, value) in iter {
-            self.0
-                .entry(key)
-                .and_modify(|e| *e += value)
-                .or_insert(value);
-        }
+impl MergeOwned for UniqueExecutedSierraIds {
+    fn merge_owned(self, other: Self) -> Self {
+        Self(self.0.merge_owned(other.0))
     }
 }
 
 impl UniqueExecutedSierraIds {
     pub fn new(
-        casm: &CairoProgram,
-        call_trace: &CallTrace,
+        casm_debug_info: &CairoProgramDebugInfo,
+        casm_level_info: &CasmLevelInfo,
         sierra_to_cairo_map: &SierraToCairoMap,
-    ) -> Result<Self> {
+    ) -> Self {
         let CasmLevelInfo {
             run_with_call_header,
             vm_trace,
-        } = &call_trace
-            .cairo_execution_info
-            .as_ref()
-            .context("Missing key 'cairo_execution_info' in call trace")?
-            .casm_level_info;
+        } = &casm_level_info;
 
         let real_minimal_pc = run_with_call_header
             .then(|| vm_trace.last().map_or(1, |trace| trace.pc + 1))
@@ -46,17 +37,14 @@ impl UniqueExecutedSierraIds {
             .filter(|pc| pc >= &real_minimal_pc)
             .map(|pc| {
                 let real_pc_code_offset = pc - real_minimal_pc;
-                casm.debug_info
+                casm_debug_info
                     .sierra_statement_info
                     .partition_point(|debug_info| debug_info.start_offset <= real_pc_code_offset)
                     - 1
             })
             .map(StatementIdx);
 
-        Ok(squash_idx_pointing_to_same_statement(
-            iter,
-            sierra_to_cairo_map,
-        ))
+        squash_idx_pointing_to_same_statement(iter, sierra_to_cairo_map)
     }
 }
 
