@@ -80,6 +80,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: foundry-rs/setup-snfoundry@v3
 
+      - name: Install cairo-coverage
+        run: curl -L https://raw.githubusercontent.com/software-mansion/cairo-coverage/main/scripts/install.sh | sh
+
       - name: Run tests and generate report
         run: snforge test --coverage
 
