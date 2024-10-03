@@ -6,10 +6,10 @@
 > Please note that this repository is actively being developed and is currently in an alpha release stage.
 > If you encounter any issues, please report them to us via the issues
 > tab on our GitHub [repository](https://github.com/software-mansion/cairo-coverage).
-> 
+>
 > We currently don't support:
 > - Branch coverage
-> 
+>
 > Things that might not work as expected:
 > - Counters for how many times line was executed
 
@@ -100,5 +100,9 @@ trace data in a specific expected format -
 the same format which is accepted by the [cairo-profiler](https://github.com/software-mansion/cairo-profiler/tree/main).
 For the exact code implementation of this format, please refer
 to [this page](https://github.com/software-mansion/cairo-profiler/blob/main/crates/trace-data/src/lib.rs).
-For a practical example of how this format appears in a file, consider
-examining [this json file](./crates/cairo-coverage/tests/data/simple/snfoundry_trace/simple_tests::test_call::my_test.json).
+
+## Getting Help
+
+Join the [Telegram](https://t.me/cairo_coverage) group to get help
+
+Found a bug? Open an [issue](https://github.com/software-mansion/cairo-coverage/issues/new).
