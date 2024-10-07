@@ -1,11 +1,11 @@
 use crate::input::SierraToCairoMap;
 use crate::merge::MergeOwned;
+use cairo_annotations::trace_data::CasmLevelInfo;
 use cairo_lang_sierra::program::StatementIdx;
 use cairo_lang_sierra_to_casm::compiler::CairoProgramDebugInfo;
 use derived_deref::Deref;
 use itertools::Itertools;
 use std::collections::HashMap;
-use trace_data::CasmLevelInfo;
 
 #[derive(Deref)]
 pub struct UniqueExecutedSierraIds(HashMap<StatementIdx, usize>);

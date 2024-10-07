@@ -1,5 +1,8 @@
 use crate::data_loader::sierra_program::{GetDebugInfos, SierraProgram};
 use anyhow::{Context, Result};
+use cairo_annotations::trace_data::{
+    CallTraceNode, CallTraceV1, CasmLevelInfo, VersionedCallTrace,
+};
 use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra_to_casm::compiler::CairoProgramDebugInfo;
 use camino::Utf8PathBuf;
@@ -7,7 +10,6 @@ use derived_deref::Deref;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 use std::fs;
-use trace_data::{CallTrace, CallTraceNode, CasmLevelInfo};
 
 #[derive(Deref)]
 pub struct LoadedDataMap(HashMap<Utf8PathBuf, LoadedData>);
@@ -63,8 +65,8 @@ impl LoadedDataMap {
     }
 }
 
-fn load_nested_traces(call_trace: CallTrace) -> Vec<CallTrace> {
-    fn load_recursively(call_trace: CallTrace, acc: &mut Vec<CallTrace>) {
+fn load_nested_traces(VersionedCallTrace::V1(call_trace): VersionedCallTrace) -> Vec<CallTraceV1> {
+    fn load_recursively(call_trace: CallTraceV1, acc: &mut Vec<CallTraceV1>) {
         acc.push(call_trace.clone());
         for call_trace_node in call_trace.nested_calls {
             if let CallTraceNode::EntryPointCall(nested_call_trace) = call_trace_node {
