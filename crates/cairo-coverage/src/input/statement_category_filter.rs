@@ -1,6 +1,7 @@
 use crate::cli::IncludedComponent;
 use crate::data_loader::LoadedData;
 use crate::input::sierra_to_cairo_map::StatementOrigin;
+use cairo_annotations::annotations::profiler::FunctionName;
 use camino::Utf8PathBuf;
 use regex::Regex;
 use std::collections::HashSet;
@@ -72,7 +73,7 @@ impl StatementCategoryFilter {
     fn get_categories_for_statement(
         &self,
         StatementOrigin {
-            function_name,
+            function_name: FunctionName(function_name),
             file_location,
             ..
         }: &StatementOrigin,

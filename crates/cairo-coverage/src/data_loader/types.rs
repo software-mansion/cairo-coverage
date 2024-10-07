@@ -1,4 +1,4 @@
-use crate::types::{FileLocation, FunctionName, LineNumber};
+use crate::types::{FileLocation, LineNumber};
 use cairo_lang_sierra::program::StatementIdx;
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -42,9 +42,4 @@ pub struct Position {
 #[derive(Deserialize)]
 pub struct CoverageAnnotations {
     pub statements_code_locations: HashMap<StatementIdx, Vec<CodeLocation>>,
-}
-
-#[derive(Deserialize)]
-pub struct ProfilerAnnotations {
-    pub statements_functions: HashMap<StatementIdx, Vec<FunctionName>>,
 }

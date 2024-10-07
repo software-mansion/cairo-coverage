@@ -1,6 +1,7 @@
 use crate::data_loader::LineRange;
 use crate::input::{InputData, SierraToCairoMap};
-use crate::types::{FileLocation, FunctionName, HitCount, LineNumber};
+use crate::types::{FileLocation, HitCount, LineNumber};
+use cairo_annotations::annotations::profiler::FunctionName;
 use itertools::Itertools;
 use std::collections::HashMap;
 

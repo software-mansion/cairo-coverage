@@ -2,7 +2,8 @@ use crate::coverage_data::{
     FileCoverageData, FileCoverageDataOps, FilesCoverageData, FunctionCoverageData,
     FunctionCoverageDataOps,
 };
-use crate::types::{FileLocation, FunctionName, HitCount, LineNumber};
+use crate::types::{FileLocation, HitCount, LineNumber};
+use cairo_annotations::annotations::profiler::FunctionName;
 use derived_deref::Deref;
 use std::fmt;
 use std::fmt::Display;

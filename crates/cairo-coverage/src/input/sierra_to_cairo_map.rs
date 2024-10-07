@@ -1,13 +1,28 @@
-use crate::data_loader::{CodeLocation, CoverageAnnotations, LineRange, ProfilerAnnotations};
+use crate::data_loader::{CodeLocation, CoverageAnnotations, LineRange};
 use crate::input::statement_category_filter::{StatementCategoryFilter, VIRTUAL_FILE_REGEX};
-use crate::types::{FileLocation, FunctionName};
+use crate::types::FileLocation;
 use anyhow::{Context, Result};
+use cairo_annotations::annotations::profiler::{
+    FunctionName, ProfilerAnnotationsV1, VersionedProfilerAnnotations,
+};
+use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_lang_sierra::debug_info::{Annotations, DebugInfo};
 use cairo_lang_sierra::program::StatementIdx;
 use derived_deref::Deref;
-use indoc::formatdoc;
+use indoc::{formatdoc, indoc};
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
+
+const RECOMMENDED_CAIRO_PROFILE_TOML: &str = indoc! {
+    r#"
+    Perhaps you are missing the following entries in Scarb.toml:
+
+    [profile.dev.cairo]
+    unstable-add-statements-functions-debug-info = true
+    unstable-add-statements-code-locations-debug-info = true
+    inlining-strategy = "avoid"
+    "#
+};
 
 #[derive(Deref)]
 pub struct SierraToCairoMap(HashMap<StatementIdx, StatementOrigin>);
@@ -35,9 +50,10 @@ pub fn create_sierra_to_cairo_map(
         statements_code_locations,
     } = CoverageAnnotations::get_namespace(&debug_info.annotations)?;
 
-    let ProfilerAnnotations {
+    let VersionedProfilerAnnotations::V1(ProfilerAnnotationsV1 {
         statements_functions,
-    } = ProfilerAnnotations::get_namespace(&debug_info.annotations)?;
+    }) = VersionedProfilerAnnotations::try_from_debug_info(debug_info)
+        .context(RECOMMENDED_CAIRO_PROFILE_TOML)?;
 
     Ok(SierraToCairoMap(
         statements_code_locations
@@ -104,8 +120,4 @@ trait Namespace {
 
 impl Namespace for CoverageAnnotations {
     const NAMESPACE: &'static str = "github.com/software-mansion/cairo-coverage";
-}
-
-impl Namespace for ProfilerAnnotations {
-    const NAMESPACE: &'static str = "github.com/software-mansion/cairo-profiler";
 }
