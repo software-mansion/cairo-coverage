@@ -12,7 +12,7 @@ edition = "2021"
 anyhow = "1.0.88"
 assert_fs = "1.1.2"
 camino = "1.1.9"
-clap = { version = "4.5.17", features = ["derive"] }
+clap = { version = "4.5.18", features = ["derive"] }
 cairo-lang-sierra = "2.8.2"
 cairo-lang-sierra-to-casm = "2.8.2"
 cairo-lang-starknet-classes = "2.8.2"
