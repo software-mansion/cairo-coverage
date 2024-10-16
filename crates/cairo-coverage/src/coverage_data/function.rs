@@ -1,10 +1,11 @@
-use crate::data_loader::LineRange;
 use crate::input::{InputData, SierraToCairoMap};
-use crate::types::{FileLocation, FunctionName, HitCount, LineNumber};
+use crate::types::HitCount;
+use cairo_annotations::annotations::coverage::{LineNumber, SourceFileFullPath};
+use cairo_annotations::annotations::profiler::FunctionName;
 use itertools::Itertools;
 use std::collections::HashMap;
 
-pub type FilesCoverageData = HashMap<FileLocation, FileCoverageData>;
+pub type FilesCoverageData = HashMap<SourceFileFullPath, FileCoverageData>;
 
 pub fn create_files_coverage_data_with_hits(input_data: &InputData) -> FilesCoverageData {
     input_data
@@ -15,7 +16,7 @@ pub fn create_files_coverage_data_with_hits(input_data: &InputData) -> FilesCove
             create_files_coverage_data(&input_data.sierra_to_cairo_map),
             |mut files_coverage_data, (id, statement_origin)| {
                 if let Some(function_details) = files_coverage_data
-                    .get_mut(&statement_origin.file_location)
+                    .get_mut(&statement_origin.source_file_full_path)
                     .and_then(|functions| functions.get_mut(&statement_origin.function_name))
                 {
                     function_details.register_hit(
@@ -33,13 +34,11 @@ fn create_files_coverage_data(sierra_to_cairo_map: &SierraToCairoMap) -> FilesCo
         .values()
         .cloned()
         .fold(HashMap::new(), |mut acc, origin| {
-            acc.entry(origin.file_location)
+            acc.entry(origin.source_file_full_path)
                 .or_default()
                 .entry(origin.function_name)
-                .and_modify(|function_details: &mut FunctionCoverageData| {
-                    function_details.register_line(&origin.line_range);
-                })
-                .or_insert(origin.line_range.into());
+                .or_default()
+                .register_line(&origin.line_range);
             acc
         })
 }
@@ -95,27 +94,19 @@ impl FunctionCoverageDataOps for FunctionCoverageData {
     }
 }
 
-impl From<LineRange> for FunctionCoverageData {
-    fn from(line_range: LineRange) -> Self {
-        let mut function_coverage_data = FunctionCoverageData::new();
-        function_coverage_data.register_line(&line_range);
-        function_coverage_data
-    }
-}
-
 trait Register {
-    fn register_line<T: IntoIterator<Item = LineNumber>>(&mut self, lines: T);
-    fn register_hit<T: IntoIterator<Item = LineNumber>>(&mut self, lines: T, times: HitCount);
+    fn register_line(&mut self, lines: impl IntoIterator<Item = LineNumber>);
+    fn register_hit(&mut self, lines: impl IntoIterator<Item = LineNumber>, times: HitCount);
 }
 
 impl Register for FunctionCoverageData {
-    fn register_line<T: IntoIterator<Item = LineNumber>>(&mut self, lines: T) {
+    fn register_line(&mut self, lines: impl IntoIterator<Item = LineNumber>) {
         for line in lines {
             self.entry(line).or_default();
         }
     }
 
-    fn register_hit<T: IntoIterator<Item = LineNumber>>(&mut self, lines: T, times: HitCount) {
+    fn register_hit(&mut self, lines: impl IntoIterator<Item = LineNumber>, times: HitCount) {
         for line in lines {
             *self.entry(line).or_default() += times;
         }

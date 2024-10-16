@@ -13,6 +13,7 @@ anyhow = "1.0.88"
 assert_fs = "1.1.2"
 camino = "1.1.9"
 clap = { version = "4.5.18", features = ["derive"] }
+cairo-annotations = "0.1.0"
 cairo-lang-sierra = "2.8.2"
 cairo-lang-sierra-to-casm = "2.8.2"
 cairo-lang-starknet-classes = "2.8.2"
@@ -23,4 +24,3 @@ serde_json = "1.0.128"
 snapbox = "0.6.17"
 indoc = "2.0.5"
 regex = "1.11.0"
-trace-data = { git = "https://github.com/software-mansion/cairo-profiler/", tag = "v0.6.0" }
