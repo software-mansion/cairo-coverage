@@ -1,6 +1,8 @@
 use crate::cli::IncludedComponent;
 use crate::data_loader::LoadedData;
 use crate::input::sierra_to_cairo_map::StatementOrigin;
+use cairo_annotations::annotations::coverage::SourceFileFullPath;
+use cairo_annotations::annotations::profiler::FunctionName;
 use camino::Utf8PathBuf;
 use regex::Regex;
 use std::collections::HashSet;
@@ -72,8 +74,8 @@ impl StatementCategoryFilter {
     fn get_categories_for_statement(
         &self,
         StatementOrigin {
-            function_name,
-            file_location,
+            function_name: FunctionName(function_name),
+            source_file_full_path: SourceFileFullPath(source_file_full_path),
             ..
         }: &StatementOrigin,
     ) -> HashSet<StatementCategory> {
@@ -81,11 +83,11 @@ impl StatementCategoryFilter {
 
         if self.test_functions.contains(function_name) {
             labels.insert(StatementCategory::TestFunction);
-        } else if VIRTUAL_FILE_REGEX.is_match(file_location) {
+        } else if VIRTUAL_FILE_REGEX.is_match(source_file_full_path) {
             labels.insert(StatementCategory::Macro);
         }
 
-        if file_location.contains(&self.user_project_path) {
+        if source_file_full_path.contains(&self.user_project_path) {
             labels.insert(StatementCategory::UserFunction);
         } else {
             labels.insert(StatementCategory::NonUserFunction);
