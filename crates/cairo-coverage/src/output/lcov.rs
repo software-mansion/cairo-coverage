@@ -2,13 +2,16 @@ use crate::coverage_data::{
     FileCoverageData, FileCoverageDataOps, FilesCoverageData, FunctionCoverageData,
     FunctionCoverageDataOps,
 };
-use crate::types::{FileLocation, FunctionName, HitCount, LineNumber};
+use crate::types::HitCount;
+use cairo_annotations::annotations::coverage::{LineNumber, SourceFileFullPath};
+use cairo_annotations::annotations::profiler::FunctionName;
 use derived_deref::Deref;
+use itertools::Itertools;
 use std::fmt;
 use std::fmt::Display;
 
 #[derive(Deref)]
-pub struct LcovFormat(Vec<(FileLocation, LcovData)>);
+pub struct LcovFormat(Vec<(SourceFileFullPath, LcovData)>);
 
 pub struct LcovData {
     lines: Vec<(LineNumber, HitCount)>,
@@ -26,24 +29,31 @@ struct LcovDetails {
 
 impl From<FilesCoverageData> for LcovFormat {
     fn from(files_coverage_data: FilesCoverageData) -> Self {
-        let mut list: Vec<_> = files_coverage_data
-            .iter()
-            .map(|(file_location, file_coverage_data)| {
-                (file_location.to_owned(), file_coverage_data.into())
-            })
-            .collect();
-        list.sort_by_key(|(file_location, _)| file_location.to_owned());
-        Self(list)
+        Self(
+            files_coverage_data
+                .iter()
+                .map(|(source_file_full_path, file_coverage_data)| {
+                    (source_file_full_path.to_owned(), file_coverage_data.into())
+                })
+                .sorted_by(
+                    |(source_file_full_path, _), (other_source_file_full_path, _)| {
+                        source_file_full_path.cmp(other_source_file_full_path)
+                    },
+                )
+                .collect(),
+        )
     }
 }
 
 impl From<&FileCoverageData> for LcovData {
     fn from(file_coverage_data: &FileCoverageData) -> Self {
-        let mut lines: Vec<_> = file_coverage_data.lines().into_iter().collect();
-        lines.sort_unstable();
+        let lines = file_coverage_data.lines().into_iter().sorted().collect();
 
-        let mut functions: Vec<_> = file_coverage_data.iter().map(LcovDetails::from).collect();
-        functions.sort();
+        let functions = file_coverage_data
+            .iter()
+            .map(LcovDetails::from)
+            .sorted()
+            .collect();
 
         let file_hit_count = file_coverage_data.file_hit_count();
         let unique_file_hit_count = file_coverage_data.unique_file_hit_count();
@@ -69,9 +79,9 @@ impl From<(&FunctionName, &FunctionCoverageData)> for LcovDetails {
 
 impl Display for LcovFormat {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        for (file_location, functions) in self.iter() {
+        for (source_file_full_path, functions) in self.iter() {
             writeln!(f, "TN:")?;
-            writeln!(f, "SF:{file_location}")?;
+            writeln!(f, "SF:{source_file_full_path}")?;
             write!(f, "{functions}")?;
         }
         Ok(())
