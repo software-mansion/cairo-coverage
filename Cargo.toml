@@ -9,7 +9,7 @@ version = "0.2.0"
 edition = "2021"
 
 [workspace.dependencies]
-anyhow = "1.0.88"
+anyhow = "1.0.91"
 assert_fs = "1.1.2"
 camino = "1.1.9"
 clap = { version = "4.5.18", features = ["derive"] }
