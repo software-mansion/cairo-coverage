@@ -64,9 +64,7 @@ fn get_project_path(
     } else {
         find_user_project_path(source_sierra_path).context(indoc! {
             r"Inference of project path failed.
-            Please provide the project path explicitly using the --project-path flag.
-            If you are using snforge, it is not possible to use cairo-coverage flags.
-            You need to run cairo-coverage directly."
+            Please provide the project path explicitly using the --project-path flag."
         })
     }
 }
@@ -79,29 +77,36 @@ fn find_user_project_path(source_sierra_path: &Utf8PathBuf) -> Result<Utf8PathBu
 
     match source_sierra_path.with_extension("").extension() {
         Some("sierra") => {
-            source_sierra_path
-                .parent()
-                .filter(|parent| parent.file_name() == Some(SNFORGE_SIERRA_DIR))
-                .and_then(|parent| parent.parent())
-                .map(Utf8PathBuf::from)
+            navigate_and_check(source_sierra_path, &["target", "dev"])
+                .or_else(|| navigate_and_check(source_sierra_path, &[SNFORGE_SIERRA_DIR]))
                 .context(format!(
-                    "Source sierra path should be in the format: <project_root>/{SNFORGE_SIERRA_DIR}/<file>.sierra.json, got: {source_sierra_path}"
+                    "Source sierra path should be in one of the formats: \
+                    <project_root>/{SNFORGE_SIERRA_DIR}/<file>.sierra.json \
+                    or <project_root>/target/dev/<file>.sierra.json, got: {source_sierra_path}"
                 ))
         }
         Some("contract_class") => {
-            source_sierra_path
-                .parent()
-                .filter(|parent| parent.file_name() == Some("dev"))
-                .and_then(|parent| parent.parent())
-                .filter(|parent| parent.file_name() == Some("target"))
-                .and_then(|parent| parent.parent())
-                .map(Utf8PathBuf::from)
+            navigate_and_check(source_sierra_path, &["target", "dev"])
                 .context(format!(
-                    "Source sierra path should be in the format: <project_root>/target/dev/<file>.contract_class.json, got: {source_sierra_path}"
+                    "Source sierra path should be in the format: \
+                    <project_root>/target/dev/<file>.contract_class.json, got: {source_sierra_path}"
                 ))
         }
         _ => bail!(
             "Source sierra path should have a .sierra or .contract_class extension, got: {source_sierra_path}"
         ),
     }
+}
+
+fn navigate_and_check(path: &Utf8PathBuf, folders: &[&str]) -> Option<Utf8PathBuf> {
+    folders
+        .iter()
+        .rev()
+        .try_fold(path.parent()?, |current, &folder| {
+            current
+                .file_name()
+                .filter(|name| *name == folder)
+                .map(|_| current.parent())?
+        })
+        .map(Utf8PathBuf::from)
 }
