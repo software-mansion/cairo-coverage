@@ -201,7 +201,7 @@ dependencies = [
 
 [[package]]
 name = "cairo-coverage"
-version = "0.2.0"
+version = "0.3.0-rc0"
 dependencies = [
  "anyhow",
  "assert_fs",
