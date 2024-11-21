@@ -9,7 +9,7 @@ use cairo_annotations::annotations::profiler::{
 };
 use cairo_annotations::annotations::TryFromDebugInfo;
 use cairo_lang_sierra::debug_info::DebugInfo;
-use cairo_lang_sierra::program::StatementIdx;
+use cairo_lang_sierra::program::{Program, Statement, StatementIdx};
 use derived_deref::Deref;
 use indoc::indoc;
 use serde::Deserialize;
@@ -31,11 +31,15 @@ const RECOMMENDED_CAIRO_PROFILE_TOML: &str = indoc! {
 #[derive(Deref)]
 pub struct SierraToCairoMap(HashMap<StatementIdx, StatementOrigin>);
 
+#[derive(Clone, Eq, PartialEq, Hash)]
+pub struct SimpleLibfuncName(pub String);
+
 #[derive(Clone, Eq, PartialEq)]
 pub struct StatementOrigin {
     pub function_name: FunctionName,
     pub source_file_full_path: SourceFileFullPath,
     pub line_range: LineRange,
+    pub simple_libfunc_name: SimpleLibfuncName,
 }
 
 impl StatementOrigin {
@@ -78,6 +82,7 @@ impl IntoIterator for &LineRange {
 pub fn create_sierra_to_cairo_map(
     debug_info: &DebugInfo,
     filter: &StatementCategoryFilter,
+    program: &Program,
 ) -> Result<SierraToCairoMap> {
     let VersionedCoverageAnnotations::V1(CoverageAnnotationsV1 {
         statements_code_locations,
@@ -89,16 +94,41 @@ pub fn create_sierra_to_cairo_map(
     }) = VersionedProfilerAnnotations::try_from_debug_info(debug_info)
         .context(RECOMMENDED_CAIRO_PROFILE_TOML)?;
 
+    let libfuncs_long_ids_by_ids: HashMap<_, _> = program
+        .libfunc_declarations
+        .iter()
+        .map(|libfunc_declaration| (&libfunc_declaration.id, &libfunc_declaration.long_id))
+        .collect();
+
+    let libfunc_names_by_idx: HashMap<_, _> = program
+        .statements
+        .iter()
+        .enumerate()
+        .filter_map(|(idx, statement)| {
+            let simple_libfunc_name = match statement {
+                Statement::Invocation(invocation_statement) => libfuncs_long_ids_by_ids
+                    .get(&invocation_statement.libfunc_id)?
+                    .to_string(),
+                Statement::Return(_) => "return".to_string(),
+            };
+            Some((StatementIdx(idx), SimpleLibfuncName(simple_libfunc_name)))
+        })
+        .collect();
+
     Ok(SierraToCairoMap(
         statements_code_locations
             .into_iter()
             .filter_map(|(key, code_locations)| {
-                statements_functions
-                    .get(&key)
-                    .and_then(|function_names| {
-                        find_statement_origin(&code_locations, function_names, filter)
-                    })
-                    .map(|statement_origin| (key, statement_origin))
+                let function_names = statements_functions.get(&key)?;
+                let simple_libfunc_name = libfunc_names_by_idx.get(&key)?;
+
+                let statement_origin = find_statement_origin(
+                    &code_locations,
+                    function_names,
+                    filter,
+                    simple_libfunc_name,
+                )?;
+                Some((key, statement_origin))
             })
             .collect(),
     ))
@@ -108,6 +138,7 @@ fn find_statement_origin(
     code_locations: &[CodeLocation],
     function_names: &[FunctionName],
     filter: &StatementCategoryFilter,
+    libfunc_name: &SimpleLibfuncName,
 ) -> Option<StatementOrigin> {
     code_locations
         .iter()
@@ -117,6 +148,7 @@ fn find_statement_origin(
                 function_name: function_name.clone(),
                 source_file_full_path: source_file_full_path.clone(),
                 line_range: line_range.into(),
+                simple_libfunc_name: libfunc_name.clone(),
             },
         )
         .find(|statement_origin| filter.should_include(statement_origin))

@@ -14,12 +14,16 @@ pub enum SierraProgram {
     ContractClass(ContractClass),
 }
 
-pub trait GetDebugInfos {
-    fn compile_and_get_debug_infos(self) -> Result<(DebugInfo, CairoProgramDebugInfo)>;
+pub trait GetDebugInfosAndProgram {
+    fn compile_and_get_debug_infos_and_program(
+        self,
+    ) -> Result<(DebugInfo, CairoProgramDebugInfo, Program)>;
 }
 
-impl GetDebugInfos for VersionedProgram {
-    fn compile_and_get_debug_infos(self) -> Result<(DebugInfo, CairoProgramDebugInfo)> {
+impl GetDebugInfosAndProgram for VersionedProgram {
+    fn compile_and_get_debug_infos_and_program(
+        self,
+    ) -> Result<(DebugInfo, CairoProgramDebugInfo, Program)> {
         let VersionedProgram::V1 {
             program:
                 ProgramArtifact {
@@ -31,12 +35,15 @@ impl GetDebugInfos for VersionedProgram {
 
         let debug_info = debug_info.context("Debug info not found in program")?;
         let casm_debug_info = compile_program_to_casm_debug_info(&program)?;
-        Ok((debug_info, casm_debug_info))
+        Ok((debug_info, casm_debug_info, program))
     }
 }
 
-impl GetDebugInfos for ContractClass {
-    fn compile_and_get_debug_infos(self) -> Result<(DebugInfo, CairoProgramDebugInfo)> {
+impl GetDebugInfosAndProgram for ContractClass {
+    fn compile_and_get_debug_infos_and_program(
+        self,
+    ) -> Result<(DebugInfo, CairoProgramDebugInfo, Program)> {
+        let program = self.extract_sierra_program()?;
         let debug_info = self
             .sierra_program_debug_info
             .context("Debug info not found in contract")?;
@@ -48,15 +55,19 @@ impl GetDebugInfos for ContractClass {
             ..self
         })?;
 
-        Ok((debug_info, casm_debug_info))
+        Ok((debug_info, casm_debug_info, program))
     }
 }
-impl GetDebugInfos for SierraProgram {
-    fn compile_and_get_debug_infos(self) -> Result<(DebugInfo, CairoProgramDebugInfo)> {
+impl GetDebugInfosAndProgram for SierraProgram {
+    fn compile_and_get_debug_infos_and_program(
+        self,
+    ) -> Result<(DebugInfo, CairoProgramDebugInfo, Program)> {
         match self {
-            SierraProgram::VersionedProgram(program) => program.compile_and_get_debug_infos(),
+            SierraProgram::VersionedProgram(program) => {
+                program.compile_and_get_debug_infos_and_program()
+            }
             SierraProgram::ContractClass(contract_class) => {
-                contract_class.compile_and_get_debug_infos()
+                contract_class.compile_and_get_debug_infos_and_program()
             }
         }
     }

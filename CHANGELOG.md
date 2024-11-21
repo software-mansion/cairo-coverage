@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - Fixed project inference to work with upcoming `snforge` `0.34.0`
+- A lot of false negatives in the coverage report (your code has executed at this line but it is not marked as
+  executed). `Note:` That this might remove some true positives/negatives (mark them as not executable). Please report
+  any issues you find.
 
 ## [0.2.0] - 2024-09-17
 

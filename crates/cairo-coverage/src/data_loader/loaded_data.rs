@@ -1,9 +1,10 @@
-use crate::data_loader::sierra_program::{GetDebugInfos, SierraProgram};
+use crate::data_loader::sierra_program::{GetDebugInfosAndProgram, SierraProgram};
 use anyhow::{Context, Result};
 use cairo_annotations::trace_data::{
     CallTraceNode, CallTraceV1, CasmLevelInfo, VersionedCallTrace,
 };
 use cairo_lang_sierra::debug_info::DebugInfo;
+use cairo_lang_sierra::program::Program;
 use cairo_lang_sierra_to_casm::compiler::CairoProgramDebugInfo;
 use camino::Utf8PathBuf;
 use derived_deref::Deref;
@@ -18,6 +19,7 @@ pub struct LoadedData {
     pub debug_info: DebugInfo,
     pub casm_level_infos: Vec<CasmLevelInfo>,
     pub casm_debug_info: CairoProgramDebugInfo,
+    pub program: Program,
 }
 
 impl LoadedDataMap {
@@ -49,11 +51,12 @@ impl LoadedDataMap {
                 .into_iter()
                 .map(|(source_sierra_path, casm_level_infos)| {
                     read_and_deserialize::<SierraProgram>(&source_sierra_path)?
-                        .compile_and_get_debug_infos()
-                        .map(|(debug_info, casm_debug_info)| LoadedData {
+                        .compile_and_get_debug_infos_and_program()
+                        .map(|(debug_info, casm_debug_info, program)| LoadedData {
                             debug_info,
                             casm_level_infos,
                             casm_debug_info,
+                            program,
                         })
                         .context(format!(
                             "Error occurred while loading program from: {source_sierra_path}"

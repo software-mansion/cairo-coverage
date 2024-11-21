@@ -15,10 +15,11 @@ impl InputData {
             debug_info,
             casm_level_infos,
             casm_debug_info,
+            program,
         }: &LoadedData,
         filter: &StatementCategoryFilter,
     ) -> Result<Self> {
-        let sierra_to_cairo_map = create_sierra_to_cairo_map(debug_info, filter)?;
+        let sierra_to_cairo_map = create_sierra_to_cairo_map(debug_info, filter, program)?;
         let unique_executed_sierra_ids = casm_level_infos
             .iter()
             .map(|casm_level_info| {

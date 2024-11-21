@@ -36,6 +36,10 @@ impl TestProject {
             .output()
     }
 
+    pub fn run_without_genhtml(self) -> TestProjectOutput {
+        self.generate_trace_files().run_coverage().output()
+    }
+
     pub fn coverage_args(mut self, args: &[&str]) -> Self {
         self.coverage_args = args.iter().map(ToString::to_string).collect();
         self
@@ -97,7 +101,7 @@ pub struct TestProjectOutput(TestProject);
 
 impl TestProjectOutput {
     pub fn output_same_as_in_file(&self, expected_file: &str) {
-        let content = fs::read_to_string(self.0.output_lcov_path()).unwrap();
+        let content = self.read_output();
 
         let expected = fs::read_to_string(format!("tests/expected_output/{expected_file}"))
             .unwrap()
@@ -106,6 +110,14 @@ impl TestProjectOutput {
                 &self.0.dir.canonicalize().unwrap().display().to_string(),
             );
         assert_eq!(content, expected);
+    }
+
+    pub fn assert_empty_output(self) {
+        assert!(self.read_output().is_empty());
+    }
+
+    pub fn read_output(&self) -> String {
+        fs::read_to_string(self.0.output_lcov_path()).unwrap()
     }
 
     pub fn dir(&self) -> &TempDir {
