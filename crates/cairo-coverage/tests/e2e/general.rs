@@ -60,8 +60,8 @@ fn macros() {
 #[test]
 fn macros_not_included() {
     TestProject::new("macros")
-        .run()
-        .output_same_as_in_file("macros_not_included.lcov");
+        .run_without_genhtml()
+        .assert_empty_output();
 }
 
 #[test]

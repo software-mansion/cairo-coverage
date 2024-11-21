@@ -1,6 +1,6 @@
 use crate::cli::IncludedComponent;
 use crate::data_loader::LoadedData;
-use crate::input::sierra_to_cairo_map::StatementOrigin;
+use crate::input::sierra_to_cairo_map::{SimpleLibfuncName, StatementOrigin};
 use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
 use camino::Utf8PathBuf;
@@ -10,6 +10,35 @@ use std::iter::once;
 use std::sync::LazyLock;
 
 pub static VIRTUAL_FILE_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\[.*?]").unwrap());
+
+/// This is not the best way to do this, and I'm not proud of it.
+/// However, it is definitely the easiest way to achieve this.
+/// Some functions like `store_temp` are used in many places.
+/// Removing it would eliminate a lot of true positives.
+/// However, users would likely be more frustrated by false negatives.
+static NOT_RELIABLE_LIBFUNCS: LazyLock<HashSet<SimpleLibfuncName>> = LazyLock::new(|| {
+    [
+        "drop",
+        "enable_ap_tracking",
+        "disable_ap_tracking",
+        "struct_deconstruct",
+        "dup",
+        "enum_init",
+        "struct_construct",
+        "store_temp",
+        "return",
+        "rename",
+        "snapshot_take",
+        "struct_snapshot_deconstruct",
+        "const_as_immediate",
+        "contract_address_const",
+    ]
+    .iter()
+    .map(ToString::to_string)
+    .map(SimpleLibfuncName)
+    .collect()
+});
+
 const SNFORGE_TEST_EXECUTABLE: &str = "snforge_internal_test_executable";
 
 #[derive(Eq, PartialEq, Hash)]
@@ -18,6 +47,7 @@ enum StatementCategory {
     UserFunction,
     NonUserFunction,
     Macro,
+    NotReliableLibfunc,
 }
 
 impl From<IncludedComponent> for StatementCategory {
@@ -76,6 +106,7 @@ impl StatementCategoryFilter {
         StatementOrigin {
             function_name: FunctionName(function_name),
             source_file_full_path: SourceFileFullPath(source_file_full_path),
+            simple_libfunc_name,
             ..
         }: &StatementOrigin,
     ) -> HashSet<StatementCategory> {
@@ -93,6 +124,21 @@ impl StatementCategoryFilter {
             labels.insert(StatementCategory::NonUserFunction);
         }
 
+        if NOT_RELIABLE_LIBFUNCS.contains(&remove_prefix(simple_libfunc_name)) {
+            labels.insert(StatementCategory::NotReliableLibfunc);
+        }
+
         labels
+    }
+}
+
+fn remove_prefix(input: &SimpleLibfuncName) -> SimpleLibfuncName {
+    let without_generics = truncate_at_char(&input.0, '<');
+    SimpleLibfuncName(truncate_at_char(without_generics, '(').into())
+}
+fn truncate_at_char(input: &str, delimiter: char) -> &str {
+    match input.find(delimiter) {
+        Some(index) => &input[..index],
+        None => input,
     }
 }
