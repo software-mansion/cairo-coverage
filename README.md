@@ -53,12 +53,18 @@ example of the `lcov` format [here](./lcov.md).
 cairo-coverage path/to/trace/1.json path/to/trace/2.json path/to/trace/3.json
 ```
 
-### Coverage statistics
+### Usage locally
 
-Various tools exist that can produce coverage statistics based on an lcov file. One of the most well-known among these
-is [genhtml](https://github.com/linux-test-project/lcov/blob/master/bin/genhtml),
-a tool that generates an html summary report using the coverage data in an lcov file, `genhtml` is part of
-the [lcov package](https://github.com/linux-test-project/lcov/tree/master).
+A summary report with aggregated data can be produced by one of many tools that accept the `lcov` format.
+In this example we will use the `genhtml` tool from the [lcov package](https://github.com/linux-test-project/lcov/tree/master) to generate an HTML report.
+
+Run the following command in the directory containing your `coverage.lcov` file:
+
+```shell
+genhtml -o coverage_report coverage.lcov
+```
+
+You can now open the `index.html` file in the `coverage_report` directory to see the generated coverage report.
 
 ## Usage in GitHub actions
 
