@@ -35,30 +35,38 @@ curl -L https://raw.githubusercontent.com/software-mansion/cairo-coverage/main/s
 
 ## Usage
 
-### Generate coverage report
+### Generate Coverage Report
 
-To generate the report, run `cairo-coverage` with one or more `<PATH_TO_TRACE_DATA>` arguments, which specify the paths
-to the json files containing the trace data to be used for generating the coverage report.
-Optionally, you can provide the path to the output file using `--output-path <OUTPUT_PATH>`. If not specified, the
-output file will default to being saved as `coverage.lcov`.
-
-### Output format
-
-The generated output file is in the `lcov` format. For your convenience, you can find an explanation along with a simple
-example of the `lcov` format [here](./lcov.md).
-
-#### Example
+To generate a coverage report, run the `cairo-coverage` command with one or more `<PATH_TO_TRACE_DATA>` arguments. These
+arguments specify the paths to the JSON files containing the trace data to be used for generating the coverage report.
 
 ```shell
 cairo-coverage path/to/trace/1.json path/to/trace/2.json path/to/trace/3.json
 ```
 
-### Usage locally
+Optionally, you can specify an output file path using the `--output-path <OUTPUT_PATH>` option. If not provided, the
+output file will default to `coverage.lcov`.
 
-A summary report with aggregated data can be produced by one of many tools that accept the `lcov` format.
-In this example we will use the `genhtml` tool from the [lcov package](https://github.com/linux-test-project/lcov/tree/master) to generate an HTML report.
+The generated output file is in the `lcov` format. For your convenience, you can find an explanation along with a simple
+example of the `lcov` format [here](./lcov.md).
 
-Run the following command in the directory containing your `coverage.lcov` file:
+#### Using `snforge`:
+
+Please refer to
+the [Starknet Foundry documentation](https://foundry-rs.github.io/starknet-foundry/testing/coverage.html) for additional
+information on using `cairo-coverage` with `snforge`.
+
+### Viewing Report
+
+Before you can view the coverage report as an HTML file, **the report must first be generated**. Please refer to
+the [Generate Coverage Report](#generate-coverage-report) section above for detailed instructions.
+
+Once you have generated the `coverage.lcov` file, a summary report with aggregated data can be produced by one of the
+many tools that accept the `lcov` format.
+
+In this example, we will use the `genhtml` tool from
+the [lcov package](https://github.com/linux-test-project/lcov/tree/master) to generate an HTML report. If you don’t
+already have `genhtml` installed, you can find installation instructions [here](https://command-not-found.com/genhtml).
 
 ```shell
 genhtml -o coverage_report coverage.lcov
