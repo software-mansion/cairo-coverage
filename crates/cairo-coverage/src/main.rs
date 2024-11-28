@@ -32,7 +32,7 @@ fn main() -> Result<()> {
     let coverage_data = LoadedDataMap::load(trace_files)?
         .iter()
         .map(|(source_sierra_path, loaded_data)| {
-            let project_path = &get_project_path(source_sierra_path, project_path)?;
+            let project_path = &get_project_path(source_sierra_path, project_path.as_ref())?;
             let filter = StatementCategoryFilter::new(project_path, include, loaded_data);
             let input_data = InputData::new(loaded_data, &filter)?;
             Ok(create_files_coverage_data_with_hits(&input_data))
@@ -57,7 +57,7 @@ fn main() -> Result<()> {
 
 fn get_project_path(
     source_sierra_path: &Utf8PathBuf,
-    project_path: &Option<Utf8PathBuf>,
+    project_path: Option<&Utf8PathBuf>,
 ) -> Result<Utf8PathBuf> {
     if let Some(project_path) = project_path {
         Ok(project_path.clone())
