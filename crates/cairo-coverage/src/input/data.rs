@@ -1,5 +1,5 @@
 use crate::data_loader::LoadedData;
-use crate::input::statement_category_filter::StatementCategoryFilter;
+use crate::input::filter::statement_category_filter::StatementCategoryFilter;
 use crate::input::{create_sierra_to_cairo_map, SierraToCairoMap, UniqueExecutedSierraIds};
 use crate::merge::MergeOwned;
 use anyhow::{Context, Result};
