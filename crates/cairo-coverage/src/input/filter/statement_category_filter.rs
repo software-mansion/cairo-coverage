@@ -1,5 +1,6 @@
 use crate::cli::IncludedComponent;
 use crate::data_loader::LoadedData;
+use crate::input::filter::ignore::CairoCoverageIgnoreMatcher;
 use crate::input::sierra_to_cairo_map::{SimpleLibfuncName, StatementOrigin};
 use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
@@ -48,6 +49,7 @@ enum StatementCategory {
     NonUserFunction,
     Macro,
     NotReliableLibfunc,
+    Ignored,
 }
 
 impl From<IncludedComponent> for StatementCategory {
@@ -63,6 +65,7 @@ pub struct StatementCategoryFilter {
     user_project_path: String,
     allowed_statement_categories: HashSet<StatementCategory>,
     test_functions: HashSet<String>,
+    ignore_matcher: CairoCoverageIgnoreMatcher,
 }
 
 impl StatementCategoryFilter {
@@ -87,12 +90,15 @@ impl StatementCategoryFilter {
             .chain(once(StatementCategory::UserFunction))
             .collect();
 
+        let ignore_matcher = CairoCoverageIgnoreMatcher::new(user_project_path)
+            .expect("Failed to create ignore matcher");
         let user_project_path = user_project_path.to_string();
 
         Self {
             user_project_path,
             allowed_statement_categories,
             test_functions,
+            ignore_matcher,
         }
     }
 
@@ -126,6 +132,10 @@ impl StatementCategoryFilter {
 
         if NOT_RELIABLE_LIBFUNCS.contains(&remove_prefix(simple_libfunc_name)) {
             labels.insert(StatementCategory::NotReliableLibfunc);
+        }
+
+        if self.ignore_matcher.is_ignored(source_file_full_path) {
+            labels.insert(StatementCategory::Ignored);
         }
 
         labels
