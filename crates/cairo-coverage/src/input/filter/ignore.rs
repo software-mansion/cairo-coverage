@@ -47,3 +47,89 @@ fn find_ignore_file(start_dir: &Utf8Path) -> Option<Utf8PathBuf> {
 
     None
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use assert_fs::prelude::*;
+    use assert_fs::TempDir;
+    use std::path::Path;
+
+    trait TestUtils {
+        fn create_ignore_file(&self) -> Utf8PathBuf;
+        fn to_utf8_path_buf(&self) -> Utf8PathBuf;
+    }
+
+    impl<T: PathChild + AsRef<Path>> TestUtils for T {
+        fn create_ignore_file(&self) -> Utf8PathBuf {
+            let ignore_file = self.child(CAIRO_COVERAGE_IGNORE);
+            ignore_file.touch().unwrap();
+            ignore_file.to_utf8_path_buf()
+        }
+
+        fn to_utf8_path_buf(&self) -> Utf8PathBuf {
+            Utf8PathBuf::from_path_buf(self.as_ref().to_path_buf()).unwrap()
+        }
+    }
+
+    #[test]
+    fn test_finds_ignore_file_in_same_directory() {
+        let temp_dir = TempDir::new().unwrap();
+        let ignore_file_path = temp_dir.create_ignore_file();
+
+        let result = find_ignore_file(&ignore_file_path);
+
+        assert_eq!(result, Some(ignore_file_path));
+    }
+
+    #[test]
+    fn test_finds_ignore_file_in_parent_directory() {
+        let temp_dir = TempDir::new().unwrap();
+        let parent_dir = temp_dir.child("parent");
+        let child_dir = parent_dir.child("child");
+
+        let ignore_file_path = parent_dir.create_ignore_file();
+
+        let result = find_ignore_file(&child_dir.to_utf8_path_buf());
+
+        assert_eq!(result, Some(ignore_file_path));
+    }
+
+    #[test]
+    fn test_finds_ignore_file_multiple_levels_up() {
+        let temp_dir = TempDir::new().unwrap();
+        let root_dir = temp_dir.child("root");
+        let middle_dir = root_dir.child("middle");
+        let child_dir = middle_dir.child("child");
+
+        let ignore_file = root_dir.create_ignore_file();
+
+        let result = find_ignore_file(&child_dir.to_utf8_path_buf());
+
+        assert_eq!(result, Some(ignore_file));
+    }
+
+    #[test]
+    fn test_no_ignore_file_found() {
+        let temp_dir = TempDir::new().unwrap();
+
+        let result = find_ignore_file(&temp_dir.to_utf8_path_buf());
+
+        assert_eq!(result, None);
+    }
+
+    #[test]
+    fn test_stops_at_first_ignore_file() {
+        let temp_dir = TempDir::new().unwrap();
+        let root_dir = temp_dir.child("root");
+        let middle_dir = root_dir.child("middle");
+        let child_dir = middle_dir.child("child");
+
+        root_dir.create_ignore_file();
+        let middle_ignore_file = middle_dir.create_ignore_file();
+
+        let result = find_ignore_file(&child_dir.to_utf8_path_buf());
+
+        assert_eq!(result, Some(middle_ignore_file));
+    }
+}

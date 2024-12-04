@@ -45,6 +45,11 @@ impl TestProject {
         self
     }
 
+    pub fn create_cairo_coverage_ignore(self, content: &str) -> Self {
+        fs::write(self.dir.path().join(".cairo-coverage-ignore"), content).unwrap();
+        self
+    }
+
     fn generate_trace_files(self) -> Self {
         SnapboxCommand::new("snforge")
             .arg("test")

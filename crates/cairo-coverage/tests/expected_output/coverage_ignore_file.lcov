@@ -1,0 +1,10 @@
+TN:
+SF:{dir}/src/simple/simple_subtract.cairo
+FN:2,coverage_ignore::simple::simple_subtract::subtract
+FNDA:1,coverage_ignore::simple::simple_subtract::subtract
+FNF:1
+FNH:1
+DA:2,1
+LF:1
+LH:1
+end_of_record
