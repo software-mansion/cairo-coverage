@@ -13,6 +13,7 @@ cairo-lang-starknet-classes.workspace = true
 clap.workspace = true
 derived-deref.workspace = true
 itertools.workspace = true
+ignore.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 regex.workspace = true
