@@ -1,4 +1,6 @@
-use crate::input::statement_category_filter::{StatementCategoryFilter, VIRTUAL_FILE_REGEX};
+use crate::input::filter::statement_category_filter::{
+    StatementCategoryFilter, VIRTUAL_FILE_REGEX,
+};
 use anyhow::{Context, Result};
 use cairo_annotations::annotations::coverage::{
     CodeLocation, CoverageAnnotationsV1, LineNumber, SourceCodeSpan, SourceFileFullPath,
