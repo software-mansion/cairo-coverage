@@ -1,0 +1,10 @@
+TN:
+SF:{dir}/src/multiply.cairo
+FN:2,coverage_ignore::multiply::multiply
+FNDA:1,coverage_ignore::multiply::multiply
+FNF:1
+FNH:1
+DA:2,1
+LF:1
+LH:1
+end_of_record
