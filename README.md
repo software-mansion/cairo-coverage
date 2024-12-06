@@ -35,6 +35,29 @@ curl -L https://raw.githubusercontent.com/software-mansion/cairo-coverage/main/s
 
 ## Usage
 
+### `.cairo-coverage-ignore` File
+
+You can create a `.cairo-coverage-ignore` file in the root of your project to specify the files or directories that you
+want to exclude from the coverage report. The file should contain a list of paths to be ignored, with one path per line,
+similar to a `.gitignore` file.
+
+In addition to specific file or directory names, **you can also use regular expressions ** in this file to define
+more flexible or dynamic patterns for ignored paths. This can be especially useful for excluding files with certain
+extensions, names, or those in specific structural patterns.
+
+For example:
+
+```gitignore
+# Ignore test_contract.cairo
+test_contract.cairo
+
+# Ignore all test files
+test_*.cairo
+
+# Ignore everything in the utils directory
+*/utils/*
+```
+
 ### Generate Coverage Report
 
 To generate a coverage report, run the `cairo-coverage` command with one or more `<PATH_TO_TRACE_DATA>` arguments. These
