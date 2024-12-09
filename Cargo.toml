@@ -9,14 +9,14 @@ version = "0.3.0-rc0"
 edition = "2021"
 
 [workspace.dependencies]
-anyhow = "1.0.93"
+anyhow = "1.0.94"
 assert_fs = "1.1.2"
 camino = "1.1.9"
-clap = { version = "4.5.21", features = ["derive"] }
-cairo-annotations = "0.1.0"
-cairo-lang-sierra = "2.8.2"
-cairo-lang-sierra-to-casm = "2.8.2"
-cairo-lang-starknet-classes = "2.8.2"
+clap = { version = "4.5.23", features = ["derive"] }
+cairo-annotations = "0.2.1"
+cairo-lang-sierra = "2.9.1"
+cairo-lang-sierra-to-casm = "2.9.1"
+cairo-lang-starknet-classes = "2.9.1"
 derived-deref = "2.1.0"
 itertools = "0.13.0"
 ignore = "0.4.23"

@@ -73,7 +73,7 @@ fn load_nested_traces(VersionedCallTrace::V1(call_trace): VersionedCallTrace) ->
         acc.push(call_trace.clone());
         for call_trace_node in call_trace.nested_calls {
             if let CallTraceNode::EntryPointCall(nested_call_trace) = call_trace_node {
-                load_recursively(nested_call_trace, acc);
+                load_recursively(*nested_call_trace, acc);
             }
         }
     }
