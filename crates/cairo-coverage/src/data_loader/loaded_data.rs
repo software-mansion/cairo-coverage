@@ -1,7 +1,7 @@
 use crate::data_loader::sierra_program::{GetDebugInfosAndProgram, SierraProgram};
 use anyhow::{Context, Result};
 use cairo_annotations::trace_data::{
-    CallTraceNode, CallTraceV1, CasmLevelInfo, VersionedCallTrace,
+    CairoExecutionInfo, CallTraceNode, CallTraceV1, CasmLevelInfo, VersionedCallTrace,
 };
 use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::Program;
@@ -29,8 +29,7 @@ impl LoadedDataMap {
             .map(read_and_deserialize)
             .collect::<Result<Vec<_>>>()?
             .into_iter()
-            .flat_map(load_nested_traces)
-            .filter_map(|call_trace| call_trace.cairo_execution_info)
+            .flat_map(load_cairo_execution_infos)
             .collect::<Vec<_>>();
 
         // OPTIMIZATION:
@@ -68,9 +67,14 @@ impl LoadedDataMap {
     }
 }
 
-fn load_nested_traces(VersionedCallTrace::V1(call_trace): VersionedCallTrace) -> Vec<CallTraceV1> {
-    fn load_recursively(call_trace: CallTraceV1, acc: &mut Vec<CallTraceV1>) {
-        acc.push(call_trace.clone());
+fn load_cairo_execution_infos(
+    VersionedCallTrace::V1(call_trace): VersionedCallTrace,
+) -> Vec<CairoExecutionInfo> {
+    fn load_recursively(call_trace: CallTraceV1, acc: &mut Vec<CairoExecutionInfo>) {
+        if let Some(execution_info) = call_trace.cairo_execution_info {
+            acc.push(execution_info);
+        }
+
         for call_trace_node in call_trace.nested_calls {
             if let CallTraceNode::EntryPointCall(nested_call_trace) = call_trace_node {
                 load_recursively(nested_call_trace, acc);
@@ -78,9 +82,9 @@ fn load_nested_traces(VersionedCallTrace::V1(call_trace): VersionedCallTrace) ->
         }
     }
 
-    let mut call_traces = Vec::new();
-    load_recursively(call_trace, &mut call_traces);
-    call_traces
+    let mut execution_infos = Vec::new();
+    load_recursively(call_trace, &mut execution_infos);
+    execution_infos
 }
 
 fn read_and_deserialize<T: DeserializeOwned>(file_path: &Utf8PathBuf) -> Result<T> {
