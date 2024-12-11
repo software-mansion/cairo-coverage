@@ -1,9 +1,9 @@
-use crate::cli::IncludedComponent;
 use crate::data_loader::LoadedData;
 use crate::input::filter::ignore::CairoCoverageIgnoreMatcher;
 use crate::input::sierra_to_cairo_map::{SimpleLibfuncName, StatementOrigin};
 use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
+use cairo_coverage_args::IncludedComponent;
 use camino::Utf8PathBuf;
 use regex::Regex;
 use std::collections::HashSet;
