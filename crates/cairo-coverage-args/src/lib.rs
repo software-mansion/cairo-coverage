@@ -1,6 +1,8 @@
+use crate::clean::CleanArgs;
 use crate::run::RunArgs;
 use clap::{Parser, Subcommand};
 
+pub mod clean;
 pub mod run;
 
 #[derive(Parser, Debug)]
@@ -18,6 +20,9 @@ pub struct CairoCoverageArgs {
 /// Subcommand and its arguments.
 #[derive(Subcommand, Debug)]
 pub enum Command {
+    /// Clean up coverage files.
+    Clean(CleanArgs),
+
     /// Run `cairo-coverage` tool.
     Run(RunArgs),
 }
