@@ -3,7 +3,7 @@ use crate::input::filter::ignore::CairoCoverageIgnoreMatcher;
 use crate::input::sierra_to_cairo_map::{SimpleLibfuncName, StatementOrigin};
 use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
-use cairo_coverage_args::IncludedComponent;
+use cairo_coverage_args::run::IncludedComponent;
 use camino::Utf8PathBuf;
 use regex::Regex;
 use std::collections::HashSet;
