@@ -1,7 +1,8 @@
+use crate::args::{CairoCoverageArgs, Command};
 use anyhow::Result;
-use cairo_coverage_args::{CairoCoverageArgs, Command};
 use clap::Parser;
 
+mod args;
 mod commands;
 
 fn main() -> Result<()> {

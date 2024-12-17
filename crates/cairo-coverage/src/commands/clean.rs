@@ -1,5 +1,5 @@
+use crate::args::clean::CleanArgs;
 use anyhow::{Context, Result};
-use cairo_coverage_args::clean::CleanArgs;
 use std::fs;
 use walkdir::WalkDir;
 

@@ -1,9 +1,9 @@
+use crate::args::IncludedComponent;
 use crate::data_loader::LoadedData;
 use crate::input::filter::ignore::CairoCoverageIgnoreMatcher;
 use crate::input::sierra_to_cairo_map::{SimpleLibfuncName, StatementOrigin};
 use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
-use cairo_coverage_args::run::IncludedComponent;
 use camino::Utf8PathBuf;
 use regex::Regex;
 use std::collections::HashSet;
@@ -85,7 +85,7 @@ impl StatementCategoryFilter {
 
         let allowed_statement_categories = included_component
             .iter()
-            .cloned()
+            .copied()
             .map(StatementCategory::from)
             .chain(once(StatementCategory::UserFunction))
             .collect();
