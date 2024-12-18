@@ -4,7 +4,7 @@ use std::fs;
 use walkdir::WalkDir;
 
 /// Run the `cairo-coverage clean` command with [`CleanArgs`].
-/// This command deletes all files with the name specified in `files_to_delete` in the `root_dir` recursively.
+/// This command deletes all files with the name specified by `files_to_delete` in the `root_dir` and all its subdirectories.
 pub fn run(
     CleanArgs {
         root_dir,
