@@ -10,7 +10,7 @@ use crate::data_loader::LoadedDataMap;
 use crate::input::{InputData, StatementCategoryFilter};
 use crate::output::lcov::LcovFormat;
 use anyhow::{bail, ensure, Context, Result};
-use cairo_coverage_args::CairoCoverageArgs;
+use cairo_coverage_args::run::RunArgs;
 use camino::Utf8PathBuf;
 use indoc::indoc;
 use merge::MergeOwned;
@@ -25,12 +25,12 @@ const SNFORGE_SIERRA_DIR: &str = ".snfoundry_versioned_programs";
 /// # Errors
 /// Fails if it can't produce the coverage report with the error message explaining the reason.
 pub fn run(
-    CairoCoverageArgs {
+    RunArgs {
         trace_files,
         include,
         output_path,
         project_path,
-    }: CairoCoverageArgs,
+    }: RunArgs,
 ) -> Result<()> {
     let coverage_data = LoadedDataMap::load(&trace_files)?
         .iter()
