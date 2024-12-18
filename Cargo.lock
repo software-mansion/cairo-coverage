@@ -208,21 +208,12 @@ version = "0.3.0"
 dependencies = [
  "anyhow",
  "assert_fs",
- "cairo-coverage-args",
  "cairo-coverage-core",
  "cairo-coverage-test-utils",
+ "camino",
  "clap",
  "snapbox",
  "walkdir",
-]
-
-[[package]]
-name = "cairo-coverage-args"
-version = "0.3.0"
-dependencies = [
- "anyhow",
- "camino",
- "clap",
 ]
 
 [[package]]
@@ -232,7 +223,6 @@ dependencies = [
  "anyhow",
  "assert_fs",
  "cairo-annotations",
- "cairo-coverage-args",
  "cairo-coverage-test-utils",
  "cairo-lang-sierra",
  "cairo-lang-sierra-to-casm",

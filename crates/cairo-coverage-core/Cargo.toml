@@ -4,7 +4,6 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-cairo-coverage-args = { path = "../cairo-coverage-args" }
 anyhow.workspace = true
 camino.workspace = true
 cairo-annotations.workspace = true

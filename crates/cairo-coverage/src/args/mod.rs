@@ -1,5 +1,5 @@
-use crate::clean::CleanArgs;
-use crate::run::RunArgs;
+use crate::args::clean::CleanArgs;
+use crate::args::run::RunArgs;
 use clap::{Parser, Subcommand};
 
 pub mod clean;

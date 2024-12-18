@@ -4,8 +4,8 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-cairo-coverage-args = { path = "../cairo-coverage-args" }
 cairo-coverage-core = { path = "../cairo-coverage-core" }
+camino.workspace = true
 anyhow.workspace = true
 clap.workspace = true
 walkdir.workspace = true

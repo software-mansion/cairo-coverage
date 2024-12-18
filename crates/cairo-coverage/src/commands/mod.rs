@@ -1,8 +1,8 @@
 mod clean;
 mod run;
 
+use crate::args::Command;
 use anyhow::Result;
-use cairo_coverage_args::Command;
 
 /// Run chosen [`Command`].
 pub fn run(command: Command) -> Result<()> {

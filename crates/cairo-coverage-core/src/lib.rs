@@ -1,3 +1,4 @@
+pub mod args;
 mod coverage_data;
 mod data_loader;
 mod input;
@@ -5,33 +6,30 @@ mod merge;
 mod output;
 mod types;
 
+use crate::args::RunOptions;
 use crate::coverage_data::create_files_coverage_data_with_hits;
 use crate::data_loader::LoadedDataMap;
 use crate::input::{InputData, StatementCategoryFilter};
 use crate::output::lcov::LcovFormat;
 use anyhow::{bail, ensure, Context, Result};
-use cairo_coverage_args::run::RunArgs;
 use camino::Utf8PathBuf;
 use indoc::indoc;
 use merge::MergeOwned;
-use std::fs::OpenOptions;
-use std::io::Write;
 
 const SNFORGE_SIERRA_DIR: &str = ".snfoundry_versioned_programs";
 
-/// Run the core logic of `cairo-coverage` with the provided [`RunArgs`] arguments.
-/// This command generates a coverage report in the LCOV format.
-/// The coverage report is written to the file specified in the `output_path` argument.
+/// Run the core logic of `cairo-coverage` with the provided trace files and [`RunOptions`].
+/// This function generates a coverage report in the LCOV format.
 /// # Errors
 /// Fails if it can't produce the coverage report with the error message explaining the reason.
+#[allow(clippy::needless_pass_by_value)] // In case if we ever needed to take ownership of the arguments.
 pub fn run(
-    RunArgs {
-        trace_files,
+    trace_files: Vec<Utf8PathBuf>,
+    RunOptions {
         include,
-        output_path,
         project_path,
-    }: RunArgs,
-) -> Result<()> {
+    }: RunOptions,
+) -> Result<LcovFormat> {
     let coverage_data = LoadedDataMap::load(&trace_files)?
         .iter()
         .map(|(source_sierra_path, loaded_data)| {
@@ -47,15 +45,7 @@ pub fn run(
         .reduce(MergeOwned::merge_owned)
         .context("No elements to merge")?;
 
-    OpenOptions::new()
-        .append(true)
-        .create(true)
-        .open(&output_path)
-        .context(format!("Failed to open output file at path: {output_path}"))?
-        .write_all(LcovFormat::from(coverage_data).to_string().as_bytes())
-        .context("Failed to write to output file")?;
-
-    Ok(())
+    Ok(LcovFormat::from(coverage_data))
 }
 
 fn get_project_path(

@@ -2,7 +2,6 @@
 resolver = "2"
 members = [
     "crates/cairo-coverage",
-    "crates/cairo-coverage-args",
     "crates/cairo-coverage-core",
     "crates/cairo-coverage-test-utils",
 ]
