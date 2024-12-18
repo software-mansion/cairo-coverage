@@ -35,6 +35,20 @@ curl -L https://raw.githubusercontent.com/software-mansion/cairo-coverage/main/s
 
 ## Usage
 
+### Help
+
+To see the available commands and options, run:
+
+```shell
+cairo-coverage --help
+```
+
+Using the `--help` flag with any command will display additional information about that specific command.
+
+```shell
+cairo-coverage clean  --help
+```
+
 ### `.cairo-coverage-ignore` File
 
 You can create a `.cairo-coverage-ignore` file in the root of your project to specify the files or directories that you
@@ -64,11 +78,10 @@ To generate a coverage report, run the `cairo-coverage` command with one or more
 arguments specify the paths to the JSON files containing the trace data to be used for generating the coverage report.
 
 ```shell
-cairo-coverage path/to/trace/1.json path/to/trace/2.json path/to/trace/3.json
+cairo-coverage run path/to/trace/1.json path/to/trace/2.json path/to/trace/3.json
 ```
 
-Optionally, you can specify an output file path using the `--output-path <OUTPUT_PATH>` option. If not provided, the
-output file will default to `coverage.lcov`.
+Due to historical reasons, the `run` command is optional and can be omitted. But we plan to remove it in the future.
 
 The generated output file is in the `lcov` format. For your convenience, you can find an explanation along with a simple
 example of the `lcov` format [here](./lcov.md).
