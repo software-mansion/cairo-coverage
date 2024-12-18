@@ -51,35 +51,20 @@ fn find_ignore_file(start_dir: &Utf8Path) -> Option<Utf8PathBuf> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use assert_fs::prelude::*;
+    use assert_fs::fixture::PathChild;
     use assert_fs::TempDir;
-    use std::path::Path;
-
-    trait TestUtils {
-        fn create_ignore_file(&self) -> Utf8PathBuf;
-        fn to_utf8_path_buf(&self) -> Utf8PathBuf;
-    }
-
-    impl<T: PathChild + AsRef<Path>> TestUtils for T {
-        fn create_ignore_file(&self) -> Utf8PathBuf {
-            let ignore_file = self.child(CAIRO_COVERAGE_IGNORE);
-            ignore_file.touch().unwrap();
-            ignore_file.to_utf8_path_buf()
-        }
-
-        fn to_utf8_path_buf(&self) -> Utf8PathBuf {
-            Utf8PathBuf::from_path_buf(self.as_ref().to_path_buf()).unwrap()
-        }
-    }
+    use cairo_coverage_test_utils::{CreateFile, Utf8PathBufConversion};
 
     #[test]
     fn test_finds_ignore_file_in_same_directory() {
         let temp_dir = TempDir::new().unwrap();
-        let ignore_file_path = temp_dir.create_ignore_file();
+        let ignore_file = temp_dir
+            .create_file(CAIRO_COVERAGE_IGNORE)
+            .to_utf8_path_buf();
 
-        let result = find_ignore_file(&ignore_file_path);
+        let result = find_ignore_file(&ignore_file);
 
-        assert_eq!(result, Some(ignore_file_path));
+        assert_eq!(result, Some(ignore_file));
     }
 
     #[test]
@@ -88,11 +73,13 @@ mod tests {
         let parent_dir = temp_dir.child("parent");
         let child_dir = parent_dir.child("child");
 
-        let ignore_file_path = parent_dir.create_ignore_file();
+        let ignore_file = parent_dir
+            .create_file(CAIRO_COVERAGE_IGNORE)
+            .to_utf8_path_buf();
 
         let result = find_ignore_file(&child_dir.to_utf8_path_buf());
 
-        assert_eq!(result, Some(ignore_file_path));
+        assert_eq!(result, Some(ignore_file));
     }
 
     #[test]
@@ -102,7 +89,9 @@ mod tests {
         let middle_dir = root_dir.child("middle");
         let child_dir = middle_dir.child("child");
 
-        let ignore_file = root_dir.create_ignore_file();
+        let ignore_file = root_dir
+            .create_file(CAIRO_COVERAGE_IGNORE)
+            .to_utf8_path_buf();
 
         let result = find_ignore_file(&child_dir.to_utf8_path_buf());
 
@@ -125,8 +114,12 @@ mod tests {
         let middle_dir = root_dir.child("middle");
         let child_dir = middle_dir.child("child");
 
-        root_dir.create_ignore_file();
-        let middle_ignore_file = middle_dir.create_ignore_file();
+        root_dir
+            .create_file(CAIRO_COVERAGE_IGNORE)
+            .to_utf8_path_buf();
+        let middle_ignore_file = middle_dir
+            .create_file(CAIRO_COVERAGE_IGNORE)
+            .to_utf8_path_buf();
 
         let result = find_ignore_file(&child_dir.to_utf8_path_buf());
 

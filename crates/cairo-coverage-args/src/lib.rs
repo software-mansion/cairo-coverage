@@ -1,10 +1,10 @@
-use anyhow::{ensure, Result};
+use anyhow::ensure;
 use camino::Utf8PathBuf;
 use clap::{Parser, ValueEnum};
 
 #[derive(Parser, Debug)]
-#[command(version)]
-pub struct Cli {
+#[command(version, args_conflicts_with_subcommands = true)]
+pub struct CairoCoverageArgs {
     /// Paths to the .json files with trace data.
     #[arg(value_parser = parse_trace_file, num_args = 1.., required = true)]
     pub trace_files: Vec<Utf8PathBuf>,
@@ -22,6 +22,7 @@ pub struct Cli {
     pub project_path: Option<Utf8PathBuf>,
 }
 
+/// Additional components that can be included in the coverage report.
 #[derive(ValueEnum, Debug, Clone, Eq, PartialEq)]
 pub enum IncludedComponent {
     /// Run coverage on functions marked with `#[test]` attribute
@@ -30,7 +31,7 @@ pub enum IncludedComponent {
     Macros,
 }
 
-fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
+fn parse_trace_file(path: &str) -> anyhow::Result<Utf8PathBuf> {
     let trace_file = Utf8PathBuf::from(path);
 
     ensure!(trace_file.exists(), "Trace file does not exist");
@@ -43,7 +44,7 @@ fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
     Ok(trace_file)
 }
 
-fn parse_project_path(path: &str) -> Result<Utf8PathBuf> {
+fn parse_project_path(path: &str) -> anyhow::Result<Utf8PathBuf> {
     let project_path = Utf8PathBuf::from(path);
 
     ensure!(project_path.exists(), "Project path does not exist");

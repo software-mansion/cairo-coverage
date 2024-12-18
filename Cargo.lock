@@ -208,12 +208,36 @@ version = "0.3.0"
 dependencies = [
  "anyhow",
  "assert_fs",
+ "cairo-coverage-args",
+ "cairo-coverage-core",
+ "cairo-coverage-test-utils",
+ "clap",
+ "snapbox",
+ "walkdir",
+]
+
+[[package]]
+name = "cairo-coverage-args"
+version = "0.3.0"
+dependencies = [
+ "anyhow",
+ "camino",
+ "clap",
+]
+
+[[package]]
+name = "cairo-coverage-core"
+version = "0.3.0"
+dependencies = [
+ "anyhow",
+ "assert_fs",
  "cairo-annotations",
+ "cairo-coverage-args",
+ "cairo-coverage-test-utils",
  "cairo-lang-sierra",
  "cairo-lang-sierra-to-casm",
  "cairo-lang-starknet-classes",
  "camino",
- "clap",
  "derived-deref",
  "ignore",
  "indoc",
@@ -221,7 +245,14 @@ dependencies = [
  "regex",
  "serde",
  "serde_json",
- "snapbox",
+]
+
+[[package]]
+name = "cairo-coverage-test-utils"
+version = "0.3.0"
+dependencies = [
+ "assert_fs",
+ "camino",
 ]
 
 [[package]]

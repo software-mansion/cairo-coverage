@@ -2,6 +2,9 @@
 resolver = "2"
 members = [
     "crates/cairo-coverage",
+    "crates/cairo-coverage-args",
+    "crates/cairo-coverage-core",
+    "crates/cairo-coverage-test-utils",
 ]
 
 [workspace.package]
@@ -25,3 +28,4 @@ serde_json = "1.0.133"
 snapbox = "0.6.20"
 indoc = "2.0.5"
 regex = "1.11.1"
+walkdir = "2.5.0"

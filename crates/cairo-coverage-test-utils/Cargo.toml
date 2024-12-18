@@ -1,0 +1,12 @@
+[package]
+name = "cairo-coverage-test-utils"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+assert_fs.workspace = true
+camino.workspace = true
+
+
+
+
