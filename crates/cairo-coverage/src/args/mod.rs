@@ -11,7 +11,7 @@ pub struct CairoCoverageArgs {
     /// Arguments for the `run` subcommand so user can use
     /// `cairo-coverage` without specifying the subcommand.
     #[clap(flatten)]
-    pub run_args: RunArgs,
+    pub run_args: Option<RunArgs>,
     /// Subcommand and its arguments.
     #[command(subcommand)]
     pub command: Option<Command>,
