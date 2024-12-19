@@ -83,6 +83,7 @@ impl TestProject {
     fn run_coverage(self) -> Self {
         let trace_files = self.find_trace_files();
         SnapboxCommand::new(cargo_bin!("cairo-coverage"))
+            .arg("run")
             .args(&trace_files)
             .args(&self.coverage_args)
             .current_dir(&self.dir)

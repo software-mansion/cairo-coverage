@@ -13,7 +13,9 @@ fn main() -> Result<()> {
         // TODO:
         // * In 0.5.0 add deprecation warning
         // * In 0.6.0 remove the default command
-        None => Command::Run(cairo_coverage_args.run_args),
+        None => Command::Run(cairo_coverage_args.run_args.unwrap_or_else(|| {
+            unreachable!("`run_args` should be set when no subcommand is provided")
+        })),
     };
 
     commands::run(command)
