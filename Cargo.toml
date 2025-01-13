@@ -15,6 +15,7 @@ anyhow = "1.0.95"
 assert_fs = "1.1.2"
 camino = "1.1.9"
 clap = { version = "4.5.23", features = ["derive"] }
+criterion = "0.5"
 cairo-annotations = "0.2.1"
 cairo-lang-sierra = "2.9.2"
 cairo-lang-sierra-to-casm = "2.9.2"

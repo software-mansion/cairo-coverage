@@ -1,7 +1,7 @@
 use camino::Utf8PathBuf;
 
 /// Options accepted by `cairo_coverage_core` `run` function.
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct RunOptions {
     /// Include additional components in the coverage report.
     pub include: Vec<IncludedComponent>,

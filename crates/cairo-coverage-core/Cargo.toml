@@ -20,4 +20,9 @@ indoc.workspace = true
 
 [dev-dependencies]
 cairo-coverage-test-utils = { path = "../cairo-coverage-test-utils" }
+criterion.workspace = true
 assert_fs.workspace = true
+
+[[bench]]
+name = "bench_main"
+harness = false
