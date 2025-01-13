@@ -6,7 +6,7 @@ FN:17,snforge_template::HelloStarknet::HelloStarknetImpl::increase_balance
 FNDA:8,snforge_template::HelloStarknet::HelloStarknetImpl::increase_balance
 FNF:2
 FNH:2
-DA:17,2
+DA:17,7
 DA:18,8
 DA:22,9
 LF:3
