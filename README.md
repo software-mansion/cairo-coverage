@@ -15,6 +15,26 @@
 
 ## Installation
 
+You can install `cairo-coverage` using [asdf](https://asdf-vm.com/guide/getting-started.html)
+or the installation script.
+
+### asdf (recommended):
+
+```shell
+asdf plugin add cairo-coverage https://github.com/software-mansion/asdf-cairo-coverage.git
+asdf install cairo-coverage latest  # Replace 'latest' with a specific version number if needed
+```
+
+Please remember to set global/project version to use:
+
+```shell
+asdf global cairo-coverage latest
+# or
+asdf local cairo-coverage latest
+```
+
+### script:
+
 To install the latest stable version of `cairo-coverage`, run:
 
 ```shell
