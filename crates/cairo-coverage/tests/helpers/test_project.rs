@@ -1,5 +1,7 @@
 use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
+use cairo_coverage_test_utils::read_files_from_dir;
+use camino::Utf8PathBuf;
 use snapbox::cmd::{cargo_bin, Command as SnapboxCommand};
 use std::fs;
 use std::path::PathBuf;
@@ -60,12 +62,9 @@ impl TestProject {
         self
     }
 
-    fn find_trace_files(&self) -> Vec<String> {
+    fn find_trace_files(&self) -> Vec<Utf8PathBuf> {
         let trace_path = self.dir.path().join("snfoundry_trace");
-        fs::read_dir(&trace_path)
-            .unwrap()
-            .map(|entry| entry.unwrap().path().display().to_string())
-            .collect()
+        read_files_from_dir(trace_path)
     }
 
     fn output_lcov_path(&self) -> PathBuf {

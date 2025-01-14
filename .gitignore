@@ -1,6 +1,7 @@
 debug
 target
 .idea
+project-traces
 .snfoundry_cache
 .spr.yml
 Scarb.lock
