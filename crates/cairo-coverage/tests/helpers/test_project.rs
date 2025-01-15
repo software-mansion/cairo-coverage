@@ -92,12 +92,15 @@ impl TestProject {
     }
 
     fn run_genhtml(self) -> Self {
-        SnapboxCommand::new("genhtml")
-            .arg(self.output_lcov_path())
-            .arg("--output-directory")
-            .arg(self.dir.path())
-            .assert()
-            .success();
+        #[cfg(not(target_os = "windows"))]
+        {
+            SnapboxCommand::new("genhtml")
+                .arg(self.output_lcov_path())
+                .arg("--output-directory")
+                .arg(self.dir.path())
+                .assert()
+                .success();
+        }
         self
     }
 }
@@ -112,9 +115,27 @@ impl TestProjectOutput {
             .unwrap()
             .replace(
                 "{dir}",
-                &self.0.dir.canonicalize().unwrap().display().to_string(),
+                &dunce::canonicalize(&self.0.dir)
+                    .unwrap()
+                    .display()
+                    .to_string(),
             );
-        assert_eq!(content, expected);
+        #[cfg(target_os = "windows")]
+        {
+            assert_eq!(
+                format!("{content:?}")
+                    .replace(r"\n", r"\r\n")
+                    .replace("\\\\", "\\"),
+                format!("{expected:?}")
+                    .replace('/', r"\")
+                    .replace("\\\\", "\\")
+            );
+        }
+
+        #[cfg(not(target_os = "windows"))]
+        {
+            assert_eq!(content, expected);
+        }
     }
 
     pub fn assert_empty_output(self) {
