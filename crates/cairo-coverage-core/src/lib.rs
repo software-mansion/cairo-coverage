@@ -1,19 +1,21 @@
+extern crate core;
+
 pub mod args;
 mod build;
 mod coverage;
+mod hashmap_utils;
 mod loading;
-mod merge;
 mod output;
-mod types;
 
 use crate::args::RunOptions;
 use crate::build::coverage_input;
-use crate::build::filter::{ignore_matcher, statement_category_filter};
+use crate::build::filter::ignore_matcher;
+use crate::build::filter::statement_category_filter;
+use crate::hashmap_utils::merge::merge;
 use crate::loading::execution_data;
-use crate::output::lcov::LcovFormat;
+use crate::output::lcov;
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
-use merge::MergeOwned;
 use scarb_metadata::{Metadata, MetadataCommand};
 
 /// Run the core logic of `cairo-coverage` with the provided trace files and [`RunOptions`].
@@ -27,7 +29,7 @@ pub fn run(
         include,
         project_path,
     }: RunOptions,
-) -> Result<LcovFormat> {
+) -> Result<String> {
     let project_path = if let Some(project_path) = project_path {
         project_path
     } else {
@@ -51,10 +53,10 @@ pub fn run(
         .map(coverage::project::create)
         // Versioned programs and contract classes can represent the same piece of code,
         // so we merge the file coverage after processing them to avoid duplicate entries.
-        .reduce(MergeOwned::merge_owned)
-        .context("No elements to merge")?;
+        .reduce(merge)
+        .context("At least one trace file must be provided")?;
 
-    Ok(LcovFormat::from(coverage_data))
+    Ok(lcov::fmt_string(&coverage_data))
 }
 
 /// Run `scarb metadata` command and return the metadata.
