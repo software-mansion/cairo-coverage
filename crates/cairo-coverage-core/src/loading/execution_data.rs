@@ -3,6 +3,7 @@ use crate::loading::{enriched_program, execution_infos};
 use anyhow::Result;
 use cairo_annotations::trace_data::CasmLevelInfo;
 use camino::Utf8PathBuf;
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use std::collections::HashMap;
 
 /// Struct with all the necessary data loaded from the traces.
@@ -23,7 +24,7 @@ fn create_from_execution_infos(
     grouped_execution_infos: HashMap<Utf8PathBuf, Vec<CasmLevelInfo>>,
 ) -> Result<Vec<ExecutionData>> {
     grouped_execution_infos
-        .into_iter()
+        .into_par_iter()
         .map(|(source_sierra_path, casm_level_infos)| {
             let loaded_program = enriched_program::load(&source_sierra_path)?;
             let execution_data = ExecutionData {
