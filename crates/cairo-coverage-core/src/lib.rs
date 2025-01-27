@@ -1,14 +1,15 @@
 pub mod args;
+mod build;
 mod coverage_data;
-mod input;
 mod loading;
 mod merge;
 mod output;
 mod types;
 
 use crate::args::RunOptions;
+use crate::build::coverage_input;
+use crate::build::filter::{ignore_matcher, statement_category_filter};
 use crate::coverage_data::create_files_coverage_data_with_hits;
-use crate::input::{InputData, StatementCategoryFilter};
 use crate::loading::execution_data;
 use crate::output::lcov::LcovFormat;
 use anyhow::{Context, Result};
@@ -34,15 +35,22 @@ pub fn run(
         scarb_metadata()?.workspace.root
     };
 
+    let ignore_matcher = ignore_matcher::build(&project_path)?;
+
     let coverage_data = execution_data::load(&trace_files)?
         .into_iter()
         .map(|execution_data| {
-            let filter = StatementCategoryFilter::new(&project_path, &include, &execution_data);
-            let input_data = InputData::new(execution_data, &filter)?;
-            Ok(create_files_coverage_data_with_hits(&input_data))
+            let filter = statement_category_filter::build(
+                &project_path,
+                &include,
+                &ignore_matcher,
+                &execution_data.enriched_program,
+            );
+
+            let coverage_input = coverage_input::build(execution_data, &filter);
+
+            create_files_coverage_data_with_hits(&coverage_input)
         })
-        .collect::<Result<Vec<_>>>()?
-        .into_iter()
         // Versioned programs and contract classes can represent the same piece of code,
         // so we merge the file coverage after processing them to avoid duplicate entries.
         .reduce(MergeOwned::merge_owned)
