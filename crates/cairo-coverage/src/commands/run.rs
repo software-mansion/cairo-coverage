@@ -26,7 +26,7 @@ pub fn run(
         .create(true)
         .open(&output_path)
         .context(format!("Failed to open output file at path: {output_path}"))?
-        .write_all(lcov.to_string().as_bytes())
+        .write_all(lcov.as_bytes())
         .context("Failed to write to output file")?;
 
     Ok(())
