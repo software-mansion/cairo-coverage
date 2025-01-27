@@ -1,7 +1,6 @@
 use crate::input::filter::statement_category_filter::{
     StatementCategoryFilter, VIRTUAL_FILE_REGEX,
 };
-use anyhow::{Context, Result};
 use cairo_annotations::annotations::coverage::{
     CodeLocation, CoverageAnnotationsV1, LineNumber, SourceCodeSpan, SourceFileFullPath,
     VersionedCoverageAnnotations,
@@ -9,26 +8,12 @@ use cairo_annotations::annotations::coverage::{
 use cairo_annotations::annotations::profiler::{
     FunctionName, ProfilerAnnotationsV1, VersionedProfilerAnnotations,
 };
-use cairo_annotations::annotations::TryFromDebugInfo;
-use cairo_lang_sierra::debug_info::DebugInfo;
 use cairo_lang_sierra::program::{Program, Statement, StatementIdx};
 use derived_deref::Deref;
-use indoc::indoc;
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::iter;
 use std::ops::RangeInclusive;
-
-const RECOMMENDED_CAIRO_PROFILE_TOML: &str = indoc! {
-    r#"
-    Perhaps you are missing the following entries in Scarb.toml:
-
-    [profile.dev.cairo]
-    unstable-add-statements-functions-debug-info = true
-    unstable-add-statements-code-locations-debug-info = true
-    inlining-strategy = "avoid"
-    "#
-};
 
 #[derive(Deref)]
 pub struct SierraToCairoMap(HashMap<StatementIdx, StatementOrigin>);
@@ -82,20 +67,15 @@ impl IntoIterator for &LineRange {
 }
 
 pub fn create_sierra_to_cairo_map(
-    debug_info: &DebugInfo,
+    VersionedCoverageAnnotations::V1(CoverageAnnotationsV1 {
+        statements_code_locations,
+    }): VersionedCoverageAnnotations,
+    VersionedProfilerAnnotations::V1(ProfilerAnnotationsV1 {
+        statements_functions,
+    }): VersionedProfilerAnnotations,
     filter: &StatementCategoryFilter,
     program: &Program,
-) -> Result<SierraToCairoMap> {
-    let VersionedCoverageAnnotations::V1(CoverageAnnotationsV1 {
-        statements_code_locations,
-    }) = VersionedCoverageAnnotations::try_from_debug_info(debug_info)
-        .context(RECOMMENDED_CAIRO_PROFILE_TOML)?;
-
-    let VersionedProfilerAnnotations::V1(ProfilerAnnotationsV1 {
-        statements_functions,
-    }) = VersionedProfilerAnnotations::try_from_debug_info(debug_info)
-        .context(RECOMMENDED_CAIRO_PROFILE_TOML)?;
-
+) -> SierraToCairoMap {
     let libfuncs_long_ids_by_ids: HashMap<_, _> = program
         .libfunc_declarations
         .iter()
@@ -117,7 +97,7 @@ pub fn create_sierra_to_cairo_map(
         })
         .collect();
 
-    Ok(SierraToCairoMap(
+    SierraToCairoMap(
         statements_code_locations
             .into_iter()
             .filter_map(|(key, code_locations)| {
@@ -133,7 +113,7 @@ pub fn create_sierra_to_cairo_map(
                 Some((key, statement_origin))
             })
             .collect(),
-    ))
+    )
 }
 
 fn find_statement_origin(
