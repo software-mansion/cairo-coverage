@@ -16,6 +16,7 @@ use crate::loading::execution_data;
 use crate::output::lcov;
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use scarb_metadata::{Metadata, MetadataCommand};
 
 /// Run the core logic of `cairo-coverage` with the provided trace files and [`RunOptions`].
@@ -39,7 +40,7 @@ pub fn run(
     let ignore_matcher = ignore_matcher::build(&project_path)?;
 
     let coverage_data = execution_data::load(&trace_files)?
-        .into_iter()
+        .into_par_iter()
         .map(|execution_data| {
             let filter = statement_category_filter::build(
                 &project_path,
@@ -51,6 +52,8 @@ pub fn run(
             coverage_input::build(execution_data, &filter)
         })
         .map(coverage::project::create)
+        .collect::<Vec<_>>()
+        .into_iter()
         // Versioned programs and contract classes can represent the same piece of code,
         // so we merge the file coverage after processing them to avoid duplicate entries.
         .reduce(merge)
