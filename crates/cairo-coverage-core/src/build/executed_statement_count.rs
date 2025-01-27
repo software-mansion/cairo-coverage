@@ -4,6 +4,7 @@ use cairo_annotations::trace_data::CasmLevelInfo;
 use cairo_lang_sierra::program::StatementIdx;
 use cairo_lang_sierra_to_casm::compiler::CairoProgramDebugInfo;
 use itertools::Itertools;
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
 
 /// Sierra statement IDs that were executed and their count.
@@ -19,7 +20,7 @@ pub fn build(
     statement_information_map: &StatementInformationMap,
 ) -> ExecutedStatementCount {
     let executed_statement_ids = casm_level_infos
-        .iter()
+        .par_iter()
         .flat_map(|casm_level_info| {
             map_pcs_to_sierra_statement_ids(casm_debug_info, casm_level_info)
         })

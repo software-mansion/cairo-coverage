@@ -4,6 +4,7 @@ use cairo_annotations::trace_data::{
     CairoExecutionInfo, CallTraceNode, CallTraceV1, CasmLevelInfo, VersionedCallTrace,
 };
 use camino::Utf8PathBuf;
+use rayon::iter::{IntoParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
 
 /// Load the grouped [`CairoExecutionInfo`].
@@ -14,12 +15,12 @@ pub fn load_grouped(
     call_trace_paths: &[Utf8PathBuf],
 ) -> Result<HashMap<Utf8PathBuf, Vec<CasmLevelInfo>>> {
     let call_traces = call_trace_paths
-        .iter()
+        .par_iter()
         .map(read_and_deserialize)
         .collect::<Result<Vec<_>>>()?;
 
     let execution_infos = call_traces
-        .into_iter()
+        .into_par_iter()
         .flat_map(load_cairo_execution_infos)
         .collect();
 
