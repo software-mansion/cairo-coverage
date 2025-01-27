@@ -1,6 +1,6 @@
 pub mod args;
 mod build;
-mod coverage_data;
+mod coverage;
 mod loading;
 mod merge;
 mod output;
@@ -9,7 +9,6 @@ mod types;
 use crate::args::RunOptions;
 use crate::build::coverage_input;
 use crate::build::filter::{ignore_matcher, statement_category_filter};
-use crate::coverage_data::create_files_coverage_data_with_hits;
 use crate::loading::execution_data;
 use crate::output::lcov::LcovFormat;
 use anyhow::{Context, Result};
@@ -47,10 +46,9 @@ pub fn run(
                 &execution_data.enriched_program,
             );
 
-            let coverage_input = coverage_input::build(execution_data, &filter);
-
-            create_files_coverage_data_with_hits(&coverage_input)
+            coverage_input::build(execution_data, &filter)
         })
+        .map(coverage::project::create)
         // Versioned programs and contract classes can represent the same piece of code,
         // so we merge the file coverage after processing them to avoid duplicate entries.
         .reduce(MergeOwned::merge_owned)
