@@ -11,7 +11,7 @@ pub struct RunOptions {
 }
 
 /// Additional components that can be included in the coverage report.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Eq, PartialEq)]
 pub enum IncludedComponent {
     /// Run coverage on functions marked with `#[test]` attribute
     TestFunctions,
