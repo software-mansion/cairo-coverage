@@ -1,7 +1,7 @@
 use crate::args::IncludedComponent;
-use crate::data_loader::LoadedData;
 use crate::input::filter::ignore::CairoCoverageIgnoreMatcher;
 use crate::input::sierra_to_cairo_map::{SimpleLibfuncName, StatementOrigin};
+use crate::loading::execution_data::ExecutionData;
 use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
 use camino::Utf8PathBuf;
@@ -40,8 +40,6 @@ static NOT_RELIABLE_LIBFUNCS: LazyLock<HashSet<SimpleLibfuncName>> = LazyLock::n
     .collect()
 });
 
-const SNFORGE_TEST_EXECUTABLE: &str = "snforge_internal_test_executable";
-
 #[derive(Eq, PartialEq, Hash)]
 enum StatementCategory {
     TestFunction,
@@ -72,13 +70,11 @@ impl StatementCategoryFilter {
     pub fn new(
         user_project_path: &Utf8PathBuf,
         included_component: &[IncludedComponent],
-        loaded_data: &LoadedData,
+        execution_data: &ExecutionData,
     ) -> Self {
-        let test_functions = loaded_data
-            .debug_info
-            .executables
-            .get(SNFORGE_TEST_EXECUTABLE)
-            .unwrap_or(&Vec::new())
+        let test_functions = execution_data
+            .enriched_program
+            .test_executables
             .iter()
             .map(ToString::to_string)
             .collect();
