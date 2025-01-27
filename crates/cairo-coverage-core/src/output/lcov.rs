@@ -1,7 +1,6 @@
-use crate::coverage_data::{
-    FileCoverageData, FileCoverageDataOps, FilesCoverageData, FunctionCoverageData,
-    FunctionCoverageDataOps,
-};
+use crate::coverage::file::{FileCoverage, FileCoverageOperations};
+use crate::coverage::function::{FunctionCoverage, FunctionCoverageOperations};
+use crate::coverage::project::ProjectCoverage;
 use crate::types::HitCount;
 use cairo_annotations::annotations::coverage::{LineNumber, SourceFileFullPath};
 use cairo_annotations::annotations::profiler::FunctionName;
@@ -27,10 +26,10 @@ struct LcovDetails {
     hit_count: HitCount,
 }
 
-impl From<FilesCoverageData> for LcovFormat {
-    fn from(files_coverage_data: FilesCoverageData) -> Self {
+impl From<ProjectCoverage> for LcovFormat {
+    fn from(project_coverage: ProjectCoverage) -> Self {
         Self(
-            files_coverage_data
+            project_coverage
                 .iter()
                 .map(|(source_file_full_path, file_coverage_data)| {
                     (source_file_full_path.to_owned(), file_coverage_data.into())
@@ -45,18 +44,18 @@ impl From<FilesCoverageData> for LcovFormat {
     }
 }
 
-impl From<&FileCoverageData> for LcovData {
-    fn from(file_coverage_data: &FileCoverageData) -> Self {
-        let lines = file_coverage_data.lines().into_iter().sorted().collect();
+impl From<&FileCoverage> for LcovData {
+    fn from(file_coverage: &FileCoverage) -> Self {
+        let lines = file_coverage.flatten().into_iter().sorted().collect();
 
-        let functions = file_coverage_data
+        let functions = file_coverage
             .iter()
             .map(LcovDetails::from)
             .sorted()
             .collect();
 
-        let file_hit_count = file_coverage_data.file_hit_count();
-        let unique_file_hit_count = file_coverage_data.unique_file_hit_count();
+        let file_hit_count = file_coverage.executed_functions();
+        let unique_file_hit_count = file_coverage.executed_lines();
 
         Self {
             lines,
@@ -67,12 +66,12 @@ impl From<&FileCoverageData> for LcovData {
     }
 }
 
-impl From<(&FunctionName, &FunctionCoverageData)> for LcovDetails {
-    fn from((name, function_coverage_data): (&FunctionName, &FunctionCoverageData)) -> Self {
+impl From<(&FunctionName, &FunctionCoverage)> for LcovDetails {
+    fn from((name, function_coverage_data): (&FunctionName, &FunctionCoverage)) -> Self {
         Self {
             name: name.to_owned(),
             starts_at: function_coverage_data.starts_at(),
-            hit_count: function_coverage_data.hit_count(),
+            hit_count: function_coverage_data.max_execution_count(),
         }
     }
 }
