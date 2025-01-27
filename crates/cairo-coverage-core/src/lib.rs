@@ -11,12 +11,10 @@ use crate::coverage_data::create_files_coverage_data_with_hits;
 use crate::data_loader::LoadedDataMap;
 use crate::input::{InputData, StatementCategoryFilter};
 use crate::output::lcov::LcovFormat;
-use anyhow::{bail, ensure, Context, Result};
+use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
-use indoc::indoc;
 use merge::MergeOwned;
-
-const SNFORGE_SIERRA_DIR: &str = ".snfoundry_versioned_programs";
+use scarb_metadata::{Metadata, MetadataCommand};
 
 /// Run the core logic of `cairo-coverage` with the provided trace files and [`RunOptions`].
 /// This function generates a coverage report in the LCOV format.
@@ -30,11 +28,16 @@ pub fn run(
         project_path,
     }: RunOptions,
 ) -> Result<LcovFormat> {
+    let project_path = if let Some(project_path) = project_path {
+        project_path
+    } else {
+        scarb_metadata()?.workspace.root
+    };
+
     let coverage_data = LoadedDataMap::load(&trace_files)?
         .iter()
-        .map(|(source_sierra_path, loaded_data)| {
-            let project_path = &get_project_path(source_sierra_path, project_path.as_ref())?;
-            let filter = StatementCategoryFilter::new(project_path, &include, loaded_data);
+        .map(|(_, loaded_data)| {
+            let filter = StatementCategoryFilter::new(&project_path, &include, loaded_data);
             let input_data = InputData::new(loaded_data, &filter)?;
             Ok(create_files_coverage_data_with_hits(&input_data))
         })
@@ -48,58 +51,11 @@ pub fn run(
     Ok(LcovFormat::from(coverage_data))
 }
 
-fn get_project_path(
-    source_sierra_path: &Utf8PathBuf,
-    project_path: Option<&Utf8PathBuf>,
-) -> Result<Utf8PathBuf> {
-    if let Some(project_path) = project_path {
-        Ok(project_path.clone())
-    } else {
-        find_user_project_path(source_sierra_path).context(indoc! {
-            r"Inference of project path failed.
-            Please provide the project path explicitly using the --project-path flag."
-        })
-    }
-}
-
-fn find_user_project_path(source_sierra_path: &Utf8PathBuf) -> Result<Utf8PathBuf> {
-    ensure!(
-        source_sierra_path.extension() == Some("json"),
-        "Source sierra path should have a .json extension, got: {source_sierra_path}"
-    );
-
-    match source_sierra_path.with_extension("").extension() {
-        Some("sierra") => {
-            navigate_and_check(source_sierra_path, &["target", "dev"])
-                .or_else(|| navigate_and_check(source_sierra_path, &[SNFORGE_SIERRA_DIR]))
-                .context(format!(
-                    "Source sierra path should be in one of the formats: \
-                    <project_root>/{SNFORGE_SIERRA_DIR}/<file>.sierra.json \
-                    or <project_root>/target/dev/<file>.sierra.json, got: {source_sierra_path}"
-                ))
-        }
-        Some("contract_class") => {
-            navigate_and_check(source_sierra_path, &["target", "dev"])
-                .context(format!(
-                    "Source sierra path should be in the format: \
-                    <project_root>/target/dev/<file>.contract_class.json, got: {source_sierra_path}"
-                ))
-        }
-        _ => bail!(
-            "Source sierra path should have a .sierra or .contract_class extension, got: {source_sierra_path}"
-        ),
-    }
-}
-
-fn navigate_and_check(path: &Utf8PathBuf, folders: &[&str]) -> Option<Utf8PathBuf> {
-    folders
-        .iter()
-        .rev()
-        .try_fold(path.parent()?, |current, &folder| {
-            current
-                .file_name()
-                .filter(|name| *name == folder)
-                .map(|_| current.parent())?
-        })
-        .map(Utf8PathBuf::from)
+/// Run `scarb metadata` command and return the metadata.
+fn scarb_metadata() -> Result<Metadata> {
+    MetadataCommand::new()
+        .inherit_stderr()
+        .inherit_stdout()
+        .exec()
+        .context("error: could not gather project metadata from Scarb due to previous error")
 }
