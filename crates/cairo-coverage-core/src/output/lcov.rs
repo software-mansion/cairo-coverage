@@ -1,109 +1,98 @@
 use crate::coverage::file::{FileCoverage, FileCoverageOperations};
-use crate::coverage::function::{FunctionCoverage, FunctionCoverageOperations};
+use crate::coverage::function::FunctionCoverageOperations;
 use crate::coverage::project::ProjectCoverage;
-use crate::types::HitCount;
-use cairo_annotations::annotations::coverage::{LineNumber, SourceFileFullPath};
-use cairo_annotations::annotations::profiler::FunctionName;
-use derived_deref::Deref;
-use itertools::Itertools;
+use crate::hashmap_utils::stable_iter::{IntoStableIter, StableIter};
+use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use std::fmt;
-use std::fmt::Display;
 
-#[derive(Deref)]
-pub struct LcovFormat(Vec<(SourceFileFullPath, LcovData)>);
-
-pub struct LcovData {
-    lines: Vec<(LineNumber, HitCount)>,
-    file_hit_count: HitCount,
-    unique_file_hit_count: HitCount,
-    functions: Vec<LcovDetails>,
+/// Formats coverage data in the LCOV format as a string.
+pub fn fmt_string(project_coverage: &ProjectCoverage) -> String {
+    let mut buf = String::new();
+    LcovFormatter::new(&mut buf)
+        .fmt(project_coverage)
+        .unwrap_or_else(|_| unreachable!("formatting to a string should never fail"));
+    buf
 }
 
-#[derive(Ord, PartialOrd, Eq, PartialEq)]
-struct LcovDetails {
-    name: FunctionName,
-    starts_at: LineNumber,
-    hit_count: HitCount,
+/// Formats coverage data in the LCOV format to a writer.
+struct LcovFormatter<T: fmt::Write> {
+    writer: T,
 }
 
-impl From<ProjectCoverage> for LcovFormat {
-    fn from(project_coverage: ProjectCoverage) -> Self {
-        Self(
-            project_coverage
-                .iter()
-                .map(|(source_file_full_path, file_coverage_data)| {
-                    (source_file_full_path.to_owned(), file_coverage_data.into())
-                })
-                .sorted_by(
-                    |(source_file_full_path, _), (other_source_file_full_path, _)| {
-                        source_file_full_path.cmp(other_source_file_full_path)
-                    },
-                )
-                .collect(),
-        )
+impl<T> LcovFormatter<T>
+where
+    T: fmt::Write,
+{
+    /// Creates a new [`LcovFormatter`] that writes to the given writer.
+    fn new(writer: T) -> Self {
+        Self { writer }
     }
-}
 
-impl From<&FileCoverage> for LcovData {
-    fn from(file_coverage: &FileCoverage) -> Self {
-        let lines = file_coverage.flatten().into_iter().sorted().collect();
-
-        let functions = file_coverage
-            .iter()
-            .map(LcovDetails::from)
-            .sorted()
-            .collect();
-
-        let file_hit_count = file_coverage.executed_functions();
-        let unique_file_hit_count = file_coverage.executed_lines();
-
-        Self {
-            lines,
-            file_hit_count,
-            unique_file_hit_count,
-            functions,
-        }
-    }
-}
-
-impl From<(&FunctionName, &FunctionCoverage)> for LcovDetails {
-    fn from((name, function_coverage_data): (&FunctionName, &FunctionCoverage)) -> Self {
-        Self {
-            name: name.to_owned(),
-            starts_at: function_coverage_data.starts_at(),
-            hit_count: function_coverage_data.max_execution_count(),
-        }
-    }
-}
-
-impl Display for LcovFormat {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        for (source_file_full_path, functions) in self.iter() {
-            writeln!(f, "TN:")?;
-            writeln!(f, "SF:{source_file_full_path}")?;
-            write!(f, "{functions}")?;
+    /// Formats the coverage data in the LCOV format.
+    fn fmt(&mut self, project_coverage: &ProjectCoverage) -> fmt::Result {
+        for (source_file_full_path, coverage_by_function) in project_coverage.stable_iter() {
+            self.general_information(source_file_full_path)?;
+            self.function_details(coverage_by_function)?;
+            self.function_summary(coverage_by_function)?;
+            self.line_execution(coverage_by_function)?;
+            self.end_of_record()?;
         }
         Ok(())
     }
-}
 
-impl Display for LcovData {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        for function in &self.functions {
-            writeln!(f, "FN:{},{}", function.starts_at, function.name)?;
-            writeln!(f, "FNDA:{},{}", function.hit_count, function.name)?;
+    /// Writes the general:
+    /// - TN(Test Name): accepted to be empty in the LCOV format
+    /// - SF(Source File): source file
+    fn general_information(&mut self, source_file_full_path: &SourceFileFullPath) -> fmt::Result {
+        writeln!(self.writer, "TN:")?;
+        writeln!(self.writer, "SF:{source_file_full_path}")
+    }
+
+    /// Writes the function details:
+    /// - FN(Function Name): line at which function start, function name
+    /// - FNDA(Function Data): how many times function was executed, function name
+    fn function_details(&mut self, file_coverage: &FileCoverage) -> fmt::Result {
+        for (name, by_line) in file_coverage.stable_iter() {
+            writeln!(self.writer, "FN:{},{}", by_line.starts_at(), name)?;
+            writeln!(
+                self.writer,
+                "FNDA:{},{}",
+                by_line.max_execution_count(),
+                name
+            )?;
         }
 
-        writeln!(f, "FNF:{}", self.functions.len())?;
-        writeln!(f, "FNH:{}", self.file_hit_count)?;
-
-        for (line_number, hit_count) in &self.lines {
-            writeln!(f, "DA:{line_number},{hit_count}")?;
-        }
-
-        writeln!(f, "LF:{}", self.lines.len())?;
-        writeln!(f, "LH:{}", self.unique_file_hit_count)?;
-        writeln!(f, "end_of_record")?;
         Ok(())
+    }
+
+    /// Writes the function summary:
+    /// - FNF(Functions Found): number of functions found
+    /// - FNH(Functions Hit): number of functions hit (executed)
+    fn function_summary(&mut self, file_coverage: &FileCoverage) -> fmt::Result {
+        writeln!(self.writer, "FNF:{}", file_coverage.len())?;
+        writeln!(self.writer, "FNH:{}", file_coverage.executed_functions())
+    }
+
+    /// Writes the line execution:
+    /// - DA(Line Data): line number, execution count
+    /// - LF (Lines Found): number of lines found
+    /// - LH(Lines Hit): number of lines hit
+    fn line_execution(&mut self, coverage_by_function: &FileCoverage) -> fmt::Result {
+        let lines = coverage_by_function
+            .flatten()
+            .into_stable_iter()
+            .collect::<Vec<_>>();
+
+        for (line_number, execution_count) in &lines {
+            writeln!(self.writer, "DA:{line_number},{execution_count}")?;
+        }
+
+        writeln!(self.writer, "LF:{}", lines.len())?;
+        writeln!(self.writer, "LH:{}", coverage_by_function.executed_lines())
+    }
+
+    /// Writes the end of record marker.
+    pub fn end_of_record(&mut self) -> fmt::Result {
+        writeln!(self.writer, "end_of_record")
     }
 }
