@@ -1,5 +1,6 @@
 //! This module handles **reading**, **deserializing**, and **extracting fields** from files into
-//! structured data.
+//! structured data. It focuses on basic data loading tasks, leaving advanced operations to the
+//! [`build`](crate::build) module.
 //!
 //! ## Main Entry Point
 //! [`execution_data::load`] is the primary function, coordinating the loading of traces and programs
@@ -10,6 +11,7 @@
 //! - If transformations or grouping are involved, append a descriptor (e.g., `load_grouped`).
 //! - Prefer standalone functions over struct-based factory methods to
 //!   avoid wrapping or redefining external types unnecessarily.
+
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
 use serde::de::DeserializeOwned;

@@ -1,4 +1,5 @@
-use crate::input::{InputData, SierraToCairoMap};
+use crate::build::coverage_input::CoverageInput;
+use crate::build::statement_information::StatementInformationMap;
 use crate::types::HitCount;
 use cairo_annotations::annotations::coverage::{LineNumber, SourceFileFullPath};
 use cairo_annotations::annotations::profiler::FunctionName;
@@ -7,13 +8,13 @@ use std::collections::HashMap;
 
 pub type FilesCoverageData = HashMap<SourceFileFullPath, FileCoverageData>;
 
-pub fn create_files_coverage_data_with_hits(input_data: &InputData) -> FilesCoverageData {
-    input_data
-        .sierra_to_cairo_map
+pub fn create_files_coverage_data_with_hits(coverage_input: &CoverageInput) -> FilesCoverageData {
+    coverage_input
+        .statement_information_map
         .iter()
-        .filter(|(id, _)| input_data.unique_executed_sierra_ids.contains_key(id))
+        .filter(|(id, _)| coverage_input.executed_statement_count.contains_key(id))
         .fold(
-            create_files_coverage_data(&input_data.sierra_to_cairo_map),
+            create_files_coverage_data(&coverage_input.statement_information_map),
             |mut files_coverage_data, (id, statement_origin)| {
                 if let Some(function_details) = files_coverage_data
                     .get_mut(&statement_origin.source_file_full_path)
@@ -21,7 +22,7 @@ pub fn create_files_coverage_data_with_hits(input_data: &InputData) -> FilesCove
                 {
                     function_details.register_hit(
                         &statement_origin.line_range,
-                        input_data.unique_executed_sierra_ids[id],
+                        coverage_input.executed_statement_count[id],
                     );
                 }
                 files_coverage_data
@@ -29,8 +30,10 @@ pub fn create_files_coverage_data_with_hits(input_data: &InputData) -> FilesCove
         )
 }
 
-fn create_files_coverage_data(sierra_to_cairo_map: &SierraToCairoMap) -> FilesCoverageData {
-    sierra_to_cairo_map
+fn create_files_coverage_data(
+    statement_information_map: &StatementInformationMap,
+) -> FilesCoverageData {
+    statement_information_map
         .values()
         .cloned()
         .fold(HashMap::new(), |mut acc, origin| {

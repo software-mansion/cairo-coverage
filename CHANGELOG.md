@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 - `cairo-coverage` must be called within a scarb-managed workspace as now it uses `scarb metadata` to infer the project root directory
+- `.cairo-coverage-ignore` file now is only accepted in the project root directory
 
 
 ## [0.3.0] - 2024-12-09
