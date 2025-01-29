@@ -1,15 +1,15 @@
 pub mod args;
 mod coverage_data;
-mod data_loader;
 mod input;
+mod loading;
 mod merge;
 mod output;
 mod types;
 
 use crate::args::RunOptions;
 use crate::coverage_data::create_files_coverage_data_with_hits;
-use crate::data_loader::LoadedDataMap;
 use crate::input::{InputData, StatementCategoryFilter};
+use crate::loading::execution_data;
 use crate::output::lcov::LcovFormat;
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
@@ -34,11 +34,11 @@ pub fn run(
         scarb_metadata()?.workspace.root
     };
 
-    let coverage_data = LoadedDataMap::load(&trace_files)?
-        .iter()
-        .map(|(_, loaded_data)| {
-            let filter = StatementCategoryFilter::new(&project_path, &include, loaded_data);
-            let input_data = InputData::new(loaded_data, &filter)?;
+    let coverage_data = execution_data::load(&trace_files)?
+        .into_iter()
+        .map(|execution_data| {
+            let filter = StatementCategoryFilter::new(&project_path, &include, &execution_data);
+            let input_data = InputData::new(execution_data, &filter)?;
             Ok(create_files_coverage_data_with_hits(&input_data))
         })
         .collect::<Result<Vec<_>>>()?
