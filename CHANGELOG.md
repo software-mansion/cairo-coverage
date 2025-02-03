@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-01-03
+
 #### Added
 
 - `cairo-coverage clean` command to remove all generated files. This is useful as by default, if a coverage report
@@ -14,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+- `cairo-coverage` is now up to 2x faster. This is achieved by using multiple threads
 - `cairo-coverage` must be called within a scarb-managed workspace as now it uses `scarb metadata` to infer the project
   root directory
 - `.cairo-coverage-ignore` file now is only accepted in the project root directory
