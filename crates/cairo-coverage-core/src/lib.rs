@@ -1,5 +1,3 @@
-extern crate core;
-
 pub mod args;
 mod build;
 mod coverage;
