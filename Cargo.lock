@@ -217,7 +217,7 @@ dependencies = [
 
 [[package]]
 name = "cairo-coverage"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "anyhow",
  "assert_fs",
@@ -231,7 +231,7 @@ dependencies = [
 
 [[package]]
 name = "cairo-coverage-core"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "anyhow",
  "assert_fs",
@@ -254,7 +254,7 @@ dependencies = [
 
 [[package]]
 name = "cairo-coverage-test-utils"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "assert_fs",
  "camino",
