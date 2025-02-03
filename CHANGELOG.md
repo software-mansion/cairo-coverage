@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- `cairo-coverage clean` command to remove all generated files. This is useful as by default, if a coverage report already exists, the new report is
-  appended to it. So if you want to start fresh, you can use this command.
+- `cairo-coverage clean` command to remove all generated files. This is useful as by default, if a coverage report
+  already exists, the new report is appended to it. So if you want to start fresh, you can use this command.
 
 #### Changed
-- `cairo-coverage` must be called within a scarb-managed workspace as now it uses `scarb metadata` to infer the project root directory
-- `.cairo-coverage-ignore` file now is only accepted in the project root directory
 
+- `cairo-coverage` must be called within a scarb-managed workspace as now it uses `scarb metadata` to infer the project
+  root directory
+- `.cairo-coverage-ignore` file now is only accepted in the project root directory
 
 ## [0.3.0] - 2024-12-09
 
