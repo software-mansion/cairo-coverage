@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ ubuntu-latest, windows-latest ]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -20,6 +20,16 @@ jobs:
       - uses: hrishikesh-kadam/setup-lcov@v1
       - uses: software-mansion/setup-scarb@v1
       - uses: foundry-rs/setup-snfoundry@v4
+      - name: Check genhtml version
+        if: startsWith(runner.os, 'Windows')
+        run: |
+          if (Test-Path "C:\ProgramData\chocolatey\lib\lcov\tools\bin\genhtml") {
+            Write-Output "genhtml exists"
+            & "C:\ProgramData\chocolatey\lib\lcov\tools\bin\genhtml" --version
+          } else {
+            Write-Error "genhtml not found"
+            exit 1
+          }
       - run: cargo test --release
 
   rustfmt:
