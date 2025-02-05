@@ -23,9 +23,17 @@ jobs:
       - name: Check genhtml version
         if: startsWith(runner.os, 'Windows')
         run: |
-          if (Test-Path "C:\ProgramData\chocolatey\lib\lcov\tools\bin\genhtml") {
-            Write-Output "genhtml exists"
-            & "C:\ProgramData\chocolatey\lib\lcov\tools\bin\genhtml" --version
+          $genhtmlPath = where.exe genhtml 2>$null
+          if ($genhtmlPath) {
+            Write-Output "genhtml exists at $genhtmlPath"
+
+            # Print version
+            Write-Output "Version:"
+            & $genhtmlPath --version
+
+            # Print help
+            Write-Output "Help:"
+            & $genhtmlPath --help
           } else {
             Write-Error "genhtml not found"
             exit 1
