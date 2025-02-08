@@ -114,16 +114,13 @@ impl TestProjectOutput {
             .unwrap()
             .replace(
                 "{dir}",
-                &fs::canonicalize(&self.0.dir).unwrap().display().to_string(),
+                &self.0.dir.canonicalize().unwrap().display().to_string(),
             );
         #[cfg(target_os = "windows")]
         {
             assert_eq!(
                 content.replace("\n", "\r\n").replace("\\\\", "\\"),
-                expected
-                    .replace('/', r"\")
-                    .replace("\\\\", "\\")
-                    .replace(r"\?\", "")
+                expected.replace("\\\\", "\\").replace(r"\?\", "")
             );
         }
 
