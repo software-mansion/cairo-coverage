@@ -122,7 +122,7 @@ impl TestProjectOutput {
         #[cfg(target_os = "windows")]
         {
             assert_eq!(
-                content.replace(r"\n", r"\r\n").replace("\\\\", "\\"),
+                content.replace("\n", "\r\n").replace("\\\\", "\\"),
                 expected.replace('/', r"\").replace("\\\\", "\\")
             );
         }
