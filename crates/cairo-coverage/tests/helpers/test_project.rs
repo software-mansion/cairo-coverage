@@ -120,7 +120,10 @@ impl TestProjectOutput {
         {
             assert_eq!(
                 content.replace("\n", "\r\n").replace("\\\\", "\\"),
-                expected.replace('/', r"\").replace("\\\\", "\\")
+                expected
+                    .replace('/', r"\")
+                    .replace("\\\\", "\\")
+                    .replace(r"\?\", "")
             );
         }
 
