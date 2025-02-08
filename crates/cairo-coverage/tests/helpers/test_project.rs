@@ -114,10 +114,7 @@ impl TestProjectOutput {
             .unwrap()
             .replace(
                 "{dir}",
-                &dunce::canonicalize(&self.0.dir)
-                    .unwrap()
-                    .display()
-                    .to_string(),
+                &fs::canonicalize(&self.0.dir).unwrap().display().to_string(),
             );
         #[cfg(target_os = "windows")]
         {
