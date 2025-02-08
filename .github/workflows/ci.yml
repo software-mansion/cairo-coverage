@@ -23,7 +23,7 @@ jobs:
       - name: Check genhtml version
         if: startsWith(runner.os, 'Windows')
         run: |
-          $genhtmlPath = where.exe genhtml 2>$null
+          $genhtmlPath = where.exe genhtml 2>$null | Select-Object -First 1
           if ($genhtmlPath) {
             Write-Output "genhtml exists at $genhtmlPath"
 
