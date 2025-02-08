@@ -70,10 +70,3 @@ fn snforge_template() {
         .run()
         .output_same_as_in_file("snforge_template.lcov");
 }
-
-#[test]
-fn aa_macro() {
-    let left = "TN:\r\nSF:C:\\Users\\runneradmin\\AppData\\Local\\Temp\\.tmpEwTnhV\\src\\lib.cairo\r\nFN:22,snforge_template::HelloStarknet::HelloStarknetImpl::get_balance\r\nFNDA:9,snforge_template::HelloStarknet::HelloStarknetImpl::get_balance\r\nFN:17,snforge_template::HelloStarknet::HelloStarknetImpl::increase_balance\r\nFNDA:8,snforge_template::HelloStarknet::HelloStarknetImpl::increase_balance\r\nFNF:2\r\nFNH:2\r\nDA:17,7\r\nDA:18,8\r\nDA:22,9\r\nLF:3\r\nLH:3\r\nend_of_record\r\nTN:\r\nSF:C:\\Users\\runneradmin\\AppData\\Local\\Temp\\.tmpEwTnhV\\tests\\test_contract.cairo\r\nFN:11,snforge_template_integrationtest::test_contract::deploy_contract\r\nFNDA:10,snforge_template_integrationtest::test_contract::deploy_contract\r\nFNF:1\r\nFNH:1\r\nDA:11,10\r\nDA:12,10\r\nLF:2\r\nLH:2\r\nend_of_record\r\n";
-    let right = "TN:\r\nSF:\\C:\\Users\\runneradmin\\AppData\\Local\\Temp\\.tmpEwTnhV\\src\\lib.cairo\r\nFN:22,snforge_template::HelloStarknet::HelloStarknetImpl::get_balance\r\nFNDA:9,snforge_template::HelloStarknet::HelloStarknetImpl::get_balance\r\nFN:17,snforge_template::HelloStarknet::HelloStarknetImpl::increase_balance\r\nFNDA:8,snforge_template::HelloStarknet::HelloStarknetImpl::increase_balance\r\nFNF:2\r\nFNH:2\r\nDA:17,7\r\nDA:18,8\r\nDA:22,9\r\nLF:3\r\nLH:3\r\nend_of_record\r\nTN:\r\nSF:\\C:\\Users\\runneradmin\\AppData\\Local\\Temp\\.tmpEwTnhV\\tests\\test_contract.cairo\r\nFN:11,snforge_template_integrationtest::test_contract::deploy_contract\r\nFNDA:10,snforge_template_integrationtest::test_contract::deploy_contract\r\nFNF:1\r\nFNH:1\r\nDA:11,10\r\nDA:12,10\r\nLF:2\r\nLH:2\r\nend_of_record\r\n";
-    assert_eq!(left, right);
-}
