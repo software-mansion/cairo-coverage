@@ -92,15 +92,24 @@ impl TestProject {
     }
 
     fn run_genhtml(self) -> Self {
-        #[cfg(not(target_os = "windows"))]
-        {
-            SnapboxCommand::new("genhtml")
-                .arg(self.output_lcov_path())
-                .arg("--output-directory")
-                .arg(self.dir.path())
-                .assert()
-                .success();
-        }
+        let program_path = {
+            #[cfg(not(target_os = "windows"))]
+            {
+                PathBuf::from("genhtml")
+            }
+            #[cfg(target_os = "windows")]
+            {
+                PathBuf::from(r"D:\a\_actions\hrishikesh-kadam\setup-lcov\v1\bin\genhtml.bat")
+            }
+        };
+
+        SnapboxCommand::new(program_path)
+            .arg(self.output_lcov_path())
+            .arg("--output-directory")
+            .arg(self.dir.path())
+            .assert()
+            .success();
+
         self
     }
 }
