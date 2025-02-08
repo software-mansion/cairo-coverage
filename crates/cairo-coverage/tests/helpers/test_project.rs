@@ -93,8 +93,7 @@ impl TestProject {
     }
 
     fn run_genhtml(self) -> Self {
-        let program_path = which("genhtml").unwrap();
-        SnapboxCommand::new(program_path)
+        SnapboxCommand::new(which("genhtml").unwrap())
             .arg(self.output_lcov_path())
             .arg("--output-directory")
             .arg(self.dir.path())
@@ -123,12 +122,8 @@ impl TestProjectOutput {
         #[cfg(target_os = "windows")]
         {
             assert_eq!(
-                format!("{content:?}")
-                    .replace(r"\n", r"\r\n")
-                    .replace("\\\\", "\\"),
-                format!("{expected:?}")
-                    .replace('/', r"\")
-                    .replace("\\\\", "\\")
+                content.replace(r"\n", r"\r\n").replace("\\\\", "\\"),
+                expected.replace('/', r"\").replace("\\\\", "\\")
             );
         }
 
