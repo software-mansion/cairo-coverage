@@ -16,3 +16,4 @@ cairo-coverage-test-utils = { path = "../cairo-coverage-test-utils" }
 assert_fs.workspace = true
 snapbox.workspace = true
 dunce.workspace = true
+which.workspace = true

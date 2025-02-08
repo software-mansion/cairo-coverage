@@ -5,6 +5,7 @@ use camino::Utf8PathBuf;
 use snapbox::cmd::{cargo_bin, Command as SnapboxCommand};
 use std::fs;
 use std::path::PathBuf;
+use which::which;
 
 pub struct TestProject {
     dir: TempDir,
@@ -92,17 +93,7 @@ impl TestProject {
     }
 
     fn run_genhtml(self) -> Self {
-        let program_path = {
-            #[cfg(not(target_os = "windows"))]
-            {
-                PathBuf::from("genhtml")
-            }
-            #[cfg(target_os = "windows")]
-            {
-                PathBuf::from(r"D:\a\_actions\hrishikesh-kadam\setup-lcov\v1\bin\genhtml.bat")
-            }
-        };
-
+        let program_path = which("genhtml").unwrap();
         SnapboxCommand::new(program_path)
             .arg(self.output_lcov_path())
             .arg("--output-directory")
