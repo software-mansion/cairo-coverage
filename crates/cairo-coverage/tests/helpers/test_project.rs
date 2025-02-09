@@ -99,7 +99,6 @@ impl TestProject {
             .arg(self.dir.path())
             .assert()
             .success();
-
         self
     }
 }
@@ -116,21 +115,17 @@ impl TestProjectOutput {
                 "{dir}",
                 &self.0.dir.canonicalize().unwrap().display().to_string(),
             );
-        #[cfg(target_os = "windows")]
-        {
-            assert_eq!(
-                content,
-                expected
-                    .replace("\r\n", "\n")
-                    .replace('/', r"\")
-                    .replace(r"\\?\", "")
-            );
-        }
 
-        #[cfg(not(target_os = "windows"))]
-        {
-            assert_eq!(content, expected);
-        }
+        let expected = if cfg!(target_os = "windows") {
+            expected
+                .replace("\r\n", "\n") // Normalize line endings
+                .replace('/', r"\") // Convert Unix-style paths to Windows
+                .replace(r"\\?\", "") // Remove extended path prefix
+        } else {
+            expected
+        };
+
+        assert_eq!(content, expected);
     }
 
     pub fn assert_empty_output(self) {
