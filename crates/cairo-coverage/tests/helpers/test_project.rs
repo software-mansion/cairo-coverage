@@ -93,7 +93,9 @@ impl TestProject {
     }
 
     fn run_genhtml(self) -> Self {
-        SnapboxCommand::new(which("genhtml").unwrap())
+        // on windows, we need to use the full path to genhtml or otherwise this will fail
+        let path = which("genhtml").unwrap();
+        SnapboxCommand::new(path)
             .arg(self.output_lcov_path())
             .arg("--output-directory")
             .arg(self.dir.path())
