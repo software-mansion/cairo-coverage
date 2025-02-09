@@ -20,6 +20,64 @@ jobs:
       - uses: hrishikesh-kadam/setup-lcov@v1
       - uses: software-mansion/setup-scarb@v1
       - uses: foundry-rs/setup-snfoundry@v4
+      - name: Check second path
+        if: startsWith(runner.os, 'Windows')
+        run: |
+          # Find all paths where 'genhtml' is located
+          $paths = where.exe genhtml 2>$null
+
+          # Check if a second path exists
+          if ($paths.Count -ge 2) {
+              $secondPath = $paths[1]  # Get the second occurrence
+              Write-Output "Removing: $secondPath"
+
+              # Remove the second path dynamically from PATH
+              $newPath = ($env:PATH -split ';') -notmatch [regex]::Escape($secondPath) -join ';'
+
+              # Update PATH only for the current session
+              $env:PATH = $newPath
+
+              Write-Output "Updated PATH: $env:PATH"
+          } else {
+              Write-Output "No second occurrence of 'genhtml' found."
+          }
+      - name: Check genhtml version
+        if: startsWith(runner.os, 'Windows')
+        run: |
+          $genhtmlPath = where.exe genhtml 2>$null | Select-Object -First 1
+          if ($genhtmlPath) {
+            Write-Output "genhtml exists at $genhtmlPath"
+            # Print version
+            Write-Output "Version:"
+            & $genhtmlPath --version
+            # Print help
+            Write-Output "Help:"
+            & $genhtmlPath --help
+          } else {
+            Write-Error "genhtml not found"
+            exit 1
+          }
+      - name: Check second path
+        if: startsWith(runner.os, 'Windows')
+        run: |
+          # Find all paths where 'genhtml' is located
+          $paths = where.exe genhtml 2>$null
+
+          # Check if a second path exists
+          if ($paths.Count -ge 2) {
+              $secondPath = $paths[1]  # Get the second occurrence
+              Write-Output "Removing: $secondPath"
+
+              # Remove the second path dynamically from PATH
+              $newPath = ($env:PATH -split ';') -notmatch [regex]::Escape($secondPath) -join ';'
+
+              # Update PATH only for the current session
+              $env:PATH = $newPath
+
+              Write-Output "Updated PATH: $env:PATH"
+          } else {
+              Write-Output "No second occurrence of 'genhtml' found."
+          }
       - run: cargo test --release
 
   rustfmt:
