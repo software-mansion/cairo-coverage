@@ -7,7 +7,7 @@ edition = "2024_07"
 starknet = ">=2.8.0"
 
 [dev-dependencies]
-snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.35.1" }
+snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.37.0" }
 
 [profile.dev.cairo]
 unstable-add-statements-functions-debug-info = true
