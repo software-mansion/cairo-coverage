@@ -21,7 +21,7 @@ use scarb_metadata::{Metadata, MetadataCommand};
 /// This function generates a coverage report in the LCOV format.
 /// # Errors
 /// Fails if it can't produce the coverage report with the error message explaining the reason.
-#[allow(clippy::needless_pass_by_value)] // In case if we ever needed to take ownership of the arguments.
+#[expect(clippy::needless_pass_by_value)] // In case if we ever needed to take ownership of the arguments.
 pub fn run(
     trace_files: Vec<Utf8PathBuf>,
     RunOptions {
