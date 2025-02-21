@@ -1,8 +1,8 @@
 use crate::build::filter::statement_category_filter::VIRTUAL_FILE_REGEX;
 use anyhow::{Error, Result};
 use camino::{Utf8Path, Utf8PathBuf};
-use ignore::gitignore::Gitignore;
 use ignore::Match;
+use ignore::gitignore::Gitignore;
 
 const CAIRO_COVERAGE_IGNORE: &str = ".cairo-coverage-ignore";
 

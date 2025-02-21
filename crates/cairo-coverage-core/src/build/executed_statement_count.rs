@@ -52,7 +52,7 @@ fn points_to_different_statement(
     last_idx: Option<&StatementIdx>,
     current_idx: StatementIdx,
 ) -> bool {
-    last_idx.map_or(true, |last_idx| {
+    last_idx.is_none_or(|last_idx| {
         statement_information_map.get(last_idx) != statement_information_map.get(&current_idx)
     })
 }

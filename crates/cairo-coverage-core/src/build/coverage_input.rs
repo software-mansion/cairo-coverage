@@ -7,7 +7,7 @@ use crate::loading::execution_data::ExecutionData;
 use anyhow::Result;
 use cairo_lang_sierra::program::Program;
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
-use cairo_lang_sierra_to_casm::metadata::{calc_metadata, MetadataComputationConfig};
+use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
 
 /// All necessary data for the coverage analysis.
 #[derive(Clone)]
