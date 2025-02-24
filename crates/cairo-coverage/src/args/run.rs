@@ -1,4 +1,4 @@
-use anyhow::{ensure, Result};
+use anyhow::{Result, ensure};
 use camino::Utf8PathBuf;
 use clap::{Parser, ValueEnum};
 

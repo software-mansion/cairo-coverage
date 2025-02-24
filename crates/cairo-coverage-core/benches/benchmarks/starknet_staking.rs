@@ -1,5 +1,5 @@
 use crate::benchmarks::{config, run_options, trace_files_for_benches};
-use criterion::{criterion_group, Criterion};
+use criterion::{Criterion, criterion_group};
 use std::hint::black_box;
 
 const PROJECT_NAME: &str = "starknet-staking";

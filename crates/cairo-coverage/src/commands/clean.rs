@@ -41,8 +41,8 @@ pub fn run(
 mod tests {
     use super::super::clean;
     use super::CleanArgs;
-    use assert_fs::fixture::PathChild;
     use assert_fs::TempDir;
+    use assert_fs::fixture::PathChild;
     use cairo_coverage_test_utils::{CreateFile, Utf8PathBufConversion};
 
     #[test]

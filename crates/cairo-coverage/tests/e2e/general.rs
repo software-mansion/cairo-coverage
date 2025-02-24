@@ -18,12 +18,14 @@ fn simple_with_tests() {
 
 #[test]
 fn simple_with_output_path() {
-    assert!(TestProject::new("simple")
-        .coverage_args(&["--output-path", "custom_output.lcov"])
-        .run()
-        .dir()
-        .child("custom_output.lcov")
-        .exists());
+    assert!(
+        TestProject::new("simple")
+            .coverage_args(&["--output-path", "custom_output.lcov"])
+            .run()
+            .dir()
+            .child("custom_output.lcov")
+            .exists()
+    );
 }
 
 #[test]

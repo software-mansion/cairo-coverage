@@ -1,8 +1,8 @@
-use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
+use assert_fs::fixture::PathCopy;
 use cairo_coverage_test_utils::read_files_from_dir;
 use camino::Utf8PathBuf;
-use snapbox::cmd::{cargo_bin, Command as SnapboxCommand};
+use snapbox::cmd::{Command as SnapboxCommand, cargo_bin};
 use std::fs;
 use std::path::PathBuf;
 use which::which;
