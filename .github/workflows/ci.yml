@@ -16,10 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3
+      - uses: Swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3 # v2.7.7
       - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@v1
-      - uses: foundry-rs/setup-snfoundry@v4
+      - uses: software-mansion/setup-scarb@22f50f68eb6ffacfc173786dab19aa7d49b43441 # v1.5.0
+      - uses: foundry-rs/setup-snfoundry@ee00ea3f026379008ca40a54448d4059233d06cc # v4.0.0
       - run: cargo test --release
 
   rustfmt:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3
+      - uses: Swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3 # v2.7.7
       - run: cargo fmt --check
 
   scarbfmt:
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: software-mansion/setup-scarb@v1.3.2
+      - uses: software-mansion/setup-scarb@22f50f68eb6ffacfc173786dab19aa7d49b43441 # v1.5.0
       - run: |
           output=$(find . -type f -name "Scarb.toml" -execdir sh -c '
               echo "Running \"scarb fmt\" in directory: $PWD"
@@ -57,7 +57,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3
+      - uses: Swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3 # v2.7.7
       - run: cargo lint
 
   typos:
@@ -66,4 +66,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: typos-action
-        uses: crate-ci/typos@v1.29.5
+        uses: crate-ci/typos@212923e4ff05b7fc2294a204405eec047b807138 # v1.29.9
