@@ -1,6 +1,7 @@
 use crate::args::run::{IncludedComponent, RunArgs};
 use anyhow::{Context, Result};
 use cairo_coverage_core::args::{IncludedComponent as CoreIncludedComponent, RunOptions};
+use scarb_metadata::{Metadata, MetadataCommand};
 use std::fs::OpenOptions;
 use std::io::Write;
 
@@ -14,12 +15,17 @@ pub fn run(
         trace_files,
     }: RunArgs,
 ) -> Result<()> {
-    let options = RunOptions {
-        include: include.into_iter().map(Into::into).collect(),
-        project_path,
+    let project_path = if let Some(project_path) = project_path {
+        project_path
+    } else {
+        scarb_metadata()?.workspace.root
     };
 
-    let lcov = cairo_coverage_core::run(trace_files, options)?;
+    let options = RunOptions {
+        include: include.into_iter().map(Into::into).collect(),
+    };
+
+    let lcov = cairo_coverage_core::run(trace_files, project_path, options)?;
 
     OpenOptions::new()
         .append(true)
@@ -30,6 +36,14 @@ pub fn run(
         .context("failed to write to output file")?;
 
     Ok(())
+}
+
+/// Run `scarb metadata` command and return the metadata.
+fn scarb_metadata() -> Result<Metadata> {
+    MetadataCommand::new()
+        .inherit_stderr()
+        .exec()
+        .context("could not gather project metadata from Scarb due to previous error")
 }
 
 impl From<IncludedComponent> for CoreIncludedComponent {
