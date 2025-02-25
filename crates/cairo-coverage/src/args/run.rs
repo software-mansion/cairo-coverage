@@ -34,11 +34,11 @@ pub enum IncludedComponent {
 fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
     let trace_file = Utf8PathBuf::from(path);
 
-    ensure!(trace_file.exists(), "Trace file does not exist");
-    ensure!(trace_file.is_file(), "Trace file is not a file");
+    ensure!(trace_file.exists(), "trace file does not exist");
+    ensure!(trace_file.is_file(), "trace file is not a file");
     ensure!(
         matches!(trace_file.extension(), Some("json")),
-        "Trace file must have a JSON extension"
+        "trace file must have a JSON extension"
     );
 
     Ok(trace_file)
@@ -47,8 +47,8 @@ fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
 fn parse_project_path(path: &str) -> Result<Utf8PathBuf> {
     let project_path = Utf8PathBuf::from(path);
 
-    ensure!(project_path.exists(), "Project path does not exist");
-    ensure!(project_path.is_dir(), "Project path is not a directory");
+    ensure!(project_path.exists(), "project path does not exist");
+    ensure!(project_path.is_dir(), "project path is not a directory");
 
     Ok(project_path)
 }
