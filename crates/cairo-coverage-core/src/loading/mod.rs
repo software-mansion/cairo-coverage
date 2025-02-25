@@ -24,9 +24,9 @@ mod execution_infos;
 /// Utility function to read and deserialize a JSON file.
 fn read_and_deserialize<T: DeserializeOwned>(file_path: &Utf8PathBuf) -> Result<T> {
     let content = fs::read_to_string(file_path)
-        .context(format!("Failed to read file at path: {file_path}"))?;
+        .context(format!("failed to read file at path: {file_path}"))?;
 
     serde_json::from_str(&content).context(format!(
-        "Failed to deserialize JSON content from file at path: {file_path}"
+        "failed to deserialize JSON content from file at path: {file_path}"
     ))
 }

@@ -67,7 +67,7 @@ fn extract_versioned_program(
 ) -> Result<(Program, DebugInfo)> {
     Ok((
         program,
-        debug_info.context("Debug info not found in program")?,
+        debug_info.context("debug info not found in program")?,
     ))
 }
 
@@ -76,7 +76,7 @@ fn extract_contract_class(contract_class: ContractClass) -> Result<(Program, Deb
     let program = contract_class.extract_sierra_program()?;
     let debug_info = contract_class
         .sierra_program_debug_info
-        .context("Debug info not found in contract")?;
+        .context("debug info not found in contract")?;
     Ok((program, debug_info))
 }
 
@@ -96,7 +96,7 @@ fn deserialize_annotations<T: TryFromDebugInfo<Error = AnnotationsError>>(
 ) -> Result<T> {
     const RECOMMENDED_CAIRO_PROFILE_TOML: &str = indoc! {
         r#"
-        Perhaps you are missing the following entries in Scarb.toml:
+        perhaps you are missing the following entries in Scarb.toml:
 
         [profile.dev.cairo]
         unstable-add-statements-functions-debug-info = true
