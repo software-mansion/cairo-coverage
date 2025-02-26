@@ -226,6 +226,7 @@ dependencies = [
  "camino",
  "clap",
  "console",
+ "scarb-metadata",
  "snapbox",
  "walkdir",
  "which",
@@ -249,7 +250,6 @@ dependencies = [
  "itertools 0.14.0",
  "rayon",
  "regex",
- "scarb-metadata",
  "serde",
  "serde_json",
 ]

@@ -1,4 +1,3 @@
-use cairo_coverage_core::args::RunOptions;
 use cairo_coverage_test_utils::read_files_from_dir;
 use camino::Utf8PathBuf;
 use criterion::Criterion;
@@ -11,17 +10,11 @@ fn trace_files_for_benches(dir_name: &str) -> Vec<Utf8PathBuf> {
     read_files_from_dir(format!("benches/project-traces/{dir_name}/trace"))
 }
 
-/// Create [`RunOptions`] with set `project_path` and empty `include`.
-/// If we leave the `project_path` as `None`, the `scarb_metadata` will fail.
-fn run_options(dir_name: &str) -> RunOptions {
-    let project_path = Utf8PathBuf::from(format!("benches/project-traces/{dir_name}"))
+/// Return  `project_path` and for the benchmark project.
+fn project_path(dir_name: &str) -> Utf8PathBuf {
+    Utf8PathBuf::from(format!("benches/project-traces/{dir_name}"))
         .canonicalize_utf8()
         .unwrap()
-        .into();
-    RunOptions {
-        include: Vec::default(),
-        project_path,
-    }
 }
 
 /// Config of [`Criterion`] that should be used for all benchmarks.
