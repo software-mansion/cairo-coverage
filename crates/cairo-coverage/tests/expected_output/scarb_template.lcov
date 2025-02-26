@@ -1,12 +1,12 @@
 TN:
 SF:{dir}/src/lib.cairo
 FN:8,scarb_template::fib
-FNDA:69,scarb_template::fib
+FNDA:1,scarb_template::fib
 FNF:1
 FNH:1
-DA:8,69
-DA:9,32
-DA:11,32
+DA:8,1
+DA:9,1
+DA:11,1
 LF:3
 LH:3
 end_of_record
