@@ -33,7 +33,7 @@ pub fn build(
     }: ExecutionData,
     filter: &StatementCategoryFilter,
 ) -> CoverageInput {
-    let casm_debug_info = compile(&program).expect("Failed to compile program to casm");
+    let casm_debug_info = compile(&program).expect("failed to compile program to casm");
 
     let statement_information_map =
         statement_information::build_map(coverage_annotations, profiler_annotations, filter);

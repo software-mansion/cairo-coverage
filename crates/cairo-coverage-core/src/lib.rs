@@ -55,7 +55,7 @@ pub fn run(
         // Versioned programs and contract classes can represent the same piece of code,
         // so we merge the file coverage after processing them to avoid duplicate entries.
         .reduce(merge)
-        .context("At least one trace file must be provided")?;
+        .context("at least one trace file must be provided")?;
 
     Ok(lcov::fmt_string(&coverage_data))
 }
@@ -66,5 +66,5 @@ fn scarb_metadata() -> Result<Metadata> {
         .inherit_stderr()
         .inherit_stdout()
         .exec()
-        .context("error: could not gather project metadata from Scarb due to previous error")
+        .context("could not gather project metadata from Scarb due to previous error")
 }
