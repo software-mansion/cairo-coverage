@@ -54,7 +54,6 @@ fn readme_example() {
 #[test]
 fn macros() {
     TestProject::new("macros")
-        .coverage_args(&["--include", "macros"])
         .run()
         .output_same_as_in_file("macros.lcov");
 }
@@ -62,6 +61,7 @@ fn macros() {
 #[test]
 fn macros_not_included() {
     TestProject::new("macros")
+        .coverage_args(&["--include"])
         .run_without_genhtml()
         .assert_empty_output();
 }
@@ -71,4 +71,12 @@ fn snforge_template() {
     TestProject::new("snforge_template")
         .run()
         .output_same_as_in_file("snforge_template.lcov");
+}
+
+#[test]
+fn snforge_template_macros_not_included() {
+    TestProject::new("snforge_template")
+        .coverage_args(&["--include"])
+        .run()
+        .output_same_as_in_file("snforge_template_macros_not_included.lcov");
 }
