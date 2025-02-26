@@ -17,6 +17,10 @@ pub struct RunArgs {
     #[arg(long, short, num_args = 0.., default_value = "macros")]
     pub include: Vec<IncludedComponent>,
 
+    /// If set, the hit count of the lines will not be truncated to 1.
+    #[arg(long)]
+    pub no_truncation: bool,
+
     /// Path to the project directory. If not provided, the project directory is inferred using `scarb metadata`.
     #[arg(value_parser = parse_project_path, long)]
     pub project_path: Option<Utf8PathBuf>,

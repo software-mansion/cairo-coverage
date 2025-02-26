@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 - macros are now by default included in the coverage report. If you want to exclude them, use the `--include` without the
   `macros` option (can also have empty value)
+- by default, the hit count of the lines will be truncated to 1. This can be changed with the `--no-truncation` flag
 
 ## [0.4.0] - 2025-01-03
 

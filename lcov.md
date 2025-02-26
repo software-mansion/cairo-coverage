@@ -38,21 +38,25 @@ fn calculator_add() {
 
 When running with `cairo-coverage` you will get a coverage report in `.lcov` format:
 
+> 📝 **Note**
+> 
+> By default, the hit count of the lines will be truncated to 1. This can be changed with the `--no-truncation` flag
+
 ```lcov
 TN:
 SF:/path/to/your/project/src/lib.rs
 FN:8,readme_example::add
-FNDA:2,readme_example::add
+FNDA:1,readme_example::add
 FN:16,readme_example::calculator
-FNDA:4,readme_example::calculator
+FNDA:1,readme_example::calculator
 FN:12,readme_example::multiply
 FNDA:0,readme_example::multiply
 FNF:3
 FNH:2
-DA:8,2
+DA:8,1
 DA:12,0
-DA:16,4
-DA:17,2
+DA:16,1
+DA:17,1
 DA:18,0
 LF:5
 LH:3
@@ -73,11 +77,9 @@ Let's break it down
     - **FN:16,readme_example::calculator**: The `calculator` function starts at line 16.
 
 3. **Function Hit Details**
-    - **FNDA:4,readme_example::add**: The `add` function was executed 4 times (Currently not accurate as expected is to
-      be 2).
+    - **FNDA:4,readme_example::add**: The `add` function was executed one time (due to truncation).
     - **FNDA:0,readme_example::multiply**: The `multiply` function was not executed in the tests.
-    - **FNDA:4,readme_example::calculator**: The `calculator` function was executed 4 times (Currently not accurate as
-      expected is to be 2).
+    - **FNDA:4,readme_example::calculator**: The `calculator` function was executed one time (due to truncation).
 
 4. **Function Summary**
     - **FNF:3**: The number of functions found in the source file. There are 3 functions: `add`, `multiply`,
@@ -92,10 +94,10 @@ Let's break it down
 
    | Line | Hits | Explanation                                     |
    |------|------|-------------------------------------------------|
-   | 8    | 4    | Line 8 (body of `add`) hit 4 times              |
+   | 8    | 4    | Line 8 (body of `add`) hit one time             |
    | 12   | 0    | Line 12 (body of `multiply`) not hit            |
-   | 16   | 2    | Line 16 (start of `match`) hit 2 times          |
-   | 17   | 4    | Line 17 (call to `add` in `match`) hit 4 times  |
+   | 16   | 2    | Line 16 (start of `match`) hit one time         |
+   | 17   | 4    | Line 17 (call to `add` in `match`) hit one time |
    | 18   | 0    | Line 18 (call to `multiply` in `match`) not hit |
 
 6. **Line Coverage Summary**
@@ -125,7 +127,7 @@ Let's break it down
 > TN:
 > SF:/path/to/your/project/src/operations.cairo
 > FN:8,readme_example::add
-> FNDA:4,readme_example::add
+> FNDA:1,readme_example::add
 > FN:12,readme_example::multiply
 > FNDA:0,readme_example::multiply
 > ... other metrics ...
@@ -133,7 +135,7 @@ Let's break it down
 > TN:
 > SF:/path/to/your/project/src/lib.cairo
 > FN:16,readme_example::calculator
-> FNDA:4,readme_example::calculator
+> FNDA:1,readme_example::calculator
 > ... other metrics ...
 > LH:10
 > end_of_record
