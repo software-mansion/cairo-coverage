@@ -1,4 +1,5 @@
 use crate::args::clean::CleanArgs;
+use crate::ui;
 use anyhow::{Context, Result};
 use std::fs;
 use walkdir::WalkDir;
@@ -13,7 +14,7 @@ pub fn run(
 ) -> Result<()> {
     let target_file_name = files_to_delete
         .file_name()
-        .context("Failed to obtain the file name from `files_to_delete`.")?;
+        .context("failed to obtain the file name from `--files-to-delete`")?;
 
     WalkDir::new(root_dir)
         .into_iter()
@@ -24,16 +25,17 @@ pub fn run(
 
             if let Some(file_name) = path.file_name() {
                 if file_name == target_file_name {
-                    println!("Deleting file: {}", path.display());
+                    let path_display = path.display();
+                    ui::msg(format!("deleting file: {path_display}"));
                     fs::remove_file(path)
-                        .with_context(|| format!("Failed to delete file: {}", path.display()))?;
+                        .with_context(|| format!("failed to delete file: {path_display}"))?;
                 }
             }
 
             Ok(())
         })?;
 
-    println!("Cleanup complete.");
+    ui::msg("cleanup complete");
     Ok(())
 }
 
