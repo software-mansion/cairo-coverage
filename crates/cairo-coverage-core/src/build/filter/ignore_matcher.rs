@@ -1,4 +1,3 @@
-use crate::build::filter::statement_category_filter::VIRTUAL_FILE_REGEX;
 use anyhow::{Error, Result};
 use camino::{Utf8Path, Utf8PathBuf};
 use ignore::Match;
@@ -34,7 +33,7 @@ pub struct CairoCoverageIgnoreMatcher(Gitignore);
 impl CairoCoverageIgnoreMatcher {
     /// Check if the given path is ignored by the [`CAIRO_COVERAGE_IGNORE`] file.
     pub fn is_ignored(&self, path: &str) -> bool {
-        let path: Utf8PathBuf = VIRTUAL_FILE_REGEX.replace_all(path, "").to_string().into();
+        let path: Utf8PathBuf = path.to_string().into();
         let result = self.0.matched(&path, path.is_dir());
         matches!(result, Match::Ignore(_))
     }
