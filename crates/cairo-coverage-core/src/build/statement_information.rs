@@ -59,7 +59,8 @@ impl IntoIterator for &LineRange {
     type IntoIter = iter::Map<RangeInclusive<usize>, fn(usize) -> LineNumber>;
 
     fn into_iter(self) -> Self::IntoIter {
-        (self.start.0..=self.end.0).map(LineNumber)
+        // FIXME: Use the whole range instead of the start once we drop support for scarb 2.8.*
+        (self.start.0..=self.start.0).map(LineNumber)
     }
 }
 
