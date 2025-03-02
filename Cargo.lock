@@ -227,6 +227,7 @@ dependencies = [
  "clap",
  "console",
  "scarb-metadata",
+ "semver",
  "snapbox",
  "walkdir",
  "which",

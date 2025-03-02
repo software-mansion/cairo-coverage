@@ -1,7 +1,8 @@
 use crate::args::run::{IncludedComponent, RunArgs};
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use cairo_coverage_core::args::{IncludedComponent as CoreIncludedComponent, RunOptions};
 use scarb_metadata::{Metadata, MetadataCommand};
+use semver::Version;
 use std::fs::OpenOptions;
 use std::io::Write;
 
@@ -16,11 +17,16 @@ pub fn run(
         no_truncation,
     }: RunArgs,
 ) -> Result<()> {
-    let project_path = if let Some(project_path) = project_path {
-        project_path
-    } else {
-        scarb_metadata()?.workspace.root
-    };
+    let metadata = scarb_metadata()?;
+
+    if !include.contains(&IncludedComponent::Macros) {
+        ensure!(
+            metadata.app_version_info.version <= Version::new(2, 8, 5),
+            "excluding macros is only supported for Scarb versions <= 2.8.5"
+        );
+    }
+
+    let project_path = project_path.unwrap_or(metadata.workspace.root);
 
     let options = RunOptions {
         include: include.into_iter().map(Into::into).collect(),

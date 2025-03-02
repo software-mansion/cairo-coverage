@@ -9,6 +9,7 @@ fn simple() {
 }
 
 #[test]
+#[cfg(feature = "allows-excluding-macros")]
 fn simple_with_tests() {
     TestProject::new("simple")
         .coverage_args(&["--include", "test-functions"])
@@ -59,6 +60,7 @@ fn macros() {
 }
 
 #[test]
+#[cfg(feature = "allows-excluding-macros")]
 fn macros_not_included() {
     TestProject::new("macros")
         .coverage_args(&["--include"])
@@ -74,6 +76,7 @@ fn snforge_template() {
 }
 
 #[test]
+#[cfg(feature = "allows-excluding-macros")]
 fn snforge_template_macros_not_included() {
     TestProject::new("snforge_template")
         .coverage_args(&["--include"])

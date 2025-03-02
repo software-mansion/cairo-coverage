@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Added
+- warning if the current scarb version doesn't support not including macros in the coverage report
+
 #### Changed
 - macros are now by default included in the coverage report. If you want to exclude them, use the `--include` without the
   `macros` option (can also have empty value)
