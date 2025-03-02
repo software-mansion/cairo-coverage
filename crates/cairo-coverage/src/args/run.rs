@@ -14,12 +14,16 @@ pub struct RunArgs {
     pub output_path: Utf8PathBuf,
 
     /// Include additional components in the coverage report.
-    #[arg(long, short, num_args = 0.., default_value = "macros")]
+    #[arg(long, short, num_args = 0.., default_value = "macros", requires = "unstable")]
     pub include: Vec<IncludedComponent>,
 
     /// If set, the hit count of the lines will not be truncated to 1.
-    #[arg(long)]
+    #[arg(long, requires = "unstable")]
     pub no_truncation: bool,
+
+    /// If set, the unstable features are enabled.
+    #[arg(long)]
+    pub unstable: bool,
 
     /// Path to the project directory. If not provided, the project directory is inferred using `scarb metadata`.
     #[arg(value_parser = parse_project_path, long)]

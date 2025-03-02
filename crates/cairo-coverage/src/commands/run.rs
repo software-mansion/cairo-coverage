@@ -15,6 +15,7 @@ pub fn run(
         output_path,
         trace_files,
         no_truncation,
+        unstable: _,
     }: RunArgs,
 ) -> Result<()> {
     let metadata = scarb_metadata()?;
