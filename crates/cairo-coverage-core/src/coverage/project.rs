@@ -47,3 +47,16 @@ fn register_line_execution(
         *function_coverage.entry(line).or_default() += executed_statement_count;
     }
 }
+
+/// Truncates the execution count of each statement to 1.
+/// Currently, execution counts are not stable between `scarb` versions,
+/// so truncating to 1 is a way of achieving stability.
+pub fn truncate_to_one(project_coverage: &mut ProjectCoverage) {
+    for file_coverage in project_coverage.values_mut() {
+        for function_coverage in file_coverage.values_mut() {
+            for execution_count in function_coverage.values_mut() {
+                *execution_count = (*execution_count).min(1);
+            }
+        }
+    }
+}

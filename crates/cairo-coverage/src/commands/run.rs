@@ -13,6 +13,7 @@ pub fn run(
         project_path,
         output_path,
         trace_files,
+        no_truncation,
     }: RunArgs,
 ) -> Result<()> {
     let project_path = if let Some(project_path) = project_path {
@@ -23,6 +24,7 @@ pub fn run(
 
     let options = RunOptions {
         include: include.into_iter().map(Into::into).collect(),
+        no_truncation,
     };
 
     let lcov = cairo_coverage_core::run(trace_files, project_path, options)?;

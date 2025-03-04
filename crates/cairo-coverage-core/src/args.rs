@@ -3,6 +3,9 @@
 pub struct RunOptions {
     /// Include additional components in the coverage report.
     pub include: Vec<IncludedComponent>,
+
+    /// If set, the hit count of the lines will not be truncated to 1.
+    pub no_truncation: bool,
 }
 
 /// Additional components that can be included in the coverage report.

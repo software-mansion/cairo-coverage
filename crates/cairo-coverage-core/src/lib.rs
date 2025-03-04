@@ -24,11 +24,14 @@ use rayon::iter::{IntoParallelIterator, ParallelIterator};
 pub fn run(
     trace_files: Vec<Utf8PathBuf>,
     project_path: Utf8PathBuf,
-    RunOptions { include }: RunOptions,
+    RunOptions {
+        include,
+        no_truncation,
+    }: RunOptions,
 ) -> Result<String> {
     let ignore_matcher = ignore_matcher::build(&project_path)?;
 
-    let coverage_data = execution_data::load(&trace_files)?
+    let mut project_coverage = execution_data::load(&trace_files)?
         .into_par_iter()
         .map(|execution_data| {
             let filter = statement_category_filter::build(
@@ -48,5 +51,9 @@ pub fn run(
         .reduce(merge)
         .context("at least one trace file must be provided")?;
 
-    Ok(lcov::fmt_string(&coverage_data))
+    if !no_truncation {
+        coverage::project::truncate_to_one(&mut project_coverage);
+    }
+
+    Ok(lcov::fmt_string(&project_coverage))
 }
