@@ -14,7 +14,7 @@ pub struct RunArgs {
     pub output_path: Utf8PathBuf,
 
     /// Include additional components in the coverage report.
-    #[arg(long, short, num_args = 1..)]
+    #[arg(long, short, num_args = 0.., default_value = "macros")]
     pub include: Vec<IncludedComponent>,
 
     /// Path to the project directory. If not provided, the project directory is inferred using `scarb metadata`.
