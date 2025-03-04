@@ -5,6 +5,7 @@ edition.workspace = true
 
 [dependencies]
 cairo-coverage-core = { path = "../cairo-coverage-core" }
+console.workspace = true
 camino.workspace = true
 anyhow.workspace = true
 clap.workspace = true
