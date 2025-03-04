@@ -17,7 +17,7 @@ pub struct RunArgs {
     #[arg(long, short, num_args = 1..)]
     pub include: Vec<IncludedComponent>,
 
-    /// Path to the project directory. If not provided, the project directory is inferred from the trace.
+    /// Path to the project directory. If not provided, the project directory is inferred using `scarb metadata`.
     #[arg(value_parser = parse_project_path, long)]
     pub project_path: Option<Utf8PathBuf>,
 }

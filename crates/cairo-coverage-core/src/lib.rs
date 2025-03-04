@@ -15,26 +15,17 @@ use crate::output::lcov;
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
-use scarb_metadata::{Metadata, MetadataCommand};
 
-/// Run the core logic of `cairo-coverage` with the provided trace files and [`RunOptions`].
+/// Run the core logic of `cairo-coverage` with the provided trace files, project path and [`RunOptions`].
 /// This function generates a coverage report in the LCOV format.
 /// # Errors
 /// Fails if it can't produce the coverage report with the error message explaining the reason.
 #[expect(clippy::needless_pass_by_value)] // In case if we ever needed to take ownership of the arguments.
 pub fn run(
     trace_files: Vec<Utf8PathBuf>,
-    RunOptions {
-        include,
-        project_path,
-    }: RunOptions,
+    project_path: Utf8PathBuf,
+    RunOptions { include }: RunOptions,
 ) -> Result<String> {
-    let project_path = if let Some(project_path) = project_path {
-        project_path
-    } else {
-        scarb_metadata()?.workspace.root
-    };
-
     let ignore_matcher = ignore_matcher::build(&project_path)?;
 
     let coverage_data = execution_data::load(&trace_files)?
@@ -58,13 +49,4 @@ pub fn run(
         .context("at least one trace file must be provided")?;
 
     Ok(lcov::fmt_string(&coverage_data))
-}
-
-/// Run `scarb metadata` command and return the metadata.
-fn scarb_metadata() -> Result<Metadata> {
-    MetadataCommand::new()
-        .inherit_stderr()
-        .inherit_stdout()
-        .exec()
-        .context("could not gather project metadata from Scarb due to previous error")
 }
