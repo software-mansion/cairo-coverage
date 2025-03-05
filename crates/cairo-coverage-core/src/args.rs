@@ -1,13 +1,11 @@
-use camino::Utf8PathBuf;
-
 /// Options accepted by `cairo_coverage_core` `run` function.
 #[derive(Default, Clone)]
 pub struct RunOptions {
     /// Include additional components in the coverage report.
     pub include: Vec<IncludedComponent>,
 
-    /// Path to the project directory. If not provided, the project directory is inferred from the trace.
-    pub project_path: Option<Utf8PathBuf>,
+    /// If set, the hit count of the lines will not be truncated to 1.
+    pub no_truncation: bool,
 }
 
 /// Additional components that can be included in the coverage report.

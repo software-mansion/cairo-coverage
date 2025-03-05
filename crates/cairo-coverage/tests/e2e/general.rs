@@ -9,21 +9,24 @@ fn simple() {
 }
 
 #[test]
+#[cfg(feature = "allows-excluding-macros")]
 fn simple_with_tests() {
     TestProject::new("simple")
-        .coverage_args(&["--include", "test-functions"])
+        .coverage_args(&["--unstable", "--include", "test-functions"])
         .run()
         .output_same_as_in_file("simple_with_tests.lcov");
 }
 
 #[test]
 fn simple_with_output_path() {
-    assert!(TestProject::new("simple")
-        .coverage_args(&["--output-path", "custom_output.lcov"])
-        .run()
-        .dir()
-        .child("custom_output.lcov")
-        .exists());
+    assert!(
+        TestProject::new("simple")
+            .coverage_args(&["--output-path", "custom_output.lcov"])
+            .run()
+            .dir()
+            .child("custom_output.lcov")
+            .exists()
+    );
 }
 
 #[test]
@@ -52,14 +55,15 @@ fn readme_example() {
 #[test]
 fn macros() {
     TestProject::new("macros")
-        .coverage_args(&["--include", "macros"])
         .run()
         .output_same_as_in_file("macros.lcov");
 }
 
 #[test]
+#[cfg(feature = "allows-excluding-macros")]
 fn macros_not_included() {
     TestProject::new("macros")
+        .coverage_args(&["--unstable", "--include"])
         .run_without_genhtml()
         .assert_empty_output();
 }
@@ -69,4 +73,13 @@ fn snforge_template() {
     TestProject::new("snforge_template")
         .run()
         .output_same_as_in_file("snforge_template.lcov");
+}
+
+#[test]
+#[cfg(feature = "allows-excluding-macros")]
+fn snforge_template_macros_not_included() {
+    TestProject::new("snforge_template")
+        .coverage_args(&["--unstable", "--include"])
+        .run()
+        .output_same_as_in_file("snforge_template_macros_not_included.lcov");
 }

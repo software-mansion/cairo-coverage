@@ -89,6 +89,19 @@ Using the `--help` flag with any command will display additional information abo
 cairo-coverage clean  --help
 ```
 
+### Coverage Across Different Scarb Versions
+
+`cairo-coverage` relies heavily on `scarb` and the internal workings of the `cairo` compiler, which can lead to variations in behavior depending on the `scarb` version used.
+
+To ensure consistency in coverage reports across different versions of `scarb`, we have categorized features into **stable** and **unstable**:
+
+- **Stable features** provide consistent results across all versions of `scarb`.
+- **Unstable features** may produce different results depending on the `scarb` version.
+
+A feature is considered **stable** if it produces the same results across all minor versions of `scarb` from `2.8.*` onward, using the latest patch version.
+
+To enable unstable features, use the `--unstable` flag.
+
 ### `.cairo-coverage-ignore` File
 
 You can create a `.cairo-coverage-ignore` file in the root of your project to specify the files or directories that you

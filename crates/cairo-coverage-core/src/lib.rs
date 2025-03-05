@@ -15,29 +15,23 @@ use crate::output::lcov;
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
-use scarb_metadata::{Metadata, MetadataCommand};
 
-/// Run the core logic of `cairo-coverage` with the provided trace files and [`RunOptions`].
+/// Run the core logic of `cairo-coverage` with the provided trace files, project path and [`RunOptions`].
 /// This function generates a coverage report in the LCOV format.
 /// # Errors
 /// Fails if it can't produce the coverage report with the error message explaining the reason.
-#[allow(clippy::needless_pass_by_value)] // In case if we ever needed to take ownership of the arguments.
+#[expect(clippy::needless_pass_by_value)] // In case if we ever needed to take ownership of the arguments.
 pub fn run(
     trace_files: Vec<Utf8PathBuf>,
+    project_path: Utf8PathBuf,
     RunOptions {
         include,
-        project_path,
+        no_truncation,
     }: RunOptions,
 ) -> Result<String> {
-    let project_path = if let Some(project_path) = project_path {
-        project_path
-    } else {
-        scarb_metadata()?.workspace.root
-    };
-
     let ignore_matcher = ignore_matcher::build(&project_path)?;
 
-    let coverage_data = execution_data::load(&trace_files)?
+    let mut project_coverage = execution_data::load(&trace_files)?
         .into_par_iter()
         .map(|execution_data| {
             let filter = statement_category_filter::build(
@@ -55,16 +49,11 @@ pub fn run(
         // Versioned programs and contract classes can represent the same piece of code,
         // so we merge the file coverage after processing them to avoid duplicate entries.
         .reduce(merge)
-        .context("At least one trace file must be provided")?;
+        .context("at least one trace file must be provided")?;
 
-    Ok(lcov::fmt_string(&coverage_data))
-}
+    if !no_truncation {
+        coverage::project::truncate_to_one(&mut project_coverage);
+    }
 
-/// Run `scarb metadata` command and return the metadata.
-fn scarb_metadata() -> Result<Metadata> {
-    MetadataCommand::new()
-        .inherit_stderr()
-        .inherit_stdout()
-        .exec()
-        .context("error: could not gather project metadata from Scarb due to previous error")
+    Ok(lcov::fmt_string(&project_coverage))
 }

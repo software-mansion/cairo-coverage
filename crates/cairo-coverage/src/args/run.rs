@@ -1,4 +1,4 @@
-use anyhow::{ensure, Result};
+use anyhow::{Result, ensure};
 use camino::Utf8PathBuf;
 use clap::{Parser, ValueEnum};
 
@@ -14,10 +14,18 @@ pub struct RunArgs {
     pub output_path: Utf8PathBuf,
 
     /// Include additional components in the coverage report.
-    #[arg(long, short, num_args = 1..)]
+    #[arg(long, short, num_args = 0.., default_value = "macros", requires = "unstable")]
     pub include: Vec<IncludedComponent>,
 
-    /// Path to the project directory. If not provided, the project directory is inferred from the trace.
+    /// If set, the hit count of the lines will not be truncated to 1.
+    #[arg(long, requires = "unstable")]
+    pub no_truncation: bool,
+
+    /// If set, the unstable features are enabled.
+    #[arg(long)]
+    pub unstable: bool,
+
+    /// Path to the project directory. If not provided, the project directory is inferred using `scarb metadata`.
     #[arg(value_parser = parse_project_path, long)]
     pub project_path: Option<Utf8PathBuf>,
 }
@@ -34,11 +42,11 @@ pub enum IncludedComponent {
 fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
     let trace_file = Utf8PathBuf::from(path);
 
-    ensure!(trace_file.exists(), "Trace file does not exist");
-    ensure!(trace_file.is_file(), "Trace file is not a file");
+    ensure!(trace_file.exists(), "trace file does not exist");
+    ensure!(trace_file.is_file(), "trace file is not a file");
     ensure!(
         matches!(trace_file.extension(), Some("json")),
-        "Trace file must have a JSON extension"
+        "trace file must have a JSON extension"
     );
 
     Ok(trace_file)
@@ -47,8 +55,8 @@ fn parse_trace_file(path: &str) -> Result<Utf8PathBuf> {
 fn parse_project_path(path: &str) -> Result<Utf8PathBuf> {
     let project_path = Utf8PathBuf::from(path);
 
-    ensure!(project_path.exists(), "Project path does not exist");
-    ensure!(project_path.is_dir(), "Project path is not a directory");
+    ensure!(project_path.exists(), "project path does not exist");
+    ensure!(project_path.is_dir(), "project path is not a directory");
 
     Ok(project_path)
 }

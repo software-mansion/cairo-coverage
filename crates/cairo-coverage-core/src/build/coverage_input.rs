@@ -7,7 +7,7 @@ use crate::loading::execution_data::ExecutionData;
 use anyhow::Result;
 use cairo_lang_sierra::program::Program;
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
-use cairo_lang_sierra_to_casm::metadata::{calc_metadata, MetadataComputationConfig};
+use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
 
 /// All necessary data for the coverage analysis.
 #[derive(Clone)]
@@ -33,7 +33,7 @@ pub fn build(
     }: ExecutionData,
     filter: &StatementCategoryFilter,
 ) -> CoverageInput {
-    let casm_debug_info = compile(&program).expect("Failed to compile program to casm");
+    let casm_debug_info = compile(&program).expect("failed to compile program to casm");
 
     let statement_information_map =
         statement_information::build_map(coverage_annotations, profiler_annotations, filter);

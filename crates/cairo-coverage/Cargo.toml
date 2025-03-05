@@ -5,8 +5,11 @@ edition.workspace = true
 
 [dependencies]
 cairo-coverage-core = { path = "../cairo-coverage-core" }
+console.workspace = true
 camino.workspace = true
 anyhow.workspace = true
+scarb-metadata.workspace = true
+semver.workspace = true
 clap.workspace = true
 walkdir.workspace = true
 
@@ -16,3 +19,6 @@ cairo-coverage-test-utils = { path = "../cairo-coverage-test-utils" }
 assert_fs.workspace = true
 snapbox.workspace = true
 which.workspace = true
+
+[features]
+allows-excluding-macros = []

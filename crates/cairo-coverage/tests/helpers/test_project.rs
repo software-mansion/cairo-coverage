@@ -1,8 +1,8 @@
-use assert_fs::fixture::PathCopy;
 use assert_fs::TempDir;
+use assert_fs::fixture::PathCopy;
 use cairo_coverage_test_utils::read_files_from_dir;
 use camino::Utf8PathBuf;
-use snapbox::cmd::{cargo_bin, Command as SnapboxCommand};
+use snapbox::cmd::{Command as SnapboxCommand, cargo_bin};
 use std::fs;
 use std::path::PathBuf;
 use which::which;
@@ -39,6 +39,7 @@ impl TestProject {
             .output()
     }
 
+    #[cfg(feature = "allows-excluding-macros")]
     pub fn run_without_genhtml(self) -> TestProjectOutput {
         self.generate_trace_files().run_coverage().output()
     }
@@ -130,6 +131,7 @@ impl TestProjectOutput {
         assert_eq!(content, expected);
     }
 
+    #[cfg(feature = "allows-excluding-macros")]
     pub fn assert_empty_output(self) {
         assert!(self.read_output().is_empty());
     }

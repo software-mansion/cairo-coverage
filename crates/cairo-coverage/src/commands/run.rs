@@ -1,6 +1,8 @@
 use crate::args::run::{IncludedComponent, RunArgs};
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use cairo_coverage_core::args::{IncludedComponent as CoreIncludedComponent, RunOptions};
+use scarb_metadata::{Metadata, MetadataCommand};
+use semver::Version;
 use std::fs::OpenOptions;
 use std::io::Write;
 
@@ -12,24 +14,45 @@ pub fn run(
         project_path,
         output_path,
         trace_files,
+        no_truncation,
+        unstable: _,
     }: RunArgs,
 ) -> Result<()> {
+    let metadata = scarb_metadata()?;
+
+    if !include.contains(&IncludedComponent::Macros) {
+        ensure!(
+            metadata.app_version_info.version <= Version::new(2, 8, 5),
+            "excluding macros is only supported for Scarb versions <= 2.8.5"
+        );
+    }
+
+    let project_path = project_path.unwrap_or(metadata.workspace.root);
+
     let options = RunOptions {
         include: include.into_iter().map(Into::into).collect(),
-        project_path,
+        no_truncation,
     };
 
-    let lcov = cairo_coverage_core::run(trace_files, options)?;
+    let lcov = cairo_coverage_core::run(trace_files, project_path, options)?;
 
     OpenOptions::new()
         .append(true)
         .create(true)
         .open(&output_path)
-        .context(format!("Failed to open output file at path: {output_path}"))?
+        .context(format!("failed to open output file at path: {output_path}"))?
         .write_all(lcov.as_bytes())
-        .context("Failed to write to output file")?;
+        .context("failed to write to output file")?;
 
     Ok(())
+}
+
+/// Run `scarb metadata` command and return the metadata.
+fn scarb_metadata() -> Result<Metadata> {
+    MetadataCommand::new()
+        .inherit_stderr()
+        .exec()
+        .context("could not gather project metadata from Scarb due to previous error")
 }
 
 impl From<IncludedComponent> for CoreIncludedComponent {
