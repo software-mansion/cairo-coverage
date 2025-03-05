@@ -1,6 +1,4 @@
-use crate::build::filter::statement_category_filter::{
-    StatementCategoryFilter, VIRTUAL_FILE_REGEX,
-};
+use crate::build::filter::statement_category_filter::StatementCategoryFilter;
 use cairo_annotations::annotations::coverage::{
     CodeLocation, CoverageAnnotationsV1, LineNumber, SourceCodeSpan, SourceFileFullPath,
     VersionedCoverageAnnotations,
@@ -24,16 +22,6 @@ pub struct StatementInformation {
     pub function_name: FunctionName,
     pub source_file_full_path: SourceFileFullPath,
     pub line_range: LineRange,
-}
-
-impl StatementInformation {
-    pub fn remove_virtual_file_prefix(&mut self) {
-        self.source_file_full_path = SourceFileFullPath(
-            VIRTUAL_FILE_REGEX
-                .replace_all(&self.source_file_full_path.0, "")
-                .to_string(),
-        );
-    }
 }
 
 #[derive(Deserialize, Clone, Eq, PartialEq)]
@@ -93,24 +81,18 @@ fn get_statement_information(
     function_names: Vec<FunctionName>,
     filter: &StatementCategoryFilter,
 ) -> Option<StatementInformation> {
-    code_locations
-        .into_iter()
-        .zip(function_names)
-        .find(|(CodeLocation(source_file_full_path, _), function_name)| {
-            filter.should_include(idx, function_name, source_file_full_path)
-        })
-        .map(
-            |(CodeLocation(source_file_full_path, line_range), function_name)| {
-                StatementInformation {
+    code_locations.into_iter().zip(function_names).find_map(
+        |(CodeLocation(source_file_full_path, line_range, is_macro), function_name)| {
+            let (path, marking) = source_file_full_path.remove_virtual_file_markings();
+            let is_macro = is_macro.unwrap_or(!marking.is_empty());
+            filter
+                .should_include(idx, &function_name, path, is_macro)
+                .then(|| StatementInformation {
                     function_name,
-                    source_file_full_path,
+                    source_file_full_path: SourceFileFullPath(path.to_string()),
                     line_range: line_range.into(),
                     idx,
-                }
-            },
-        )
-        .map(|mut statement_origin| {
-            statement_origin.remove_virtual_file_prefix();
-            statement_origin
-        })
+                })
+        },
+    )
 }
