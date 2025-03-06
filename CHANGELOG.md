@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-03-06
+
 #### Added
 
 - warning if the current scarb version doesn't support not including macros in the coverage report
