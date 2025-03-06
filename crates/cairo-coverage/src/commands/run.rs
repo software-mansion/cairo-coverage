@@ -22,8 +22,16 @@ pub fn run(
 
     if !include.contains(&IncludedComponent::Macros) {
         ensure!(
+            metadata.app_version_info.version <= Version::new(2, 8, 5)
+                || metadata.app_version_info.version >= Version::new(2, 11, 0),
+            "excluding macros is only supported for Scarb versions <= 2.8.5 and >= 2.11.0"
+        );
+    }
+
+    if include.contains(&IncludedComponent::TestFunctions) {
+        ensure!(
             metadata.app_version_info.version <= Version::new(2, 8, 5),
-            "excluding macros is only supported for Scarb versions <= 2.8.5"
+            "including test functions is only supported for Scarb versions <= 2.8.5"
         );
     }
 
