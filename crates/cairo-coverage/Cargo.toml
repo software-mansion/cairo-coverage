@@ -22,3 +22,4 @@ which.workspace = true
 
 [features]
 allows-excluding-macros = []
+allows-including-test-functions = []

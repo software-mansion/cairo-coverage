@@ -9,7 +9,7 @@ fn simple() {
 }
 
 #[test]
-#[cfg(feature = "allows-excluding-macros")]
+#[cfg(feature = "allows-including-test-functions")]
 fn simple_with_tests() {
     TestProject::new("simple")
         .coverage_args(&["--unstable", "--include", "test-functions"])

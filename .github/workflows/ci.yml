@@ -8,11 +8,8 @@ on:
 
 jobs:
   test-disabling-macros:
-    name: Tests (2.8.5) - support for disabling macros
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest ]
+    name: Tests 2.8.5 - windows
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -27,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [2.9.1, 2.10.1]
+        version: [2.8.5, 2.9.1, 2.10.1, 2.11.0]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -37,7 +34,12 @@ jobs:
         with:
           scarb-version: ${{ matrix.version }}
       - uses: foundry-rs/setup-snfoundry@ee00ea3f026379008ca40a54448d4059233d06cc # v4.0.0
+      - run: cargo test --features allows-excluding-macros allows-including-test-functions
+        if: matrix.version == '2.8.5'
       - run: cargo test --release
+        if: matrix.version == '2.9.1' || matrix.version == '2.10.1'
+      - run: cargo test --features allows-excluding-macros
+        if: matrix.version == '2.11.0'
 
   rustfmt:
     name: Check rust formatting
