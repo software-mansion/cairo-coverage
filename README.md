@@ -21,7 +21,7 @@ or the installation script.
 ### asdf (recommended):
 
 ```shell
-asdf plugin add cairo-coverage https://github.com/software-mansion/asdf-cairo-coverage.git
+asdf plugin add cairo-coverage
 asdf install cairo-coverage latest  # Replace 'latest' with a specific version number if needed
 ```
 
