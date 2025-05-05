@@ -11,9 +11,9 @@ version = "0.5.0"
 edition = "2024"
 
 [workspace.dependencies]
-cairo-lang-sierra = "2.11.2"
-cairo-lang-sierra-to-casm = "2.11.2"
-cairo-lang-starknet-classes = "2.11.2"
+cairo-lang-sierra = "2.11.4"
+cairo-lang-sierra-to-casm = "2.11.4"
+cairo-lang-starknet-classes = "2.11.4"
 cairo-annotations = "0.3.1"
 
 anyhow = "1.0.98"
