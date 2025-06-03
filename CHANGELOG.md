@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Removed
+
+- default `cairo-coverage` command. You must now use `cairo-coverage run` to generate a coverage report.
+
 ## [0.5.0] - 2025-03-06
 
 #### Added

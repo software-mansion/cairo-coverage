@@ -8,13 +8,9 @@ pub mod run;
 #[derive(Parser, Debug)]
 #[command(version, args_conflicts_with_subcommands = true)]
 pub struct CairoCoverageArgs {
-    /// Arguments for the `run` subcommand so user can use
-    /// `cairo-coverage` without specifying the subcommand.
-    #[clap(flatten)]
-    pub run_args: Option<RunArgs>,
     /// Subcommand and its arguments.
     #[command(subcommand)]
-    pub command: Option<Command>,
+    pub command: Command,
 }
 
 /// Subcommand and its arguments.
