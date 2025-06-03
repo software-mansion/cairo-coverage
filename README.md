@@ -127,14 +127,12 @@ test_*.cairo
 
 ### Generate Coverage Report
 
-To generate a coverage report, run the `cairo-coverage` command with one or more `<PATH_TO_TRACE_DATA>` arguments. These
+To generate a coverage report, run the `cairo-coverage run` command with one or more `<PATH_TO_TRACE_DATA>` arguments. These
 arguments specify the paths to the JSON files containing the trace data to be used for generating the coverage report.
 
 ```shell
 cairo-coverage run path/to/trace/1.json path/to/trace/2.json path/to/trace/3.json
 ```
-
-Due to historical reasons, the `run` command is optional and can be omitted. But we plan to remove it in the future.
 
 The generated output file is in the `lcov` format. For your convenience, you can find an explanation along with a simple
 example of the `lcov` format [here](./lcov.md).

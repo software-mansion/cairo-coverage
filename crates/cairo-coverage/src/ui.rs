@@ -4,21 +4,9 @@
 use console::style;
 use std::fmt::Display;
 
-/// Print a warning message.
-pub fn warning(message: impl Display) {
-    let tag = style("warning").yellow();
-    println!("{tag}: {message}");
-}
-
 /// Print an error message.
 pub fn error(message: impl Display) {
     let tag = style("error").red();
-    println!("{tag}: {message}");
-}
-
-/// Print a help message.
-pub fn help(message: impl Display) {
-    let tag = style("help").bold();
     println!("{tag}: {message}");
 }
 
