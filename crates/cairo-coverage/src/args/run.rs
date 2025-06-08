@@ -33,8 +33,6 @@ pub struct RunArgs {
 /// Additional components that can be included in the coverage report.
 #[derive(ValueEnum, Debug, Clone, Eq, PartialEq)]
 pub enum IncludedComponent {
-    /// Run coverage on functions marked with `#[test]` attribute
-    TestFunctions,
     /// Run coverage on macros and generated code by them. This includes inline macros, attribute macros, and derive macros.
     Macros,
 }

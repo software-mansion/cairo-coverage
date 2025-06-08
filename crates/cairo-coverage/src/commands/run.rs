@@ -28,13 +28,6 @@ pub fn run(
         );
     }
 
-    if include.contains(&IncludedComponent::TestFunctions) {
-        ensure!(
-            metadata.app_version_info.version <= Version::new(2, 8, 5),
-            "including test functions is only supported for Scarb versions <= 2.8.5"
-        );
-    }
-
     let project_path = project_path.unwrap_or(metadata.workspace.root);
 
     let options = RunOptions {
@@ -66,7 +59,6 @@ fn scarb_metadata() -> Result<Metadata> {
 impl From<IncludedComponent> for CoreIncludedComponent {
     fn from(component: IncludedComponent) -> Self {
         match component {
-            IncludedComponent::TestFunctions => CoreIncludedComponent::TestFunctions,
             IncludedComponent::Macros => CoreIncludedComponent::Macros,
         }
     }
