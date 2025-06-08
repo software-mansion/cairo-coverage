@@ -49,23 +49,8 @@ curl -L https://raw.githubusercontent.com/software-mansion/cairo-coverage/main/s
 
 ### Installation on Windows
 
-While we recommend using Windows Subsystem for Linux (WSL) for a smoother experience, you can also install
-`cairo-coverage` manually on Windows. Follow the steps below:
-
-1. [Download the release](https://github.com/software-mansion/cairo-coverage/releases) archive matching your CPU
-   architecture.
-2. Extract it to a location where you would like to have `cairo-coverage` installed. A folder named cairo_coverage in
-   your [`%LOCALAPPDATA%\Programs`](https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid?redirectedfrom=MSDN#FOLDERID_UserProgramFiles)
-   directory will suffice:
-   ```batch
-   %LOCALAPPDATA%\Programs\cairo_coverage
-   ```
-3. Add path to the `cairo_coverage\bin` directory to your `PATH` environment variable.
-4. Verify installation by running the following command in new terminal session:
-
-```shell
-cairo-coverage --version
-```
+We do not provide a Windows binary for `cairo-coverage`. 
+We recommend using the Windows Subsystem for Linux (WSL) to run `cairo-coverage` on Windows.
 
 ## Integrated tools
 
