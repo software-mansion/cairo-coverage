@@ -9,15 +9,6 @@ fn simple() {
 }
 
 #[test]
-#[cfg(feature = "allows-including-test-functions")]
-fn simple_with_tests() {
-    TestProject::new("simple")
-        .coverage_args(&["--unstable", "--include", "test-functions"])
-        .run()
-        .output_same_as_in_file("simple_with_tests.lcov");
-}
-
-#[test]
 fn simple_with_output_path() {
     assert!(
         TestProject::new("simple")

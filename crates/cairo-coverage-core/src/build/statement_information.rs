@@ -83,13 +83,12 @@ fn get_statement_information(
 ) -> Option<StatementInformation> {
     code_locations.into_iter().zip(function_names).find_map(
         |(CodeLocation(source_file_full_path, line_range, is_macro), function_name)| {
-            let (path, marking) = source_file_full_path.remove_virtual_file_markings();
-            let is_macro = is_macro.unwrap_or(!marking.is_empty());
+            let is_macro = is_macro.unwrap_or_default();
             filter
-                .should_include(idx, &function_name, path, is_macro)
+                .should_include(idx, &function_name, &source_file_full_path, is_macro)
                 .then(|| StatementInformation {
                     function_name,
-                    source_file_full_path: SourceFileFullPath(path.to_string()),
+                    source_file_full_path,
                     line_range: line_range.into(),
                     idx,
                 })

@@ -3,6 +3,7 @@ use crate::build::filter::ignore_matcher::CairoCoverageIgnoreMatcher;
 use crate::build::filter::libfuncs;
 use crate::build::filter::libfuncs::NOT_RELIABLE_LIBFUNCS;
 use crate::loading::enriched_program::EnrichedProgram;
+use cairo_annotations::annotations::coverage::SourceFileFullPath;
 use cairo_annotations::annotations::profiler::FunctionName;
 use cairo_lang_sierra::program::StatementIdx;
 use camino::Utf8PathBuf;
@@ -50,7 +51,7 @@ impl StatementCategoryFilter<'_> {
         &self,
         idx: StatementIdx,
         function_name: &FunctionName,
-        source_file_full_path: &str,
+        source_file_full_path: &SourceFileFullPath,
         is_macro: bool,
     ) -> bool {
         self.is_allowed_macro(function_name, is_macro)
@@ -71,8 +72,8 @@ impl StatementCategoryFilter<'_> {
         }
     }
 
-    fn is_user_function(&self, source_file_full_path: &str) -> bool {
-        source_file_full_path.contains(&self.user_project_path)
+    fn is_user_function(&self, source_file_full_path: &SourceFileFullPath) -> bool {
+        source_file_full_path.0.contains(&self.user_project_path)
     }
 
     fn is_reliable_libfunc(&self, idx: StatementIdx) -> bool {
@@ -82,7 +83,7 @@ impl StatementCategoryFilter<'_> {
             .is_some_and(|libfunc_name| NOT_RELIABLE_LIBFUNCS.contains(libfunc_name))
     }
 
-    fn is_not_ignored(&self, source_file_full_path: &str) -> bool {
-        !self.ignore_matcher.is_ignored(source_file_full_path)
+    fn is_not_ignored(&self, source_file_full_path: &SourceFileFullPath) -> bool {
+        !self.ignore_matcher.is_ignored(&source_file_full_path.0)
     }
 }
