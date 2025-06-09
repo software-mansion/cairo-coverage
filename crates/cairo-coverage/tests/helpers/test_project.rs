@@ -5,7 +5,6 @@ use camino::Utf8PathBuf;
 use snapbox::cmd::{Command as SnapboxCommand, cargo_bin};
 use std::fs;
 use std::path::PathBuf;
-use which::which;
 
 pub struct TestProject {
     dir: TempDir,
@@ -94,9 +93,7 @@ impl TestProject {
     }
 
     fn run_genhtml(self) -> Self {
-        // on windows, we need to use the full path to genhtml or otherwise this will fail
-        let path = which("genhtml").unwrap();
-        SnapboxCommand::new(path)
+        SnapboxCommand::new("genhtml")
             .arg(self.output_lcov_path())
             .arg("--output-directory")
             .arg(self.dir.path())
@@ -118,15 +115,6 @@ impl TestProjectOutput {
                 "{dir}",
                 &self.0.dir.canonicalize().unwrap().display().to_string(),
             );
-
-        let expected = if cfg!(target_os = "windows") {
-            expected
-                .replace("\r\n", "\n") // Normalize line endings
-                .replace('/', r"\") // Convert Unix-style paths to Windows
-                .replace(r"\\?\", "") // Remove extended path prefix
-        } else {
-            expected
-        };
 
         assert_eq!(content, expected);
     }

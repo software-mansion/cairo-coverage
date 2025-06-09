@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Removed
 
 - default `cairo-coverage` command. You must now use `cairo-coverage run` to generate a coverage report.
+- support for windows. We recommend using the Windows Subsystem for Linux (WSL) to run `cairo-coverage` on Windows.
 
 ## [0.5.0] - 2025-03-06
 

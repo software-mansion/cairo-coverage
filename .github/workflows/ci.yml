@@ -7,24 +7,12 @@ on:
       - main
 
 jobs:
-  test-disabling-macros:
-    name: Tests 2.8.5 - windows
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.8
-      - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@f6ad35129872f897bdea556c09e11af8fb3293c0 # v1.5.1
-      - uses: foundry-rs/setup-snfoundry@ee00ea3f026379008ca40a54448d4059233d06cc # v4.0.0
-      - run: cargo test --release --features allows-excluding-macros,allows-including-test-functions
-
   test:
     name: Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [2.8.5, 2.9.1, 2.10.1, 2.11.4]
+        version: [ 2.8.5, 2.9.1, 2.10.1, 2.11.4 ]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
