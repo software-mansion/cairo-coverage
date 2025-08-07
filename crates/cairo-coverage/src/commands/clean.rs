@@ -23,13 +23,13 @@ pub fn run(
         .try_for_each(|entry| -> Result<()> {
             let path = entry.path();
 
-            if let Some(file_name) = path.file_name() {
-                if file_name == target_file_name {
-                    let path_display = path.display();
-                    ui::msg(format!("deleting file: {path_display}"));
-                    fs::remove_file(path)
-                        .with_context(|| format!("failed to delete file: {path_display}"))?;
-                }
+            if let Some(file_name) = path.file_name()
+                && file_name == target_file_name
+            {
+                let path_display = path.display();
+                ui::msg(format!("deleting file: {path_display}"));
+                fs::remove_file(path)
+                    .with_context(|| format!("failed to delete file: {path_display}"))?;
             }
 
             Ok(())
