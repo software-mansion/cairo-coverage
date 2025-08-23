@@ -16,12 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.8
+      - uses: Swatinem/rust-cache@98c8021b550208e191a6a3145459bfc9fb29c4c0 # v2.8.0
       - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@f6ad35129872f897bdea556c09e11af8fb3293c0 # v1.5.1
+      - uses: software-mansion/setup-scarb@95ba816a4383938e2338cb793773d4670011b65f # v1.5.1
         with:
           scarb-version: ${{ matrix.version }}
-      - uses: foundry-rs/setup-snfoundry@ee00ea3f026379008ca40a54448d4059233d06cc # v4.0.0
+      - uses: foundry-rs/setup-snfoundry@84390a1602c157576ceefa6f9cfcb8b0504c94c7 # v5.0.0
       - run: cargo test --release
         if: matrix.version == '2.9.4' || matrix.version == '2.10.1'
       - run: cargo test --release --features allows-excluding-macros
@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.8
+      - uses: Swatinem/rust-cache@98c8021b550208e191a6a3145459bfc9fb29c4c0 # v2.8.0
       - run: cargo fmt --check
 
   scarbfmt:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: software-mansion/setup-scarb@f6ad35129872f897bdea556c09e11af8fb3293c0 # v1.5.1
+      - uses: software-mansion/setup-scarb@95ba816a4383938e2338cb793773d4670011b65f # v1.5.1
       - run: |
           output=$(find . -type f -name "Scarb.toml" -execdir sh -c '
               echo "Running \"scarb fmt\" in directory: $PWD"
@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.8
+      - uses: Swatinem/rust-cache@98c8021b550208e191a6a3145459bfc9fb29c4c0 # v2.8.0
       - run: cargo lint
 
   typos:
@@ -71,4 +71,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: typos-action
-        uses: crate-ci/typos@0f0ccba9ed1df83948f0c15026e4f5ccfce46109 # v1.32.0
+        uses: crate-ci/typos@392b78fe18a52790c53f42456e46124f77346842 # v1.34.0
