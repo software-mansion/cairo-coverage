@@ -103,7 +103,7 @@ jobs:
           bash ./scripts/package.sh "${{ matrix.target }}" "$PKG_FULL_NAME"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-${{ matrix.target }}
           path: ${{ env.PKG_FULL_NAME }}.*
@@ -116,7 +116,7 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Download artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           path: artifacts-dl
 
