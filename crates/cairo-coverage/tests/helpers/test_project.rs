@@ -2,7 +2,8 @@ use assert_fs::TempDir;
 use assert_fs::fixture::PathCopy;
 use cairo_coverage_test_utils::read_files_from_dir;
 use camino::Utf8PathBuf;
-use snapbox::cmd::{Command as SnapboxCommand, cargo_bin};
+use snapbox::cmd;
+use snapbox::cmd::Command as SnapboxCommand;
 use std::fs;
 use std::path::PathBuf;
 
@@ -82,7 +83,7 @@ impl TestProject {
 
     fn run_coverage(self) -> Self {
         let trace_files = self.find_trace_files();
-        SnapboxCommand::new(cargo_bin!("cairo-coverage"))
+        SnapboxCommand::new(cmd::cargo_bin!("cairo-coverage"))
             .arg("run")
             .args(&trace_files)
             .args(&self.coverage_args)

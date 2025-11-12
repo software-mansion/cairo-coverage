@@ -8,6 +8,7 @@ use anyhow::Result;
 use cairo_lang_sierra::program::Program;
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
 use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
+use cairo_lang_sierra_type_size::ProgramRegistryInfo;
 
 /// All necessary data for the coverage analysis.
 #[derive(Clone)]
@@ -52,9 +53,15 @@ pub fn build(
 
 /// Compile the given [`Program`] to `casm` and return the [`CairoProgramDebugInfo`].
 fn compile(program: &Program) -> Result<CairoProgramDebugInfo> {
+    let program_registry_info = ProgramRegistryInfo::new(program)?;
     let casm = cairo_lang_sierra_to_casm::compiler::compile(
         program,
-        &calc_metadata(program, MetadataComputationConfig::default())?,
+        &program_registry_info,
+        &calc_metadata(
+            program,
+            &program_registry_info,
+            MetadataComputationConfig::default(),
+        )?,
         SierraToCasmConfig {
             gas_usage_check: false,
             max_bytecode_size: usize::MAX,
