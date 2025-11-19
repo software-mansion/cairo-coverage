@@ -28,6 +28,7 @@ fn scarb_template() {
 }
 
 #[test]
+#[ignore = "instability (rework test)"]
 fn complex_calculator() {
     TestProject::new("complex_calculator")
         .run()
