@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [ 2.9.4, 2.10.1, 2.11.4 ]
+        version: [ 2.9.4, 2.10.1, 2.11.4, 2.12.2, 2.13.1 ]
     steps:
       - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
@@ -25,7 +25,7 @@ jobs:
       - run: cargo test --release
         if: matrix.version == '2.9.4' || matrix.version == '2.10.1'
       - run: cargo test --release --features allows-excluding-macros
-        if: matrix.version == '2.11.4'
+        if: matrix.version == '2.11.4' || matrix.version == '2.12.2' || matrix.version == '2.13.1'
 
   rustfmt:
     name: Check rust formatting
