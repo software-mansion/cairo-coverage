@@ -20,13 +20,11 @@ pub fn run(
 ) -> Result<()> {
     let metadata = scarb_metadata()?;
 
-    if !include.contains(&IncludedComponent::Macros) {
-        ensure!(
-            metadata.app_version_info.version <= Version::new(2, 8, 5)
-                || metadata.app_version_info.version >= Version::new(2, 11, 0),
-            "excluding macros is only supported for Scarb versions <= 2.8.5 and >= 2.11.0"
-        );
-    }
+    ensure!(
+        include.contains(&IncludedComponent::Macros)
+            || metadata.app_version_info.version >= Version::new(2, 11, 0),
+        "excluding macros is only supported for Scarb versions >= 2.11.0"
+    );
 
     let project_path = project_path.unwrap_or(metadata.workspace.root);
 
