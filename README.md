@@ -2,17 +2,6 @@
 
 `cairo-coverage` is a utility designed to generate coverage reports for code written in the Cairo programming language.
 
-> ⚠️ **IMPORTANT**:
-> Please note that this repository is actively being developed and is currently in an alpha release stage.
-> If you encounter any issues, please report them to us via the issues
-> tab on our GitHub [repository](https://github.com/software-mansion/cairo-coverage).
->
-> We currently don't support:
-> - Branch coverage
->
-> Things that might not work as expected:
-> - Counters for how many times line was executed
-
 ## Installation
 
 You can install `cairo-coverage` using [asdf](https://asdf-vm.com/guide/getting-started.html)
@@ -185,7 +174,7 @@ jobs:
 trace data in a specific expected format -
 the same format which is accepted by the [cairo-profiler](https://github.com/software-mansion/cairo-profiler/tree/main).
 For the exact code implementation of this format, please refer
-to [this page](https://github.com/software-mansion/cairo-profiler/blob/main/crates/trace-data/src/lib.rs).
+to [this page](https://github.com/software-mansion/cairo-annotations/blob/main/crates/cairo-annotations/src/trace_data.rs).
 
 ## Getting Help
 
