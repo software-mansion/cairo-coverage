@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [ 2.9.4, 2.10.1, 2.11.4, 2.12.2, 2.13.1, 2.14.0 ]
+        version: [ 2.9.4, 2.10.1, 2.11.4, 2.12.2, 2.13.1, 2.14.0, 2.15.1 ]
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable

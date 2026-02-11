@@ -1,5 +1,6 @@
-use crate::helpers::TestProject;
+use crate::helpers::{TestProject, scarb_version};
 use assert_fs::fixture::PathChild;
+use semver::Version;
 
 #[test]
 fn simple() {
@@ -62,9 +63,16 @@ fn macros_not_included() {
 
 #[test]
 fn snforge_template() {
+    let file = if scarb_version() >= Version::new(2, 15, 0) {
+        // In cairo 2.15.0 `#[starknet::contract]` attribute generates different code.
+        // Hence, we have different expected output for scarb 2.15.0 and above.
+        "snforge_template-scarb-2.15.lcov"
+    } else {
+        "snforge_template.lcov"
+    };
     TestProject::new("snforge_template")
         .run()
-        .output_same_as_in_file("snforge_template.lcov");
+        .output_same_as_in_file(file);
 }
 
 #[test]
