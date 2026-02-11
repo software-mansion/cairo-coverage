@@ -2,13 +2,15 @@
 set -euxo pipefail
 
 create_traces() {
-  if [[ "$#" -ne 2 ]]; then
-    echo "Usage: create_traces <origin-link> <commit-hash>"
+  if [[ "$#" -ne 4 ]]; then
+    echo "Usage: create_traces <origin-link> <commit-hash> <starknet-foundry-version> <scarb-version>"
     return 1
   fi
 
   local origin_link="$1"
   local commit_hash="$2"
+  local foundry_version="$3"
+  local scarb_version="$4"
   local repo_name
   repo_name=$(basename "$origin_link" .git)
 
@@ -21,6 +23,10 @@ create_traces() {
 
   git fetch --depth 1 "$origin_link" "$commit_hash"
   git checkout "$commit_hash"
+
+  # Create .tool-versions file for the project
+  echo "starknet-foundry ${foundry_version}" > .tool-versions
+  echo "scarb ${scarb_version}" >> .tool-versions
 
   # Run tests and generate trace data
   snforge test --save-trace-data
@@ -36,5 +42,4 @@ create_traces() {
   popd
 }
 
-
-create_traces "git@github.com:starkware-libs/starknet-staking.git" "197e94c0cd10a11a44d261b27f2150c6aab3a25d"
+create_traces "git@github.com:starkware-libs/starknet-staking.git" "b37679f653bd7ef58cfdf2eb434dd10569f89ea1" 0.49.0 2.12.2
