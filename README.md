@@ -4,10 +4,23 @@
 
 ## Installation
 
-You can install `cairo-coverage` using [asdf](https://asdf-vm.com/guide/getting-started.html)
+You can install `cairo-coverage` using [starkup](https://starkup.sh/), [asdf](https://asdf-vm.com/guide/getting-started.html)
 or the installation script.
 
-### asdf (recommended):
+### starkup (recommended):
+
+Starkup helps you install all the tools used to develop packages in Cairo and write contracts for Starknet.
+
+> ℹ️ Info
+> 
+> When using starkup on Windows, please use WSL, as it only works on macOS and Linux.
+
+Run the following in your terminal, then follow the onscreen instructions:
+```shell
+curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.sh | sh
+```
+
+### asdf:
 
 ```shell
 asdf plugin add cairo-coverage
