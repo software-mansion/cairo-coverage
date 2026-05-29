@@ -73,7 +73,7 @@ fn extract_versioned_program(
 
 /// Extract [`Program`] and [`DebugInfo`] from [`ContractClass`].
 fn extract_contract_class(contract_class: ContractClass) -> Result<(Program, DebugInfo)> {
-    let program = contract_class.extract_sierra_program()?;
+    let program = contract_class.extract_sierra_program(false)?.program;
     let debug_info = contract_class
         .sierra_program_debug_info
         .context("debug info not found in contract")?;
@@ -86,7 +86,7 @@ fn extract_test_executables(mut debug_info: DebugInfo) -> Vec<FunctionId> {
 
     debug_info
         .executables
-        .remove(SNFORGE_TEST_EXECUTABLE)
+        .swap_remove(SNFORGE_TEST_EXECUTABLE)
         .unwrap_or_default()
 }
 

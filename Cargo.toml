@@ -11,10 +11,10 @@ version = "0.6.0"
 edition = "2024"
 
 [workspace.dependencies]
-cairo-lang-sierra = "2.15.0"
-cairo-lang-sierra-to-casm = "2.15.0"
-cairo-lang-starknet-classes = "2.15.0"
-cairo-lang-sierra-type-size = "2.15.0"
+cairo-lang-sierra = "2.18.0"
+cairo-lang-sierra-to-casm = "2.18.0"
+cairo-lang-starknet-classes = "2.18.0"
+cairo-lang-sierra-type-size = "2.18.0"
 cairo-annotations = { version = "0.7.0", features = ["cairo-lang"] }
 anyhow = "1.0.102"
 assert_fs = "1.1.3"
