@@ -117,12 +117,6 @@ You can pass additional arguments to `cairo-coverage` using the `--` separator:
 snforge test --coverage -- --include macros
 ```
 
-> 💡 **Tip**
->
-> Running `snforge test --coverage -- --help` will show `cairo-coverage` flags.
-
-For more details, see the [Starknet Foundry documentation](https://foundry-rs.github.io/starknet-foundry/testing/coverage.html).
-
 ### Coverage Across Different Scarb Versions
 
 `cairo-coverage` relies heavily on `scarb` and the internal workings of the `cairo` compiler, which can lead to variations in behavior depending on the `scarb` version used.
@@ -232,6 +226,6 @@ to [this page](https://github.com/software-mansion/cairo-annotations/blob/main/c
 
 ## Getting Help
 
-Join the [Telegram](https://t.me/cairo_coverage) group to get help
+Join the [Telegram](https://t.me/@starknet_foundry_support) group to get help
 
 Found a bug? Open an [issue](https://github.com/software-mansion/cairo-coverage/issues/new).
