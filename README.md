@@ -9,16 +9,21 @@ or the installation script.
 
 ### starkup (recommended):
 
-Starkup helps you install all the tools used to develop packages in Cairo and write contracts for Starknet.
+[Starkup](https://starkup.sh/) is the installer for Cairo and Starknet development tools. It installs
+latest mutually compatible versions of Scarb, Starknet Foundry, Starknet Devnet, Cairo Profiler,
+Cairo Coverage, Universal Sierra Compiler, and CairoLS. It uses [ASDF](https://asdf-vm.com/) under
+the hood to manage tool versions.
 
 > ℹ️ Info
 > 
-> When using starkup on Windows, please use WSL, as it only works on macOS and Linux.
+> Starkup works on macOS and Linux. On Windows, please use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 Run the following in your terminal, then follow the onscreen instructions:
 ```shell
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.sh | sh
 ```
+
+For troubleshooting and advanced options, see the [starkup docs on GitHub](https://github.com/software-mansion/starkup#readme).
 
 ### asdf:
 
@@ -76,6 +81,42 @@ Using the `--help` flag with any command will display additional information abo
 cairo-coverage clean  --help
 ```
 
+#### Using with `snforge`:
+
+`cairo-coverage` relies on debug information provided by Scarb. Add the following to your `Scarb.toml`:
+
+```toml
+[profile.dev.cairo]
+unstable-add-statements-code-locations-debug-info = true
+unstable-add-statements-functions-debug-info = true
+inlining-strategy = "avoid"
+```
+
+> ⚠️ **Note**
+>
+> These flags will slow down compilation, increase memory usage, and produce larger artifacts.
+> Only enable them when generating coverage reports.
+
+To generate trace data without automatically producing a coverage report:
+
+```shell
+snforge test --save-trace-data
+```
+
+The trace files will be saved to the `snfoundry_trace` directory and can be passed to `cairo-coverage run`.
+
+To have `snforge` automatically call `cairo-coverage` and produce a `coverage.lcov` file:
+
+```shell
+snforge test --coverage
+```
+
+You can pass additional arguments to `cairo-coverage` using the `--` separator:
+
+```shell
+snforge test --coverage -- --include macros
+```
+
 ### Coverage Across Different Scarb Versions
 
 `cairo-coverage` relies heavily on `scarb` and the internal workings of the `cairo` compiler, which can lead to variations in behavior depending on the `scarb` version used.
@@ -123,12 +164,6 @@ cairo-coverage run path/to/trace/1.json path/to/trace/2.json path/to/trace/3.jso
 
 The generated output file is in the `lcov` format. For your convenience, you can find an explanation along with a simple
 example of the `lcov` format [here](./lcov.md).
-
-#### Using `snforge`:
-
-Please refer to
-the [Starknet Foundry documentation](https://foundry-rs.github.io/starknet-foundry/testing/coverage.html) for additional
-information on using `cairo-coverage` with `snforge`.
 
 ### Viewing Report
 
@@ -191,6 +226,6 @@ to [this page](https://github.com/software-mansion/cairo-annotations/blob/main/c
 
 ## Getting Help
 
-Join the [Telegram](https://t.me/cairo_coverage) group to get help
+Join the [Telegram](https://t.me/@starknet_foundry_support) group to get help
 
 Found a bug? Open an [issue](https://github.com/software-mansion/cairo-coverage/issues/new).
