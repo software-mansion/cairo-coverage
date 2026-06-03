@@ -18,7 +18,6 @@ pub type StatementInformationMap = HashMap<StatementIdx, StatementInformation>;
 /// Additional information about a statement that is needed for coverage analysis.
 #[derive(Clone, Eq, PartialEq)]
 pub struct StatementInformation {
-    pub idx: StatementIdx,
     pub function_name: FunctionName,
     pub source_file_full_path: SourceFileFullPath,
     pub line_range: LineRange,
@@ -90,7 +89,6 @@ fn get_statement_information(
                     function_name,
                     source_file_full_path,
                     line_range: line_range.into(),
-                    idx,
                 })
         },
     )
