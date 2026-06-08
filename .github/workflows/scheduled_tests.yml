@@ -40,7 +40,7 @@ jobs:
 
   notify_failed:
     runs-on: ubuntu-latest
-    if: always() && needs.test_main.result == 'failure'  && needs.test_latest_release.result == 'failure'
+    if: always() && (needs.test_main.result == 'failure' || needs.test_latest_release.result == 'failure')
     needs: [test_main, test_latest_release]
     steps:
       - name: Notifying about check fail!
