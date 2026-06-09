@@ -6,74 +6,47 @@ on:
   workflow_dispatch:
 
 jobs:
-  test_main:
-    name: Tests (main)
+  get-latest-release:
+    name: Get latest release tag
     runs-on: ubuntu-latest
+    outputs:
+      latest-tag: ${{ steps.get-tag.outputs.tag }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
-      - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@2a96b748888e3329ee44ac9ac073d930e692b3cd # v1.5.1
-        with:
-          scarb-version: latest
-      - uses: foundry-rs/setup-snfoundry@16e23ddd0e2845f38727c92f4b913a7b728cda9e # v6.0.0
-      - run: cargo test --release --features allows-excluding-macros
+      - name: Get latest release tag
+        id: get-tag
+        run: |
+          TAG=$(gh release list --repo ${{ github.repository }} --limit 1 --json tagName -q '.[0].tagName')
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  test_latest_release:
-    name: Tests (latest release)
+  test:
+    name: Tests (${{ matrix.ref }}, Scarb ${{ matrix.scarb-version }})
+    needs: get-latest-release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ref:
+          - main
+          - ${{ needs.get-latest-release.outputs.latest-tag }}
+        scarb-version: [latest, nightly]
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 0
-      - name: Checkout latest release tag
-        run: git checkout $(git describe --tags --abbrev=0)
+          ref: ${{ matrix.ref }}
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
       - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
       - uses: software-mansion/setup-scarb@2a96b748888e3329ee44ac9ac073d930e692b3cd # v1.5.1
         with:
-          scarb-version: latest
-      - uses: foundry-rs/setup-snfoundry@16e23ddd0e2845f38727c92f4b913a7b728cda9e # v6.0.0
-      - run: cargo test --release --features allows-excluding-macros
-
-  test_main_nightly:
-    name: Tests (main, Scarb nightly)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
-      - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@2a96b748888e3329ee44ac9ac073d930e692b3cd # v1.5.1
-        with:
-          scarb-version: nightly
-      - uses: foundry-rs/setup-snfoundry@16e23ddd0e2845f38727c92f4b913a7b728cda9e # v6.0.0
-      - run: cargo test --release --features allows-excluding-macros
-
-  test_latest_release_nightly:
-    name: Tests (latest release, Scarb nightly)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - name: Checkout latest release tag
-        run: git checkout $(git describe --tags --abbrev=0)
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
-      - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@2a96b748888e3329ee44ac9ac073d930e692b3cd # v1.5.1
-        with:
-          scarb-version: nightly
+          scarb-version: ${{ matrix.scarb-version }}
       - uses: foundry-rs/setup-snfoundry@16e23ddd0e2845f38727c92f4b913a7b728cda9e # v6.0.0
       - run: cargo test --release --features allows-excluding-macros
 
   notify_failed:
     runs-on: ubuntu-latest
-    if: always() && (needs.test_main.result == 'failure' || needs.test_latest_release.result == 'failure' || needs.test_main_nightly.result == 'failure' || needs.test_latest_release_nightly.result == 'failure')
-    needs: [test_main, test_latest_release, test_main_nightly, test_latest_release_nightly]
+    if: always() && failure()
+    needs: [test]
     steps:
       - name: Notifying about check fail!
         uses: slackapi/slack-github-action@v3.0.3
