@@ -31,7 +31,7 @@ jobs:
           - main
           - ${{ needs.get-latest-release.outputs.latest-tag }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ matrix.ref }}
       - uses: dtolnay/rust-toolchain@stable
@@ -54,7 +54,7 @@ jobs:
           - main
           - ${{ needs.get-latest-release.outputs.latest-tag }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ matrix.ref }}
       - uses: dtolnay/rust-toolchain@stable
@@ -104,7 +104,7 @@ jobs:
 
       - name: Check if already notified for this Scarb stable
         id: dedup
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: .notified
           key: notified-scarb-nightly-${{ steps.stable.outputs.version }}
@@ -126,7 +126,7 @@ jobs:
 
       - name: Save notification marker
         if: steps.dedup.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: .notified
           key: notified-scarb-nightly-${{ steps.stable.outputs.version }}
