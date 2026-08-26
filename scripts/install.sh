@@ -1,6 +1,7 @@
 #!/bin/sh
 
 REPO="https://github.com/software-mansion/cairo-coverage"
+API_REPO="https://api.github.com/repos/software-mansion/cairo-coverage"
 BINARY_NAME="cairo-coverage"
 LOCAL_BIN="${HOME}/.local/bin"
 
@@ -9,7 +10,7 @@ main () {
   check_cmd tar
 
   version=${1:-latest}
-  release_tag=$(curl -# --fail -Ls -H 'Accept: application/json' "${REPO}/releases/{$version}" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+  release_tag=$(get_release_tag "$version")
 
   if [ -z "$release_tag" ]; then
     echo "No such version $version, please pass correct one (e.g. v0.1.0)"
@@ -21,6 +22,37 @@ main () {
   add_binary_to_path
 
   echo "${BINARY_NAME} (${release_tag}) has been installed successfully."
+}
+
+# Resolves a version (either "latest" or a tag like v0.1.0) to a release tag.
+# Uses the GitHub REST API, authenticating with GITHUB_TOKEN/GH_TOKEN when set,
+# so that CI runs are not subject to the low unauthenticated rate limit.
+get_release_tag() {
+  version=$1
+
+  if [ "$version" = "latest" ]; then
+    url="${API_REPO}/releases/latest"
+  else
+    url="${API_REPO}/releases/tags/${version}"
+  fi
+
+  github_api_get "$url" | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p' | head -n 1
+}
+
+github_api_get() {
+  url=$1
+  token=${GITHUB_TOKEN:-${GH_TOKEN:-}}
+
+  if [ -n "$token" ]; then
+    curl -# --fail -Ls \
+      -H 'Accept: application/vnd.github+json' \
+      -H "Authorization: Bearer ${token}" \
+      "$url"
+  else
+    curl -# --fail -Ls \
+      -H 'Accept: application/vnd.github+json' \
+      "$url"
+  fi
 }
 
 check_cmd() {
