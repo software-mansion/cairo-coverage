@@ -8,7 +8,6 @@ mod output;
 use crate::args::RunOptions;
 use crate::build::coverage_input;
 use crate::build::filter::ignore_matcher;
-use crate::build::filter::statement_category_filter;
 use crate::hashmap_utils::merge::merge;
 use crate::loading::execution_data;
 use crate::output::lcov;
@@ -34,14 +33,7 @@ pub fn run(
     let mut project_coverage = execution_data::load(&trace_files)?
         .into_par_iter()
         .map(|execution_data| {
-            let filter = statement_category_filter::build(
-                &project_path,
-                &include,
-                &ignore_matcher,
-                &execution_data.enriched_program,
-            );
-
-            coverage_input::build(execution_data, &filter)
+            coverage_input::build(execution_data, &project_path, &include, &ignore_matcher)
         })
         .map(coverage::project::create)
         .collect::<Vec<_>>()

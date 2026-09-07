@@ -1,7 +1,7 @@
 TN:
 SF:{dir}/src/lib.cairo
-FN:9,snforge_template::HelloStarknet::ContractStateDeref::deref
-FNDA:1,snforge_template::HelloStarknet::ContractStateDeref::deref
+FN:9,snforge_template::HelloStarknet::ContractStateDeref::snapshot_deref
+FNDA:1,snforge_template::HelloStarknet::ContractStateDeref::snapshot_deref
 FN:9,snforge_template::HelloStarknet::ContractStateDerefMut::deref_mut
 FNDA:0,snforge_template::HelloStarknet::ContractStateDerefMut::deref_mut
 FN:22,snforge_template::HelloStarknet::HelloStarknetImpl::get_balance
@@ -12,9 +12,9 @@ FN:9,snforge_template::HelloStarknet::StorageStorageImpl::storage
 FNDA:1,snforge_template::HelloStarknet::StorageStorageImpl::storage
 FN:9,snforge_template::HelloStarknet::StorageStorageMutImpl::storage_mut
 FNDA:1,snforge_template::HelloStarknet::StorageStorageMutImpl::storage_mut
-FN:14,snforge_template::HelloStarknet::__wrapper__HelloStarknetImpl__get_balance
+FN:21,snforge_template::HelloStarknet::__wrapper__HelloStarknetImpl__get_balance
 FNDA:1,snforge_template::HelloStarknet::__wrapper__HelloStarknetImpl__get_balance
-FN:14,snforge_template::HelloStarknet::__wrapper__HelloStarknetImpl__increase_balance
+FN:16,snforge_template::HelloStarknet::__wrapper__HelloStarknetImpl__increase_balance
 FNDA:1,snforge_template::HelloStarknet::__wrapper__HelloStarknetImpl__increase_balance
 FN:9,snforge_template::HelloStarknet::unsafe_new_contract_state
 FNDA:0,snforge_template::HelloStarknet::unsafe_new_contract_state
@@ -30,10 +30,10 @@ FNF:13
 FNH:11
 DA:1,4
 DA:9,3
-DA:14,2
-DA:16,1
+DA:16,2
 DA:17,1
 DA:18,1
+DA:21,1
 DA:22,1
 LF:7
 LH:7

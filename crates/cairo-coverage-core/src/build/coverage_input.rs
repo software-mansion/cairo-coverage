@@ -1,7 +1,8 @@
+use crate::args::IncludedComponent;
 use crate::build::executed_statement_count::ExecutedStatementCount;
-use crate::build::filter::statement_category_filter::StatementCategoryFilter;
+use crate::build::filter::ignore_matcher::CairoCoverageIgnoreMatcher;
 use crate::build::statement_information::StatementInformationMap;
-use crate::build::{executed_statement_count, statement_information};
+use crate::build::{executed_statement_count, filter, statement_information};
 use crate::loading::enriched_program::EnrichedProgram;
 use crate::loading::execution_data::ExecutionData;
 use anyhow::Result;
@@ -9,6 +10,7 @@ use cairo_lang_sierra::program::Program;
 use cairo_lang_sierra_to_casm::compiler::{CairoProgramDebugInfo, SierraToCasmConfig};
 use cairo_lang_sierra_to_casm::metadata::{MetadataComputationConfig, calc_metadata};
 use cairo_lang_sierra_type_size::ProgramRegistryInfo;
+use camino::Utf8Path;
 
 /// All necessary data for the coverage analysis.
 #[derive(Clone)]
@@ -29,15 +31,25 @@ pub fn build(
                 program,
                 coverage_annotations,
                 profiler_annotations,
-                ..
+                test_executables,
             },
     }: ExecutionData,
-    filter: &StatementCategoryFilter,
+    project_path: &Utf8Path,
+    included_components: &[IncludedComponent],
+    ignore_matcher: &CairoCoverageIgnoreMatcher,
 ) -> CoverageInput {
     let casm_debug_info = compile(&program).expect("failed to compile program to casm");
 
+    let filter = filter::statement_category_filter::build(
+        project_path,
+        included_components,
+        ignore_matcher,
+        &test_executables,
+        &casm_debug_info,
+    );
+
     let statement_information_map =
-        statement_information::build_map(coverage_annotations, profiler_annotations, filter);
+        statement_information::build_map(coverage_annotations, profiler_annotations, &filter);
 
     let executed_statement_count = executed_statement_count::build(
         &casm_level_infos,
