@@ -58,15 +58,27 @@ fn macros_not_included() {
     TestProject::new("macros")
         .coverage_args(&["--unstable", "--include"])
         .run_without_genhtml()
-        .assert_empty_output();
+        .output_same_as_in_file("macros_not_included.lcov");
 }
 
 #[test]
 fn snforge_template() {
-    let file = if scarb_version() >= Version::new(2, 15, 0) {
+    let version = scarb_version();
+    let file = if version >= Version::new(2, 18, 0) {
+        // In cairo 2.18.0 `ContractStateDerefMut::deref_mut` and `unsafe_new_contract_state`
+        // started being called again during test execution.
+        "snforge_template-scarb-2.18.lcov"
+    } else if version >= Version::new(2, 15, 0) {
         // In cairo 2.15.0 `#[starknet::contract]` attribute generates different code.
         // Hence, we have different expected output for scarb 2.15.0 and above.
         "snforge_template-scarb-2.15.lcov"
+    } else if version >= Version::new(2, 11, 0) {
+        // In cairo 2.11.0 `SnapshotDeref::snapshot_deref` was replaced by impl `SnapshotTDeref::deref`.
+        "snforge_template-scarb-2.11.lcov"
+    } else if version >= Version::new(2, 10, 0) {
+        // In cairo 2.10.0 `ContractStateDerefMut::deref_mut` and `unsafe_new_contract_state`
+        // stopped being called during test execution.
+        "snforge_template-scarb-2.10.lcov"
     } else {
         "snforge_template.lcov"
     };

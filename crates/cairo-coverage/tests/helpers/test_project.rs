@@ -120,11 +120,6 @@ impl TestProjectOutput {
         assert_eq!(content, expected);
     }
 
-    #[cfg(feature = "allows-excluding-macros")]
-    pub fn assert_empty_output(self) {
-        assert!(self.read_output().is_empty());
-    }
-
     pub fn read_output(&self) -> String {
         fs::read_to_string(self.0.output_lcov_path()).unwrap()
     }
