@@ -122,7 +122,7 @@ impl TestProjectOutput {
 
     #[cfg(feature = "allows-excluding-macros")]
     pub fn assert_empty_output(self) {
-        assert!(self.read_output().is_empty());
+        assert_eq!(self.read_output(), "");
     }
 
     pub fn read_output(&self) -> String {
