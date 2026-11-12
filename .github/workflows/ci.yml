@@ -14,14 +14,16 @@ jobs:
       matrix:
         version: [ 2.9.4, 2.10.1, 2.11.4, 2.12.2, 2.13.1, 2.14.0, 2.15.2, 2.16.1, 2.17.0, 2.18.0 ]
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
-      - uses: hrishikesh-kadam/setup-lcov@6c1aa0cc9e1c02f9f58f01ac599f1064ccc83470 # v1.1.0
-      - uses: software-mansion/setup-scarb@2a96b748888e3329ee44ac9ac073d930e692b3cd # v1.5.1
+      - uses: actions/checkout@v7.0.1
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2.9.3
+      - uses: hrishikesh-kadam/setup-lcov@v1.1.0
+      - uses: software-mansion/setup-scarb@v1.6.2
         with:
           scarb-version: ${{ matrix.version }}
-      - uses: foundry-rs/setup-snfoundry@16e23ddd0e2845f38727c92f4b913a7b728cda9e # v6.0.0
+      - uses: foundry-rs/setup-snfoundry@v6.0.0
       - run: cargo test --release
         if: matrix.version == '2.9.4' || matrix.version == '2.10.1'
       - run: cargo test --release --features allows-excluding-macros
@@ -31,17 +33,19 @@ jobs:
     name: Check rust formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+      - uses: actions/checkout@v7.0.1
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2.9.3
       - run: cargo fmt --check
 
   scarbfmt:
     name: Check cairo formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: software-mansion/setup-scarb@2a96b748888e3329ee44ac9ac073d930e692b3cd # v1.5.1
+      - uses: actions/checkout@v7.0.1
+      - uses: software-mansion/setup-scarb@v1.6.2
       - run: |
           output=$(find . -type f -name "Scarb.toml" -execdir sh -c '
               echo "Running \"scarb fmt\" in directory: $PWD"
@@ -60,15 +64,17 @@ jobs:
       # Make sure CI fails on all warnings - including Clippy lints.
       RUSTFLAGS: "-Dwarnings"
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+      - uses: actions/checkout@v7.0.1
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2.9.3
       - run: cargo lint
 
   typos:
     name: Check typos
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - name: typos-action
-        uses: crate-ci/typos@7f9d0819ca1c008ade73f4b41fa9d258d48f605b # v1.51.1
+        uses: crate-ci/typos@v1.51.1
