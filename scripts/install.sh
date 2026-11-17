@@ -44,12 +44,12 @@ github_api_get() {
   token=${GITHUB_TOKEN:-${GH_TOKEN:-}}
 
   if [ -n "$token" ]; then
-    curl -# --fail -Ls \
+    curl -# --fail -Ls --retry 3 \
       -H 'Accept: application/vnd.github+json' \
       -H "Authorization: Bearer ${token}" \
       "$url"
   else
-    curl -# --fail -Ls \
+    curl -# --fail -Ls --retry 3 \
       -H 'Accept: application/vnd.github+json' \
       "$url"
   fi
@@ -77,7 +77,7 @@ download_and_extract_binary() {
   temp_dir=$(mktemp -d)
 
   # Download and extract the archive
-  curl -L "${REPO}/releases/download/${release_tag}/${artifact_name}.tar.gz" | tar -xz -C "${temp_dir}"
+  curl --fail -L --retry 3 "${REPO}/releases/download/${release_tag}/${artifact_name}.tar.gz" | tar -xz -C "${temp_dir}"
 
   # Move the binary to a LOCAL_BIN directory
   mkdir -p "${LOCAL_BIN}"
